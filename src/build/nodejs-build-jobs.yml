@@ -12,6 +12,10 @@ jobs:
         npm run build
       displayName: 'npm install and build'
 
+    - script: |
+        npm pack
+      displayName: 'Package for npm release'
+
     - task: CopyFiles@2
       inputs:
         sourceFolder: '$(Build.SourcesDirectory)'
