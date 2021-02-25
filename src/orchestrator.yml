@@ -1,0 +1,11 @@
+parameters:
+- name: resourceType # name of the parameter; required
+  type: string # data type of the parameter; required  
+  
+  
+jobs:
+  - ${{ if eq(parameters.resourceType, 'dotnetcore') }}:    
+      - template: .\build\dotnetcore-build-jobs.yml
+  
+  - ${{ if eq(parameters.resourceType, 'nodejs') }}:
+      - template: .\build\nodejs-build-jobs.yml 
