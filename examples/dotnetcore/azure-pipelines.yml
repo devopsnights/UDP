@@ -10,6 +10,7 @@
 
 trigger:
   - main
+  - feature/*
   
 pool:
   vmImage: 'ubuntu-latest'
@@ -21,4 +22,5 @@ extends:
   template: ..\..\src\orchestrator.yml
   parameters:
     resourceType: dotnetcore
-
+    webAppName: wa-udp-dotnetcore
+    serviceConnection: ServiceConnection

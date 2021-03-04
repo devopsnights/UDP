@@ -1,7 +1,10 @@
 parameters:
-- name: resourceType # name of the parameter; required
-  type: string # data type of the parameter; required  
-  
+- name: resourceType 
+  type: string 
+- name: webAppName 
+  type: string
+- name: serviceConnection
+  type: string
   
 jobs:
   - ${{ if eq(parameters.resourceType, 'dotnetcore') }}:    
@@ -9,3 +12,8 @@ jobs:
   
   - ${{ if eq(parameters.resourceType, 'nodejs') }}:
       - template: .\build\nodejs-build-jobs.yml 
+
+  - template: .\deploy\azure-webapp-deploy-jobs.yml
+    parameters:
+      webAppName: ${{ parameters.webAppName }}
+      serviceConnection: ${{ parameters.serviceConnection }}

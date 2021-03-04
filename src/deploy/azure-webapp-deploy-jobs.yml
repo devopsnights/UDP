@@ -1,0 +1,29 @@
+parameters:
+- name: webAppName 
+  type: string
+- name: serviceConnection
+  type: string
+
+jobs:
+  - deployment: 
+    displayName: Azure Web App Deployment
+    environment: develop
+    dependsOn: BuildJob
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@0
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'drop'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
+                appType: 'webApp'
+                WebAppName: ${{ parameters.webAppName }} #'wa-udp-dotnetcore'
+                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
