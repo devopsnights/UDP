@@ -3,13 +3,13 @@ jobs:
     displayName: Build Job
     steps:
 
-    - task: DotNetCoreCLI@2
+    - task: dotnetCoreCLI@2
       displayName: dotnet build
       inputs:
         command: 'build'
         projects: '$(Build.SourcesDirectory)/**/*.csproj'
         
-    - task: DotNetCoreCLI@2
+    - task: dotnetCoreCLI@2
       displayName: dotnet publish
       inputs:
         command: 'publish'

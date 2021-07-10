@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>udp_dotnetcore</RootNamespace>
   </PropertyGroup>
 
 </Project>

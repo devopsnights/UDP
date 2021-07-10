@@ -21,6 +21,19 @@ extends:
   #template: src\orchestrator.yml@UDP 
   template: ..\..\src\orchestrator.yml
   parameters:
-    resourceType: dotnetcore
-    webAppName: wa-udp-dotnetcore
-    serviceConnection: ServiceConnection
+    serviceConnection: 'MVP Sponsorship'
+    environments:
+      - dev
+      - uat
+      - prd
+    configuration:
+      resources:
+        - type: dotnetCore
+          enabled: true
+          deployment:
+            type: azureWebApp
+            name: webAppUDP
+            infrastructure:
+              enabled: false
+            application:
+              enabled: true
