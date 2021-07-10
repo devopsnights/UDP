@@ -21,7 +21,7 @@ extends:
   #template: src\orchestrator.yml@UDP 
   template: ..\..\src\orchestrator.yml
   parameters:
-    serviceConnection: 'MVP Sponsorship'
+    serviceConnection: 'AzureServiceConnection'
     environments:
       - dev
       - uat
