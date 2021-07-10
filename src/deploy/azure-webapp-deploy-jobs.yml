@@ -1,14 +1,13 @@
 parameters:
-- name: webAppName 
-  type: string
 - name: serviceConnection
   type: string
+- name: resource
+  type: object
 
 jobs:
   - deployment: 
     displayName: Azure Web App Deployment
     environment: develop
-    dependsOn: BuildJob
     strategy:
       runOnce:
         deploy:
@@ -25,5 +24,5 @@ jobs:
                 ConnectionType: 'AzureRM'
                 azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
                 appType: 'webApp'
-                WebAppName: ${{ parameters.webAppName }} #'wa-udp-dotnetcore'
+                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
