@@ -19,43 +19,44 @@ stages:
 
 # iterate environment defined on consumer YAML
 - ${{ each env in parameters.environments }}:
-    - stage:  ${{ env }}
+    - ${{ if eq(resource.buildOnly, 'false') }}:
+        - stage:  ${{ env }}
 
-      # enables depency according which branch triggered the process, using gitflow strategy
-      ${{ if eq(env, 'dev') }}:
-        condition: >-
-          and( succeeded(),
-            or( eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
-                startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
-                startsWith(variables['Build.SourceBranch'], 'refs/heads/users/')
-              )
-            )
-        dependsOn: build
-      ${{ if eq(env, 'uat') }}:
-          condition: >-
-            and( succeeded(),
-              or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
-                  startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
-                  startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+          # enables depency according which branch triggered the process, using gitflow strategy
+          ${{ if eq(env, 'dev') }}:
+            condition: >-
+              and( succeeded(),
+                or( eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
+                    startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
+                    startsWith(variables['Build.SourceBranch'], 'refs/heads/users/')
+                  )
                 )
-              )
-          dependsOn: build
-      ${{ if eq(env, 'prd') }}:
-          condition: >-
-            and( succeeded(),
-              or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
-                  startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
-                )
-              )
-          dependsOn: uat
+            dependsOn: build
+          ${{ if eq(env, 'uat') }}:
+              condition: >-
+                and( succeeded(),
+                  or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+                    )
+                  )
+              dependsOn: build
+          ${{ if eq(env, 'prd') }}:
+              condition: >-
+                and( succeeded(),
+                  or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+                    )
+                  )
+              dependsOn: uat
 
-      jobs:
-        # iterate in all resources defined on consumer YAML
-        - ${{ each resource in parameters.configuration.resources }}:
-            # check if deployment is enabled for this resource
-            - ${{ if and(eq(resource.enabled, 'true'), eq(resource.deployment.application.enabled, 'true')) }}:
-                - ${{ if and(eq(resource.type, 'dotnetCore'), eq(resource.deployment.type, 'azureWebApp')) }}:
-                    - template: ./dotnetcore/dotnetcore-deploy-jobs.yml
-                      parameters:
-                        serviceConnection: ${{ parameters.serviceConnection }}
-                        resource: ${{ resource }}
+          jobs:
+            # iterate in all resources defined on consumer YAML
+            - ${{ each resource in parameters.configuration.resources }}:
+                # check if deployment is enabled for this resource
+                - ${{ if and(eq(resource.enabled, 'true'), eq(resource.deployment.application.enabled, 'true')) }}:
+                    - ${{ if and(eq(resource.type, 'dotnetCore'), eq(resource.deployment.type, 'azureWebApp')) }}:
+                        - template: ./dotnetcore/dotnetcore-deploy-jobs.yml
+                          parameters:
+                            serviceConnection: ${{ parameters.serviceConnection }}
+                            resource: ${{ resource }}
