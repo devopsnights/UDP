@@ -3,7 +3,7 @@ trigger:
 - feature/*
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 variables:
   BuildPlatform: 'Any CPU'
