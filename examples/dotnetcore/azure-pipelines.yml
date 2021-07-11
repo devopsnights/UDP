@@ -13,7 +13,7 @@ trigger:
   - feature/*
   
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'windows-latest'
 
 extends:
   # If you are using this example in your oun repository, 
