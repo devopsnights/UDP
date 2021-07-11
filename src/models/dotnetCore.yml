@@ -61,7 +61,7 @@ jobs:
             - task: AzureRmWebAppDeployment@4
               inputs:
                 ConnectionType: 'AzureRM'
-                azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
+                azureSubscription: 'AzureServiceConnection' # 'ServiceConnection'
                 appType: 'webApp'
-                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
+                WebAppName: 'webAppUdp' #'wa-udp-dotnetCore'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
