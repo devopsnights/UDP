@@ -25,9 +25,16 @@ jobs:
           command: 'build'
           projects: '$(Build.SourcesDirectory)/**/*.csproj'
 
-      - powershell: |
-          cd $(Build.SourcesDirectory)/examples/dotnetcore/src
-          dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
+      # - powershell: |
+      #     cd $(Build.SourcesDirectory)/examples/dotnetcore/src
+      #     dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
+
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: 'publish'
+          publishWebProjects: true
+          arguments: '-o $(Build.ArtifactStagingDirectory)/publish'
+          workingDirectory: '$(Build.SourcesDirectory)/examples/dotnetcore/src'
 
       # - task: dotnetCoreCLI@2
       #   displayName: dotnet publish
