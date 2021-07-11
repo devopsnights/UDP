@@ -12,12 +12,12 @@ variables:
 jobs:
   - job: build
     steps:    
-      - task: UseDotNet@2
-        displayName: 'Install .NET Core SDK'
-        inputs:
-          version: 5.0.x
-          performMultiLevelLookup: true
-          includePreviewVersions: true
+      # - task: UseDotNet@2
+      #   displayName: 'Install .NET Core SDK'
+      #   inputs:
+      #     version: 5.0.x
+      #     performMultiLevelLookup: true
+      #     includePreviewVersions: true
 
       # - script: |
       #     ls $(Build.SourcesDirectory)
