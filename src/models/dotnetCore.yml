@@ -18,18 +18,28 @@ jobs:
           version: 5.0.x
           performMultiLevelLookup: true
 
-      - task: DotNetCoreCLI@2
-        displayName: Publish
+      - script: |
+          dotnet publish -o $(build.artifactstagingdirectory)
+      # - task: DotNetCoreCLI@2
+      #   displayName: Publish
+      #   inputs:
+      #     command: publish
+      #     publishWebProjects: True
+      #     arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+      #     zipAfterPublish: True
+
+      - task: ArchiveFiles@2
         inputs:
-          command: publish
-          publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
-          zipAfterPublish: True
+          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          includeRootFolder: false
+          archiveType: 'zip'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/publish/publish.zip'
+          replaceExistingArchive: true
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact'
         inputs:
-          PathtoPublish: '$(build.artifactstagingdirectory)'
+          PathtoPublish: '$(build.artifactstagingdirectory)/publish'
         condition: succeededOrFailed()
 
   - deployment: 
