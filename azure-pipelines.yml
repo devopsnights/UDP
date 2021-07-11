@@ -1,17 +1,12 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
 
 trigger:
 - main
-- feature/*
 
 pool:
   vmImage: windows-latest
 
 jobs:
-  - job: build
+  - job: 
     steps:    
       - task: dotnetCoreCLI@2
         displayName: dotnet build
@@ -19,38 +14,19 @@ jobs:
           command: 'build'
           projects: '$(Build.SourcesDirectory)/**/*.csproj'
           
-      - task: dotnetCoreCLI@2
-        displayName: dotnet publish
-        inputs:
-          command: 'publish'
-          publishWebProjects: true
-          arguments: '--output $(Build.ArtifactStagingDirectory)'
+      - powershell: |
+          dotnet publish -o $(Build.ArtifactStagingDirectory)/publish      
+
+      # - task: dotnetCoreCLI@2
+      #   displayName: dotnet publish
+      #   inputs:
+      #     command: 'publish'
+      #     publishWebProjects: true
+      #     arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
 
       - task: PublishBuildArtifacts@1
         displayName: publish artifacts
         inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-          ArtifactName: 'drop'
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
+          ArtifactName: 'dotnetCore'
           publishLocation: 'Container'
-
-  - deployment:
-    environment: dev
-    dependsOn: build
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-            - task: DownloadBuildArtifacts@0
-              inputs:
-                buildType: 'current'
-                downloadType: 'single'
-                artifactName: 'drop'
-                downloadPath: '$(System.ArtifactsDirectory)'
-            
-            - task: AzureRmWebAppDeployment@4
-              inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: AzureServiceConnection # 'ServiceConnection'
-                appType: 'webApp'
-                WebAppName: webAppUDP #'wa-udp-dotnetCore'
-                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
