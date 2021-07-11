@@ -29,12 +29,12 @@ jobs:
       #     cd $(Build.SourcesDirectory)/examples/dotnetcore/src
       #     dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
 
-      - task: DotNetCoreCLI@2
-        inputs:
-          command: 'publish'
-          publishWebProjects: true
-          arguments: '-o $(Build.ArtifactStagingDirectory)/publish'
-          workingDirectory: '$(Build.SourcesDirectory)/examples/dotnetcore/src'
+      # - task: DotNetCoreCLI@2
+      #   inputs:
+      #     command: 'publish'
+      #     publishWebProjects: true
+      #     arguments: '-o $(Build.ArtifactStagingDirectory)/publish'
+      #     workingDirectory: '$(Build.SourcesDirectory)/examples/dotnetcore/src'
 
       # - task: dotnetCoreCLI@2
       #   displayName: dotnet publish
@@ -43,10 +43,17 @@ jobs:
       #     publishWebProjects: true
       #     arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
 
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: publish
+          publishWebProjects: True
+          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: True
+
       - task: PublishBuildArtifacts@1
         displayName: publish artifacts
         inputs:
-          PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
+          PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
 
