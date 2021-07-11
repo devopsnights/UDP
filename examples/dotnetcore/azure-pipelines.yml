@@ -32,7 +32,7 @@ extends:
           enabled: true
           deployment:
             type: azureWebApp
-            name: webAppUDP
+            name: wa-udp-dotnetcore-windows
             infrastructure:
               enabled: false
             application:
