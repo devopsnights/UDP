@@ -19,6 +19,7 @@ jobs:
           performMultiLevelLookup: true
 
       - script: |
+          cd '$(Build.SourcesDirectory)/examples/dotnetcore/src'
           dotnet publish -o $(build.artifactstagingdirectory)
       # - task: DotNetCoreCLI@2
       #   displayName: Publish
