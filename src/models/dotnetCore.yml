@@ -10,7 +10,10 @@ trigger:
 pool:
   vmImage: windows-latest
 
-
+variables:
+  BuildPlatform: 'Any CPU'
+  BuildConfiguration: 'Release'
+  
 jobs:
   - job: build
     steps:    
