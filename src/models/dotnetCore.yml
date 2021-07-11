@@ -3,7 +3,7 @@ trigger:
 - feature/*
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
   BuildPlatform: 'Any CPU'
@@ -50,7 +50,7 @@ jobs:
             - task: AzureWebApp@1
               inputs:
                 azureSubscription: 'AzureServiceConnection'
-                appName: 'wa-udp-dotnetcore'
+                appName: 'wa-udp-dotnetcore-windows'
                 package: $(System.ArtifactsDirectory)/**/*.zip
             
             # - task: AzureRmWebAppDeployment@4
