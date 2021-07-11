@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 - feature/*
@@ -13,7 +8,7 @@ pool:
 variables:
   BuildPlatform: 'Any CPU'
   BuildConfiguration: 'Release'
-  
+
 jobs:
   - job: build
     steps:    
@@ -118,7 +113,7 @@ jobs:
               inputs:
                 azureSubscription: 'AzureServiceConnection'
                 appName: 'webAppUDP'
-                package: $(System.DefaultWorkingDirectory)/**/*.zip
+                package: $(System.ArtifactsDirectory)/**/*.zip
             
             # - task: AzureRmWebAppDeployment@4
             #   inputs:
