@@ -25,9 +25,8 @@ jobs:
       #     dotnet publish -o $(build.artifactstagingdirectory)
 
       - powershell: |
-          Get-ChildItem $(Build.SourcesDirectory) -Recurse 
           cd $(Build.SourcesDirectory)/examples/dotnetcore/src
-          dotnet publish -o $(Build.ArtifactStagingDirectory) 
+          dotnet publish -o $(Build.ArtifactStagingDirectory)/out
       
       # - task: DotNetCoreCLI@2
       #   displayName: Publish
@@ -39,7 +38,7 @@ jobs:
 
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(Build.BinariesDirectory)'
+          rootFolderOrFile: '$(Build.BinariesDirectory)/out'
           includeRootFolder: false
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/publish/publish.zip'
