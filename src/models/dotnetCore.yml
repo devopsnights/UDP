@@ -72,10 +72,16 @@ jobs:
                 artifactName: 'drop'
                 downloadPath: '$(System.ArtifactsDirectory)'
             
-            - task: AzureRmWebAppDeployment@4
+            - task: AzureWebApp@1
               inputs:
-                ConnectionType: 'AzureRM'
-                azureSubscription: 'AzureServiceConnection' # 'ServiceConnection'
-                appType: 'webApp'
-                WebAppName: 'webAppUdp' #'wa-udp-dotnetCore'
-                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+                azureSubscription: 'AzureServiceConnection'
+                appName: 'webAppUDP'
+                package: $(System.DefaultWorkingDirectory)/**/*.zip
+            
+            # - task: AzureRmWebAppDeployment@4
+            #   inputs:
+            #     ConnectionType: 'AzureRM'
+            #     azureSubscription: 'AzureServiceConnection'
+            #     appType: 'webApp'
+            #     WebAppName: 'webAppUDP'
+            #     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
