@@ -6,7 +6,7 @@ parameters:
 
 jobs:
   - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
-      - template: ../common/azure-appservice-deploy-jobs.yml
+      - template: ../common/yml/azure-appservice-deploy-jobs.yml
         parameters:
           serviceConnection: ${{ parameters.serviceConnection }}
           resource: ${{ parameters.resource }}
