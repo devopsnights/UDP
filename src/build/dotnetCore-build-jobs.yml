@@ -1,10 +1,11 @@
 
-variables:
-  BuildPlatform: 'Any CPU'
-  BuildConfiguration: 'Release'
+
 
 jobs:
   - job: BuildJob
+    variables:
+      BuildPlatform: 'Any CPU'
+      BuildConfiguration: 'Release'
     displayName: Build Job
     steps:
 
