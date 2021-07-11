@@ -12,73 +12,11 @@ variables:
 jobs:
   - job: build
     steps:    
-      # - task: UseDotNet@2
-      #   displayName: 'Install .NET Core SDK'
-      #   inputs:
-      #     version: 5.0.x
-      #     performMultiLevelLookup: true
-
-      # # - task: dotnetCoreCLI@2
-      # #   displayName: dotnet build
-      # #   inputs:
-      # #     command: 'build'
-      # #     projects: '$(Build.SourcesDirectory)/**/*.csproj'
-
-      # # - powershell: |
-      # #     cd $(Build.SourcesDirectory)/examples/dotnetcore/src
-      # #     dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
-
-      # # - task: DotNetCoreCLI@2
-      # #   inputs:
-      # #     command: 'publish'
-      # #     publishWebProjects: true
-      # #     arguments: '-o $(Build.ArtifactStagingDirectory)/publish'
-      # #     workingDirectory: '$(Build.SourcesDirectory)/examples/dotnetcore/src'
-
-      # # - task: dotnetCoreCLI@2
-      # #   displayName: dotnet publish
-      # #   inputs:
-      # #     command: 'publish'
-      # #     publishWebProjects: true
-      # #     arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
-
-      # - task: DotNetCoreCLI@2
-      #   inputs:
-      #     command: publish
-      #     publishWebProjects: True
-      #     arguments: '--configuration "Release" --output $(Build.ArtifactStagingDirectory)'
-      #     zipAfterPublish: True
-
-      # - task: PublishBuildArtifacts@1
-      #   displayName: publish artifacts
-      #   inputs:
-      #     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      #     ArtifactName: 'drop'
-      #     publishLocation: 'Container'
-
-      - task: DotNetCoreCLI@2
-        displayName: Restore
+      - task: UseDotNet@2
+        displayName: 'Install .NET Core SDK'
         inputs:
-          command: restore
-          projects:  |
-            **\*.csproj
-            **\*.deployproj
-      - task: DotNetCoreCLI@2
-        displayName: Build
-        inputs:
-          projects:  |
-            **\*.csproj
-            **\*.deployproj
-            arguments: '--configuration $(BuildConfiguration)'
-
-
-      # - task: DotNetCoreCLI@2
-      #   displayName: Test
-      #   inputs:
-      #     command: test
-      #     projects: '**/*[Tt]ests/*.csproj'
-      #     arguments: '--configuration $(BuildConfiguration)'
-
+          version: 5.0.x
+          performMultiLevelLookup: true
 
       - task: DotNetCoreCLI@2
         displayName: Publish
