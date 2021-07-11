@@ -11,7 +11,7 @@ pool:
   vmImage: windows-latest
 
 jobs:
-  - job: 
+  - job: build
     steps:    
       - task: UseDotNet@2
         displayName: 'Install .NET Core SDK'
@@ -25,16 +25,16 @@ jobs:
           command: 'build'
           projects: '$(Build.SourcesDirectory)/**/*.csproj'
 
-      # - powershell: |
-      #     cd $(Build.SourcesDirectory)/examples/dotnetcore/src
-      #     dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
+      - powershell: |
+          cd $(Build.SourcesDirectory)/examples/dotnetcore/src
+          dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
 
-      - task: dotnetCoreCLI@2
-        displayName: dotnet publish
-        inputs:
-          command: 'publish'
-          publishWebProjects: true
-          arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
+      # - task: dotnetCoreCLI@2
+      #   displayName: dotnet publish
+      #   inputs:
+      #     command: 'publish'
+      #     publishWebProjects: true
+      #     arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
 
       - task: PublishBuildArtifacts@1
         displayName: publish artifacts
@@ -42,3 +42,26 @@ jobs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
           ArtifactName: 'drop'
           publishLocation: 'Container'
+
+  - deployment: 
+    displayName: Azure Web App Deployment
+    environment: develop
+    dependsOn: build
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@0
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'drop'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
+                appType: 'webApp'
+                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
+                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
