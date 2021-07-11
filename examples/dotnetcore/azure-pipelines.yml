@@ -27,10 +27,10 @@ extends:
       - uat
       - prd
     configuration:
+      buildOnly: false
       resources:
         - type: dotnetCore
           enabled: true
-          buildOnly: false
           deployment:
             type: azureWebApp
             name: wa-udp-dotnetcore-windows

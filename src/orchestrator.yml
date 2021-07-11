@@ -19,7 +19,7 @@ stages:
 
 # iterate environment defined on consumer YAML
 - ${{ each env in parameters.environments }}:
-    - ${{ if eq(resource.buildOnly, 'false') }}:
+    - ${{ if eq(parameters.configuration.buildOnly, 'false') }}:
         - stage:  ${{ env }}
 
           # enables depency according which branch triggered the process, using gitflow strategy
