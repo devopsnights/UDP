@@ -50,7 +50,7 @@ jobs:
             - task: AzureWebApp@1
               inputs:
                 azureSubscription: 'AzureServiceConnection'
-                appName: 'webAppUDP'
+                appName: 'wa-udp-dotnetcore'
                 package: $(System.ArtifactsDirectory)/**/*.zip
             
             # - task: AzureRmWebAppDeployment@4
