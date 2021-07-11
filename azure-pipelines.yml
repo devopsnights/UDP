@@ -10,7 +10,7 @@ pool:
   vmImage: windows-latest
 
 jobs:
-  - job: 
+  - job: build
     steps:    
       - task: dotnetCoreCLI@2
         displayName: dotnet build
@@ -31,3 +31,25 @@ jobs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'drop'
           publishLocation: 'Container'
+
+  - deployment:
+    environment: dev
+    dependsOn: build
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadBuildArtifacts@0
+              inputs:
+                buildType: 'current'
+                downloadType: 'single'
+                artifactName: 'drop'
+                downloadPath: '$(System.ArtifactsDirectory)'
+            
+            - task: AzureRmWebAppDeployment@4
+              inputs:
+                ConnectionType: 'AzureRM'
+                azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
+                appType: 'webApp'
+                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
+                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
