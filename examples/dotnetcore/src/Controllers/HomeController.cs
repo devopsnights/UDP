@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using UDP_dotnetCore.Models;
+using udp.Models;
 
-namespace UDP_dotnetCore.Controllers
+namespace udp.Controllers
 {
     public class HomeController : Controller
     {

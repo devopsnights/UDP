@@ -1,6 +1,6 @@
 using System;
 
-namespace UDP_dotnetCore.Models
+namespace udp.Models
 {
     public class ErrorViewModel
     {
