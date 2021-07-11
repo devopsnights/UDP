@@ -17,6 +17,7 @@ jobs:
         inputs:
           version: 5.0.x
           performMultiLevelLookup: true
+          includePreviewVersions: true
 
       # - script: |
       #     ls $(Build.SourcesDirectory)
