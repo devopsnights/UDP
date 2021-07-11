@@ -1,7 +1,10 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
 
 trigger:
 - main
-- feature/*
 
 pool:
   vmImage: windows-latest
@@ -14,21 +17,21 @@ jobs:
         inputs:
           command: 'build'
           projects: '$(Build.SourcesDirectory)/**/*.csproj'
-          
+
       - powershell: |
           cd $(Build.SourcesDirectory)/examples/dotnetcore/src
-          dotnet publish -o $(Build.ArtifactStagingDirectory)/publish      
+          dotnet publish -o $(Build.ArtifactStagingDirectory)/publish 
 
       # - task: dotnetCoreCLI@2
       #   displayName: dotnet publish
       #   inputs:
       #     command: 'publish'
       #     publishWebProjects: true
-      #     arguments: '--output $(Build.ArtifactStagingDirectory)/publish'
+      #     arguments: '--output $(Build.ArtifactStagingDirectory)'
 
       - task: PublishBuildArtifacts@1
         displayName: publish artifacts
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)/publish'
-          ArtifactName: 'dotnetCore'
+          ArtifactName: 'drop'
           publishLocation: 'Container'
