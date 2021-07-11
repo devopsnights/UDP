@@ -25,6 +25,7 @@ jobs:
       #     dotnet publish -o $(build.artifactstagingdirectory)
 
       - powershell: |
+          dotnet --version
           cd $(Build.SourcesDirectory)/examples/dotnetcore/src
           dotnet build
           dotnet publish -o $(Build.ArtifactStagingDirectory)/out
