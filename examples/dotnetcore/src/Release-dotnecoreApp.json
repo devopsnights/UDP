@@ -1,0 +1,455 @@
+{
+    "source": 2,
+    "revision": 10,
+    "description": null,
+    "createdBy": {
+        "displayName": "Wesley Camargo",
+        "url": "https://spsprodcus1.vssps.visualstudio.com/A49055532-2632-4ef4-8603-e8cd9c0b773b/_apis/Identities/75c81209-1450-4012-b062-2d333ac775c1",
+        "_links": {
+            "avatar": {
+                "href": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+            }
+        },
+        "id": "75c81209-1450-4012-b062-2d333ac775c1",
+        "uniqueName": "Wesley.Camargo@esx.com.br",
+        "imageUrl": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz",
+        "descriptor": "aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+    },
+    "createdOn": "2019-04-20T14:59:09.957Z",
+    "modifiedBy": {
+        "displayName": "Wesley Camargo",
+        "url": "https://spsprodcus1.vssps.visualstudio.com/A49055532-2632-4ef4-8603-e8cd9c0b773b/_apis/Identities/75c81209-1450-4012-b062-2d333ac775c1",
+        "_links": {
+            "avatar": {
+                "href": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+            }
+        },
+        "id": "75c81209-1450-4012-b062-2d333ac775c1",
+        "uniqueName": "Wesley.Camargo@esx.com.br",
+        "imageUrl": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz",
+        "descriptor": "aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+    },
+    "modifiedOn": "2019-04-26T00:45:58.750Z",
+    "isDeleted": false,
+    "variables": {},
+    "variableGroups": [],
+    "environments": [
+        {
+            "id": 5,
+            "name": "Stage 1",
+            "rank": 1,
+            "owner": {
+                "displayName": "Wesley Camargo",
+                "url": "https://spsprodcus1.vssps.visualstudio.com/A49055532-2632-4ef4-8603-e8cd9c0b773b/_apis/Identities/75c81209-1450-4012-b062-2d333ac775c1",
+                "_links": {
+                    "avatar": {
+                        "href": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+                    }
+                },
+                "id": "75c81209-1450-4012-b062-2d333ac775c1",
+                "uniqueName": "Wesley.Camargo@esx.com.br",
+                "imageUrl": "https://wesleycamargoesx.visualstudio.com/_apis/GraphProfile/MemberAvatars/aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz",
+                "descriptor": "aad.MWJjYzQ4NWMtZTNiZC03NWE4LTk5ODktY2YyMDgzNTFiNzEz"
+            },
+            "variables": {},
+            "variableGroups": [],
+            "preDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 13
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 1
+                }
+            },
+            "deployStep": {
+                "id": 14
+            },
+            "postDeployApprovals": {
+                "approvals": [
+                    {
+                        "rank": 1,
+                        "isAutomated": true,
+                        "isNotificationOn": false,
+                        "id": 15
+                    }
+                ],
+                "approvalOptions": {
+                    "requiredApproverCount": null,
+                    "releaseCreatorCanBeApprover": false,
+                    "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+                    "enforceIdentityRevalidation": false,
+                    "timeoutInMinutes": 0,
+                    "executionOrder": 2
+                }
+            },
+            "deployPhases": [
+                {
+                    "deploymentInput": {
+                        "parallelExecution": {
+                            "parallelExecutionType": 0
+                        },
+                        "agentSpecification": null,
+                        "skipArtifactsDownload": false,
+                        "artifactsDownloadInput": {
+                            "downloadInputs": []
+                        },
+                        "queueId": 27,
+                        "demands": [],
+                        "enableAccessToken": false,
+                        "timeoutInMinutes": 0,
+                        "jobCancelTimeoutInMinutes": 1,
+                        "condition": "succeeded()",
+                        "overrideInputs": {}
+                    },
+                    "rank": 1,
+                    "phaseType": 1,
+                    "name": "Run on agent",
+                    "refName": null,
+                    "workflowTasks": [
+                        {
+                            "environment": {},
+                            "taskId": "94a74903-f93f-4075-884f-dc11f34058b4",
+                            "version": "2.*",
+                            "name": "Azure Deployment:Create Or Update Resource Group action on RG-dotnetcoredemo",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "ConnectedServiceName": "7ac1cc41-1bda-4fe8-9f4d-317d0f40bc89",
+                                "action": "Create Or Update Resource Group",
+                                "resourceGroupName": "RG-dotnetcoredemo",
+                                "location": "East US 2",
+                                "templateLocation": "Linked artifact",
+                                "csmFileLink": "",
+                                "csmParametersFileLink": "",
+                                "csmFile": "$(System.DefaultWorkingDirectory)/**/drop/**/WebApp.json",
+                                "csmParametersFile": "$(System.DefaultWorkingDirectory)/**/drop/**/WebApp.parameters.json",
+                                "overrideParameters": "-ServicePlanName \"servicePlan\" -WebAppName \"$(webAppName)\" -ServicePlanSkuName \"F1\"",
+                                "deploymentMode": "Incremental",
+                                "enableDeploymentPrerequisites": "None",
+                                "deploymentGroupEndpoint": "",
+                                "project": "",
+                                "deploymentGroupName": "",
+                                "copyAzureVMTags": "true",
+                                "runAgentServiceAsUser": "false",
+                                "userName": "",
+                                "password": "",
+                                "outputVariable": "",
+                                "deploymentName": "",
+                                "deploymentOutputs": "",
+                                "addSpnToEnvironment": "false"
+                            }
+                        },
+                        {
+                            "environment": {},
+                            "taskId": "584bcff2-3353-4f11-872b-6ba01267a972",
+                            "version": "5.*",
+                            "name": "ARM Outputs",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": "task",
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+                                "ConnectedServiceNameARM": "7ac1cc41-1bda-4fe8-9f4d-317d0f40bc89",
+                                "resourceGroupName": "RG-dotnetcoredemo",
+                                "prefix": "",
+                                "outputNames": "",
+                                "whenLastDeploymentIsFailed": "fail",
+                                "deploymentNameFilter": ""
+                            }
+                        },
+                        {
+                            "environment": {},
+                            "taskId": "497d490f-eea7-4f2b-ab94-48d9c1acdcb1",
+                            "version": "4.*",
+                            "name": "Deploy Azure App Service",
+                            "refName": "",
+                            "enabled": true,
+                            "alwaysRun": false,
+                            "continueOnError": false,
+                            "timeoutInMinutes": 0,
+                            "definitionType": null,
+                            "overrideInputs": {},
+                            "condition": "succeeded()",
+                            "inputs": {
+                                "ConnectionType": "AzureRM",
+                                "ConnectedServiceName": "$(Parameters.ConnectedServiceName)",
+                                "PublishProfilePath": "$(System.DefaultWorkingDirectory)/**/*.pubxml",
+                                "PublishProfilePassword": "",
+                                "WebAppKind": "$(Parameters.WebAppKind)",
+                                "WebAppName": "$(Parameters.WebAppName)",
+                                "DeployToSlotOrASEFlag": "false",
+                                "ResourceGroupName": "",
+                                "SlotName": "production",
+                                "DockerNamespace": "$(Parameters.DockerNamespace)",
+                                "DockerRepository": "$(Parameters.DockerRepository)",
+                                "DockerImageTag": "$(Build.BuildId)",
+                                "VirtualApplication": "",
+                                "Package": "$(System.DefaultWorkingDirectory)/**/*.zip",
+                                "RuntimeStack": "",
+                                "RuntimeStackFunction": "",
+                                "StartupCommand": "",
+                                "ScriptType": "",
+                                "InlineScript": "",
+                                "ScriptPath": "",
+                                "WebConfigParameters": "",
+                                "AppSettings": "",
+                                "ConfigurationSettings": "",
+                                "UseWebDeploy": "false",
+                                "DeploymentType": "webDeploy",
+                                "TakeAppOfflineFlag": "true",
+                                "SetParametersFile": "",
+                                "RemoveAdditionalFilesFlag": "false",
+                                "ExcludeFilesFromAppDataFlag": "false",
+                                "AdditionalArguments": "",
+                                "RenameFilesFlag": "true",
+                                "XmlTransformation": "false",
+                                "XmlVariableSubstitution": "false",
+                                "JSONFiles": ""
+                            }
+                        }
+                    ]
+                }
+            ],
+            "environmentOptions": {
+                "emailNotificationType": "OnlyOnFailure",
+                "emailRecipients": "release.environment.owner;release.creator",
+                "skipArtifactsDownload": false,
+                "timeoutInMinutes": 0,
+                "enableAccessToken": false,
+                "publishDeploymentStatus": true,
+                "badgeEnabled": false,
+                "autoLinkWorkItems": false,
+                "pullRequestDeploymentEnabled": false
+            },
+            "demands": [],
+            "conditions": [
+                {
+                    "name": "ReleaseStarted",
+                    "conditionType": 1,
+                    "value": ""
+                }
+            ],
+            "executionPolicy": {
+                "concurrencyCount": 1,
+                "queueDepthCount": 0
+            },
+            "schedules": [],
+            "currentRelease": {
+                "id": 56,
+                "url": "https://wesleycamargoesx.vsrm.visualstudio.com/3d6f1d47-a598-411b-a8fb-3920242a6a1e/_apis/Release/releases/56",
+                "_links": {}
+            },
+            "retentionPolicy": {
+                "daysToKeep": 30,
+                "releasesToKeep": 3,
+                "retainBuild": true
+            },
+            "processParameters": {
+                "inputs": [
+                    {
+                        "aliases": [],
+                        "options": {},
+                        "properties": {},
+                        "name": "ConnectedServiceName",
+                        "label": "Azure subscription",
+                        "defaultValue": "7ac1cc41-1bda-4fe8-9f4d-317d0f40bc89",
+                        "required": true,
+                        "type": "connectedService:AzureRM",
+                        "helpMarkDown": "Select the Azure Resource Manager subscription for the deployment.",
+                        "visibleRule": "",
+                        "groupName": ""
+                    },
+                    {
+                        "aliases": [],
+                        "options": {
+                            "webApp": "Web App on Windows",
+                            "webAppLinux": "Web App on Linux",
+                            "webAppContainer": "Web App for Containers (Linux)",
+                            "functionApp": "Function App on Windows",
+                            "functionAppLinux": "Function App on Linux",
+                            "functionAppContainer": "Function App for Containers (Linux)",
+                            "apiApp": "API App",
+                            "mobileApp": "Mobile App"
+                        },
+                        "properties": {
+                            "EditableOptions": "false"
+                        },
+                        "name": "WebAppKind",
+                        "label": "App type",
+                        "defaultValue": "webApp",
+                        "type": "pickList",
+                        "helpMarkDown": "",
+                        "groupName": ""
+                    },
+                    {
+                        "aliases": [],
+                        "options": {},
+                        "properties": {
+                            "EditableOptions": "True"
+                        },
+                        "name": "WebAppName",
+                        "label": "App service name",
+                        "defaultValue": "$(webAppName)",
+                        "required": true,
+                        "type": "pickList",
+                        "helpMarkDown": "Enter or select the name of an existing Azure App Service.",
+                        "visibleRule": "",
+                        "groupName": ""
+                    },
+                    {
+                        "aliases": [],
+                        "options": {},
+                        "properties": {},
+                        "name": "DockerNamespace",
+                        "label": "Registry or Namespace",
+                        "defaultValue": "",
+                        "required": true,
+                        "type": "string",
+                        "helpMarkDown": "A globally unique top-level domain name for your specific registry or namespace.<br/> Note: Fully qualified image name will be of the format: '<b>`<registry or namespace`></b>/`<repository`>:`<tag`>'. For example, '<b>myregistry.azurecr.io</b>/nginx:latest'.",
+                        "visibleRule": "WebAppKind = webAppContainer || WebAppkind = functionAppContainer",
+                        "groupName": ""
+                    },
+                    {
+                        "aliases": [],
+                        "options": {},
+                        "properties": {},
+                        "name": "DockerRepository",
+                        "label": "Repository",
+                        "defaultValue": "",
+                        "required": true,
+                        "type": "string",
+                        "helpMarkDown": "Name of the repository where the container images are stored.<br/> Note: Fully qualified image name will be of the format: '`<registry or namespace`>/<b>`<repository`></b>:`<tag`>'. For example, 'myregistry.azurecr.io/<b>nginx</b>:latest'.",
+                        "visibleRule": "WebAppKind = webAppContainer || WebAppkind = functionAppContainer",
+                        "groupName": ""
+                    }
+                ],
+                "dataSourceBindings": [
+                    {
+                        "dataSourceName": "AzureRMWebAppNamesByAppType",
+                        "parameters": {
+                            "WebAppKind": "$(WebAppKind)"
+                        },
+                        "endpointId": "$(ConnectedServiceName)",
+                        "target": "WebAppName"
+                    }
+                ]
+            },
+            "properties": {},
+            "preDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "postDeploymentGates": {
+                "id": 0,
+                "gatesOptions": null,
+                "gates": []
+            },
+            "environmentTriggers": [],
+            "badgeUrl": "https://wesleycamargoesx.vsrm.visualstudio.com/_apis/public/Release/badge/3d6f1d47-a598-411b-a8fb-3920242a6a1e/5/5"
+        }
+    ],
+    "artifacts": [
+        {
+            "sourceId": "3d6f1d47-a598-411b-a8fb-3920242a6a1e:49",
+            "type": "Build",
+            "alias": "_Testes-ASP.NET Core-CI",
+            "definitionReference": {
+                "artifactSourceDefinitionUrl": {
+                    "id": "https://wesleycamargoesx.visualstudio.com/_permalink/_build/index?collectionId=935abf1a-be47-4b0a-9d42-57dc311362d7&projectId=3d6f1d47-a598-411b-a8fb-3920242a6a1e&definitionId=49",
+                    "name": ""
+                },
+                "defaultVersionBranch": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionSpecific": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionTags": {
+                    "id": "",
+                    "name": ""
+                },
+                "defaultVersionType": {
+                    "id": "latestType",
+                    "name": "Latest"
+                },
+                "definition": {
+                    "id": "49",
+                    "name": "Testes-ASP.NET Core-CI"
+                },
+                "definitions": {
+                    "id": "",
+                    "name": ""
+                },
+                "IsMultiDefinitionType": {
+                    "id": "False",
+                    "name": "False"
+                },
+                "project": {
+                    "id": "3d6f1d47-a598-411b-a8fb-3920242a6a1e",
+                    "name": "Testes"
+                },
+                "repository": {
+                    "id": "",
+                    "name": ""
+                }
+            },
+            "isPrimary": true,
+            "isRetained": false
+        }
+    ],
+    "triggers": [
+        {
+            "artifactAlias": "_Testes-ASP.NET Core-CI",
+            "triggerConditions": [],
+            "triggerType": 1
+        }
+    ],
+    "releaseNameFormat": "Release-$(rev:r)",
+    "tags": [],
+    "pipelineProcess": {
+        "type": 1
+    },
+    "properties": {
+        "DefinitionCreationSource": {
+            "$type": "System.String",
+            "$value": "ReleaseNew"
+        }
+    },
+    "id": 5,
+    "name": "Release-dotnecoreApp",
+    "path": "\\",
+    "projectReference": null,
+    "url": "https://wesleycamargoesx.vsrm.visualstudio.com/3d6f1d47-a598-411b-a8fb-3920242a6a1e/_apis/Release/definitions/5",
+    "_links": {
+        "self": {
+            "href": "https://wesleycamargoesx.vsrm.visualstudio.com/3d6f1d47-a598-411b-a8fb-3920242a6a1e/_apis/Release/definitions/5"
+        },
+        "web": {
+            "href": "https://wesleycamargoesx.visualstudio.com/3d6f1d47-a598-411b-a8fb-3920242a6a1e/_release?definitionId=5"
+        }
+    }
+}

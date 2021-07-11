@@ -1,6 +1,6 @@
 using System;
 
-namespace udp.Models
+namespace dotnetcoreApp.Models
 {
     public class ErrorViewModel
     {
