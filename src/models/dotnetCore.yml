@@ -23,7 +23,7 @@ jobs:
         inputs:
           command: publish
           publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true --runtime win-x86'
+          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
           zipAfterPublish: True
 
       - task: PublishBuildArtifacts@1
@@ -52,11 +52,3 @@ jobs:
                 azureSubscription: 'AzureServiceConnection'
                 appName: 'wa-udp-dotnetcore-windows'
                 package: $(System.ArtifactsDirectory)/**/*.zip
-            
-            # - task: AzureRmWebAppDeployment@4
-            #   inputs:
-            #     ConnectionType: 'AzureRM'
-            #     azureSubscription: 'AzureServiceConnection'
-            #     appType: 'webApp'
-            #     WebAppName: 'webAppUDP'
-            #     packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
