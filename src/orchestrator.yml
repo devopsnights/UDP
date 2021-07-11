@@ -19,7 +19,7 @@ stages:
             - ${{ if eq(resource.type, 'nodejs') }}:
               - template: ./nodejs/nodejs-build-jobs.yml
 
-- ${{ if eq(parameters.configuration.buildOnly, 'false') }}:
+- ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
     - ${{ each env in parameters.environments }}:
 
