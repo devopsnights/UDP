@@ -19,11 +19,11 @@ jobs:
           version: 5.0.x
           performMultiLevelLookup: true
 
-      - task: dotnetCoreCLI@2
-        displayName: dotnet build
-        inputs:
-          command: 'build'
-          projects: '$(Build.SourcesDirectory)/**/*.csproj'
+      # - task: dotnetCoreCLI@2
+      #   displayName: dotnet build
+      #   inputs:
+      #     command: 'build'
+      #     projects: '$(Build.SourcesDirectory)/**/*.csproj'
 
       # - powershell: |
       #     cd $(Build.SourcesDirectory)/examples/dotnetcore/src
@@ -47,7 +47,7 @@ jobs:
         inputs:
           command: publish
           publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          arguments: '--configuration "Release" --output $(Build.ArtifactStagingDirectory)'
           zipAfterPublish: True
 
       - task: PublishBuildArtifacts@1
