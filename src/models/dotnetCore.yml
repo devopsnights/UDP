@@ -38,7 +38,7 @@ jobs:
 
       - task: ArchiveFiles@2
         inputs:
-          rootFolderOrFile: '$(Build.BinariesDirectory)/out'
+          rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/out'
           includeRootFolder: false
           archiveType: 'zip'
           archiveFile: '$(Build.ArtifactStagingDirectory)/publish/publish.zip'
