@@ -1,24 +1,44 @@
+
+variables:
+  BuildPlatform: 'Any CPU'
+  BuildConfiguration: 'Release'
+
 jobs:
   - job: BuildJob
     displayName: Build Job
     steps:
 
-    - task: dotnetCoreCLI@2
-      displayName: dotnet build
-      inputs:
-        command: 'build'
-        projects: '$(Build.SourcesDirectory)/**/*.csproj'
-        
-    - task: dotnetCoreCLI@2
-      displayName: dotnet publish
-      inputs:
-        command: 'publish'
-        publishWebProjects: true
-        arguments: '--output $(Build.ArtifactStagingDirectory)'
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
+          projects:  |
+            **\*.csproj
 
-    - task: PublishBuildArtifacts@1
-      displayName: publish artifacts
-      inputs:
-        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-        ArtifactName: 'drop'
-        publishLocation: 'Container'
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          projects:  |
+            **\*.csproj
+            arguments: '--configuration $(BuildConfiguration)'
+
+      - task: DotNetCoreCLI@2
+        displayName: Test
+        inputs:
+          command: test
+          projects: '**/*[Tt]ests/*.csproj'
+          arguments: '--configuration $(BuildConfiguration)'
+
+      - task: DotNetCoreCLI@2
+        displayName: Publish
+        inputs:
+          command: publish
+          publishWebProjects: True
+          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+          zipAfterPublish: True
+
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+        condition: succeededOrFailed()
