@@ -85,7 +85,7 @@ jobs:
         inputs:
           command: publish
           publishWebProjects: True
-          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true'
+          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory) --self-contained true --runtime win-x86'
           zipAfterPublish: True
 
       - task: PublishBuildArtifacts@1
