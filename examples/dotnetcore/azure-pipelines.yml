@@ -27,6 +27,7 @@ extends:
       - uat
       - prd
     configuration:
+      buildOnly: false
       resources:
         - type: dotnetCore
           enabled: true

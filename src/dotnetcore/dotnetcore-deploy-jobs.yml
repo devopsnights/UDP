@@ -1,0 +1,12 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+
+jobs:
+  - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
+      - template: ../common/yml/azure-appservice-deploy-jobs.yml
+        parameters:
+          serviceConnection: ${{ parameters.serviceConnection }}
+          resource: ${{ parameters.resource }}

@@ -10,6 +10,8 @@ jobs:
     environment: develop
     strategy:
       runOnce:
+        
+        
         deploy:
           steps:
             - task: DownloadBuildArtifacts@0
