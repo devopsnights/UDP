@@ -11,6 +11,7 @@ jobs:
       BuildConfiguration: 'Release'
     displayName: Build Job
     steps:
+      - powershell: Write-Host ${{ parameters.solutionFilter }}
 
       - task: VSBuild@1
         inputs:
