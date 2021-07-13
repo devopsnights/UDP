@@ -1,0 +1,28 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+
+jobs:
+  - deployment: 
+    displayName: Azure Web App Deployment
+    environment: develop
+    strategy:
+      runOnce:
+        
+        deploy:
+          steps:
+            
+            - task: SqlAzureDacpacDeployment@1
+              inputs:
+                azureSubscription: ${{ parameters.serviceConnection }}
+                AuthenticationType: 'server'
+                ServerName: 'sql-udp.database.windows.net'
+                DatabaseName: 'sqludp'
+                SqlUsername: 'wesley'
+                SqlPassword: '$(sqlPassword)'
+                deployType: 'DacpacTask'
+                DeploymentAction: 'Publish'
+                DacpacFile: '$(Pipeline.Workspace)/sql-server/sql-template.dacpac'
+                IpDetectionMethod: 'AutoDetect'
