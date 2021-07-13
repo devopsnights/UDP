@@ -22,11 +22,11 @@ jobs:
       - task: CopyFiles@2
         inputs:
           SourceFolder: '$(Build.BinariesDirectory)'
-          Contents: '**\*.dacpac$(Pipeline.Workspace)'
+          Contents: '**\*.dacpac'
           TargetFolder: '$(Pipeline.Workspace)'
 
       - task: PublishPipelineArtifact@1
         inputs:
           targetPath: '$(Pipeline.Workspace)'
-          artifact: 'sqlServer'
+          artifact: 'sql-server'
           publishLocation: 'pipeline'
