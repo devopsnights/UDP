@@ -17,7 +17,7 @@ jobs:
           ${{ if eq(parameters.resource.solutionFilter, '') }}:
             solution: '**\*.sln'
           ${{ if ne(parameters.resource.solutionFilter, '') }}:
-            solution: ${{ parameters.solutionFilter }}
+            solution: ${{ parameters.resource.solutionFilter }}
           msbuildArgs: '/p:OutDir=$(Pipeline.Workspace)'
 
       - task: PublishPipelineArtifact@1
