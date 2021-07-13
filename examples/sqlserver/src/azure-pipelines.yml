@@ -8,15 +8,15 @@
 #     name: devopsnights/UDP
 #     ref: refs/heads/main
 
-# trigger:
-#   - main
-#   - feature/*
-
 trigger:
-  branches:
-    include:
-    - main
-    - feature/*
+  - main
+  - feature/*
+
+# trigger:
+#   branches:
+#     include:
+#     - main
+#     - feature/*
   # paths:
   #   include:
   #   - examples/sqlserver
