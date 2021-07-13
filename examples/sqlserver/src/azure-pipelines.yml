@@ -8,10 +8,19 @@
 #     name: devopsnights/UDP
 #     ref: refs/heads/main
 
+# trigger:
+#   - main
+#   - feature/*
+
 trigger:
-  - main
-  - feature/*
-  
+  branches:
+    include:
+    - main
+    - feature/*
+  paths:
+    include:
+    - examples/sqlserver
+
 pool:
   vmImage: 'windows-latest'
 
@@ -29,12 +38,12 @@ extends:
     configuration:
       buildOnly: false
       resources:
-        - type: dotnetCore
+        - type: sqlserver
           enabled: true
-          deployment:
-            type: azureWebApp
-            name: wa-udp-dotnetcore-windows
-            infrastructure:
-              enabled: false
-            application:
-              enabled: true
+          # deployment:
+          #   type: azureWebApp
+          #   name: wa-udp-dotnetcore-windows
+          #   infrastructure:
+          #     enabled: false
+          #   application:
+          #     enabled: true
