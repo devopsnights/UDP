@@ -9,4 +9,4 @@ jobs:
   - template: ../dotnet/dotnet-build-jobs.yml
     parameters:
       solutionFilter: 
-      resource: ${{ parameters.resource.resource }}
+      resource: ${{ parameters.resource }}

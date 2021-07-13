@@ -1,7 +1,6 @@
 parameters:
-- name: solutionFilter
-  type: string
-  default: ''
+- name: resource
+  type: object
 
 
 jobs:
@@ -11,13 +10,13 @@ jobs:
       BuildConfiguration: 'Release'
     displayName: Build Job
     steps:
-      - powershell: Write-Host ${{ parameters.solutionFilter }}
+      - powershell: Write-Host ${{ parameters.resource.solutionFilter }}
 
       - task: VSBuild@1
         inputs:
-          ${{ if eq(parameters.solutionFilter, '') }}:
+          ${{ if eq(parameters.resource.solutionFilter, '') }}:
             solution: '**\*.sln'
-          ${{ if ne(parameters.solutionFilter, '') }}:
+          ${{ if ne(parameters.resource.solutionFilter, '') }}:
             solution: ${{ parameters.solutionFilter }}
           msbuildArgs: '/p:OutDir=$(Pipeline.Workspace)'
 
