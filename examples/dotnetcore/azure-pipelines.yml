@@ -9,8 +9,13 @@
 #     ref: refs/heads/main
 
 trigger:
-  - main
-  - feature/*
+  branches:
+    include:
+    - main
+    - feature/*
+  paths:
+    include:
+    - examples/dotnetcore
   
 pool:
   vmImage: 'windows-latest'

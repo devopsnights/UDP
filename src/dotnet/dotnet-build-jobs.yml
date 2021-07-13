@@ -1,4 +1,7 @@
-
+parameters:
+- name: solutionFilter
+  type: string
+  default: ''
 
 
 jobs:
@@ -11,7 +14,10 @@ jobs:
 
       - task: VSBuild@1
         inputs:
-          solution: '**\*.sln'
+          ${{ if eq(parameters.solutionFilter, '') }}:
+            solution: '**\*.sln'
+          ${{ if ne(parameters.solutionFilter, '') }}:
+            solution: ${{ parameters.solutionFilter }}
           msbuildArgs: '/p:OutDir=$(Pipeline.Workspace)'
 
       - task: PublishPipelineArtifact@1

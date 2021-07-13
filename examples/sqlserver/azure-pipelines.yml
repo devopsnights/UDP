@@ -40,6 +40,7 @@ extends:
       resources:
         - type: sqlserver
           enabled: true
+          solutionFilter: '**\sql-template.sln'
           # deployment:
           #   type: azureWebApp
           #   name: wa-udp-dotnetcore-windows
