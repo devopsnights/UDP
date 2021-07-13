@@ -1,0 +1,21 @@
+
+
+
+jobs:
+  - job: BuildJob
+    variables:
+      BuildPlatform: 'Any CPU'
+      BuildConfiguration: 'Release'
+    displayName: Build Job
+    steps:
+
+      - task: VSBuild@1
+        inputs:
+          solution: '**\*.sln'
+          msbuildArgs: '/p:OutDir=$(Pipeline.Workspace)'
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)'
+          artifact: 'drop'
+          publishLocation: 'pipeline'

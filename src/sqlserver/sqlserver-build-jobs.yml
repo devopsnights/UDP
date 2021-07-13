@@ -1,0 +1,11 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+
+jobs:
+  - template: ../src/dotnet/dotnet-build-jobs.ymls
+    # parameters:
+    #   serviceConnection: ${{ parameters.serviceConnection }}
+    #   resource: ${{ parameters.resource }}
