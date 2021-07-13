@@ -20,6 +20,8 @@ stages:
               - template: ./nodejs/nodejs-build-jobs.yml
             - ${{ if eq(resource.type, 'sqlserver') }}:
               - template: ./sqlserver/sqlserver-build-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML

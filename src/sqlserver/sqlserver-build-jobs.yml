@@ -1,12 +1,12 @@
 parameters:
-- name: solutionFilter
-  type: string
-  default: ''
+# - name: serviceConnection
+#   type: string
+- name: resource
+  type: object
 
 jobs:
 
   - template: ../dotnet/dotnet-build-jobs.yml
     parameters:
-      solutionFilter: ${{ parameters.solutionFilter }}
-      # serviceConnection: ${{ parameters.serviceConnection }}
-      # resource: ${{ parameters.resource }}
+      solutionFilter: 
+      resource: ${{ parameters.resource.resource }}

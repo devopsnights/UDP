@@ -8,14 +8,13 @@
 #     name: devopsnights/UDP
 #     ref: refs/heads/main
 
-# trigger:
-#   branches:
-#     include:
-#     - main
-#     - feature/*
-#   paths:
-#     include:
-#     - examples/dotnetcore
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - examples/dotnetcore
   
 pool:
   vmImage: 'windows-latest'
