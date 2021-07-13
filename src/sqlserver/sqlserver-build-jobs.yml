@@ -5,7 +5,7 @@
 #   type: object
 
 jobs:
-  - template: ../src/dotnet/dotnet-build-jobs.ymls
+  - template: ../dotnet/dotnet-build-jobs.ymls
     # parameters:
     #   serviceConnection: ${{ parameters.serviceConnection }}
     #   resource: ${{ parameters.resource }}
