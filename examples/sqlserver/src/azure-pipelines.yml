@@ -17,9 +17,9 @@ trigger:
     include:
     - main
     - feature/*
-  paths:
-    include:
-    - examples/sqlserver
+  # paths:
+  #   include:
+  #   - examples/sqlserver
 
 pool:
   vmImage: 'windows-latest'
