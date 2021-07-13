@@ -33,10 +33,10 @@ extends:
     serviceConnection: 'AzureServiceConnection'
     environments:
       - dev
-      - uat
-      - prd
+      # - uat
+      # - prd
     configuration:
-      buildOnly: false
+      buildOnly: true
       resources:
         - type: sqlserver
           enabled: true
