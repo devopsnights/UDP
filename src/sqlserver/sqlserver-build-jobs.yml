@@ -23,10 +23,10 @@ jobs:
         inputs:
           SourceFolder: '$(Build.BinariesDirectory)'
           Contents: '**\*.dacpac'
-          TargetFolder: '$(Pipeline.Workspace)'
+          TargetFolder: '$(Pipeline.Workspace)\dacpac'
 
       - task: PublishPipelineArtifact@1
         inputs:
-          targetPath: '$(Pipeline.Workspace)'
+          targetPath: '$(Pipeline.Workspace)\dacpac'
           artifact: 'sql-server'
           publishLocation: 'pipeline'
