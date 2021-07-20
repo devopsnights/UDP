@@ -20,7 +20,7 @@ jobs:
                 AuthenticationType: 'server'
                 ServerName: 'sql-udp.database.windows.net'
                 DatabaseName: 'sqludp'
-                SqlUsername: 'wesley'
+                SqlUsername: '${{ parameters.resource.deployment.application.sqlUsername }}'
                 SqlPassword: '${{ parameters.resource.deployment.application.sqlPassword }}'
                 deployType: 'DacpacTask'
                 DeploymentAction: 'Publish'
