@@ -16,7 +16,7 @@ jobs:
             
             - task: SqlAzureDacpacDeployment@1
               inputs:
-                azureSubscription: ${{ parameters.serviceConnection }}
+                azureSubscription: '${{ parameters.serviceConnection }}'
                 AuthenticationType: 'server'
                 ServerName: '${{ parameters.resource.deployment.application.serverName }}'
                 DatabaseName: '${{ parameters.resource.deployment.application.databaseName }}'
