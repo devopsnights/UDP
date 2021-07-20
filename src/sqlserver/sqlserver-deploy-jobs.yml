@@ -21,8 +21,7 @@ jobs:
                 ServerName: 'sql-udp.database.windows.net'
                 DatabaseName: 'sqludp'
                 SqlUsername: 'wesley'
-                SqlPassword: '$(sqlPassword)'   
-                #${{ parameters.resource.deployment.application.sqlPassword }}
+                SqlPassword: '${{ parameters.resource.deployment.application.sqlPassword }}'
                 deployType: 'DacpacTask'
                 DeploymentAction: 'Publish'
                 DacpacFile: '$(Pipeline.Workspace)/sql-server/sql-template.dacpac'
