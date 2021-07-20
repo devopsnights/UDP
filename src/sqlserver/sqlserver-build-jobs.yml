@@ -1,0 +1,32 @@
+parameters:
+- name: resource
+  type: object
+
+jobs:
+  - job: BuildJob
+    variables:
+      BuildPlatform: 'Any CPU'
+      BuildConfiguration: 'Release'
+    displayName: Build Job
+    steps:
+      - powershell: Write-Host ${{ parameters.resource.solutionFilter }}
+
+      - task: VSBuild@1
+        inputs:
+          ${{ if eq(parameters.resource.solutionFilter, '') }}:
+            solution: '**\*.sln'
+          ${{ if ne(parameters.resource.solutionFilter, '') }}:
+            solution: ${{ parameters.resource.solutionFilter }}
+          msbuildArgs: '/p:OutDir=$(Build.BinariesDirectory)'
+
+      - task: CopyFiles@2
+        inputs:
+          SourceFolder: '$(Build.BinariesDirectory)'
+          Contents: '**\*.dacpac'
+          TargetFolder: '$(Pipeline.Workspace)\dacpac'
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)\dacpac'
+          artifact: 'sql-server'
+          publishLocation: 'pipeline'

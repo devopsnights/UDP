@@ -9,13 +9,18 @@
 #     ref: refs/heads/main
 
 trigger:
-  branches:
-    include:
-    - main
-  paths:
-    include:
-    - examples/dotnetcore
-  
+  - main
+  - feature/*
+
+# trigger:
+#   branches:
+#     include:
+#     - main
+#     - feature/*
+  # paths:
+  #   include:
+  #   - examples/sqlserver
+
 pool:
   vmImage: 'windows-latest'
 
@@ -28,13 +33,14 @@ extends:
     serviceConnection: 'AzureServiceConnection'
     environments:
       - dev
-      - uat
-      - prd
+      # - uat
+      # - prd
     configuration:
       buildOnly: false
       resources:
-        - type: dotnetCore
+        - type: sqlserver
           enabled: true
+          solutionFilter: '**\sql-template.sln'
           deployment:
             type: azureWebApp
             name: wa-udp-dotnetcore-windows
@@ -42,3 +48,7 @@ extends:
               enabled: false
             application:
               enabled: true
+              serverName: 'sql-udp.database.windows.net'
+              databaseName: 'sqludp'
+              sqlUsername: 'wesley'
+              sqlPassword: '$(sqlPassword)'

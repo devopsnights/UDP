@@ -1,0 +1,28 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+
+jobs:
+  - deployment: 
+    displayName: Azure Web App Deployment
+    environment: develop
+    strategy:
+      runOnce:
+        
+        deploy:
+          steps:
+            
+            - task: SqlAzureDacpacDeployment@1
+              inputs:
+                azureSubscription: '${{ parameters.serviceConnection }}'
+                AuthenticationType: 'server'
+                ServerName: '${{ parameters.resource.deployment.application.serverName }}'
+                DatabaseName: '${{ parameters.resource.deployment.application.databaseName }}'
+                SqlUsername: '${{ parameters.resource.deployment.application.sqlUsername }}'
+                SqlPassword: '${{ parameters.resource.deployment.application.sqlPassword }}'
+                deployType: 'DacpacTask'
+                DeploymentAction: 'Publish'
+                DacpacFile: '$(Pipeline.Workspace)/sql-server/sql-template.dacpac'
+                IpDetectionMethod: 'AutoDetect'

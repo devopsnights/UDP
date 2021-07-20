@@ -18,6 +18,10 @@ stages:
               - template: ./dotnetcore/dotnetcore-build-jobs.yml
             - ${{ if eq(resource.type, 'nodejs') }}:
               - template: ./nodejs/nodejs-build-jobs.yml
+            - ${{ if eq(resource.type, 'sqlserver') }}:
+              - template: ./sqlserver/sqlserver-build-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
@@ -59,6 +63,11 @@ stages:
                 - ${{ if and(eq(resource.enabled, 'true'), eq(resource.deployment.application.enabled, 'true')) }}:
                     - ${{ if eq(resource.type, 'dotnetCore') }}:
                         - template: ./dotnetcore/dotnetcore-deploy-jobs.yml
+                          parameters:
+                            serviceConnection: ${{ parameters.serviceConnection }}
+                            resource: ${{ resource }}
+                    - ${{ if eq(resource.type, 'sqlServer') }}:
+                        - template: ./sqlserver/sqlserver-deploy-jobs.yml
                           parameters:
                             serviceConnection: ${{ parameters.serviceConnection }}
                             resource: ${{ resource }}
