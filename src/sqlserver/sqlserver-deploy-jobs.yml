@@ -18,8 +18,8 @@ jobs:
               inputs:
                 azureSubscription: ${{ parameters.serviceConnection }}
                 AuthenticationType: 'server'
-                ServerName: 'sql-udp.database.windows.net'
-                DatabaseName: 'sqludp'
+                ServerName: '${{ parameters.resource.deployment.application.serverName }}'
+                DatabaseName: '${{ parameters.resource.deployment.application.databaseName }}'
                 SqlUsername: '${{ parameters.resource.deployment.application.sqlUsername }}'
                 SqlPassword: '${{ parameters.resource.deployment.application.sqlPassword }}'
                 deployType: 'DacpacTask'
