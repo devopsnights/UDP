@@ -13,7 +13,8 @@ jobs:
         
         deploy:
           steps:
-            
+            - powershell: Write-Host "${{ parameters.resource.deployment.application.serverName }}"
+
             - task: SqlAzureDacpacDeployment@1
               inputs:
                 azureSubscription: ${{ parameters.serviceConnection }}
