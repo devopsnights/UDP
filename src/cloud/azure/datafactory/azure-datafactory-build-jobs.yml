@@ -49,21 +49,21 @@ jobs:
             displayName: 'Copying application artifact'
 
       # generating infrastructure artefacts
-      - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
+      # - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
           
-          - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
-        
-          # building bicep into ARM
-          - task: AzureCLI@2  
-            displayName: 'Build bicep artifact' 
-            inputs: 
-              azureSubscription: ${{ parameters.serviceConnection }}
-              scriptType: 'pscore'  
-              scriptLocation: 'inlineScript'  
-              inlineScript: |
-                $file = "$(Build.SourcesDirectory)/cloud/azure/datafactory/azure-datafactory.bicep"
-                New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
-                az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
+      - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
+    
+      # building bicep into ARM
+      - task: AzureCLI@2  
+        displayName: 'Build bicep artifact' 
+        inputs: 
+          azureSubscription: ${{ parameters.serviceConnection }}
+          scriptType: 'pscore'  
+          scriptLocation: 'inlineScript'  
+          inlineScript: |
+            $file = "$(Build.SourcesDirectory)/cloud/azure/datafactory/azure-datafactory.bicep"
+            New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
+            az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
 
       - task: PublishPipelineArtifact@1
         inputs:
