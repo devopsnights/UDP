@@ -35,7 +35,7 @@ resource dataFactoryName_resource 'Microsoft.DataFactory/factories@2018-06-01' =
   name: dataFactoryName
   location: location
 
-  properties: (environment == 'development') ? properties : {}
+  properties: (environment == 'dev') ? properties : {}
   
   identity: {
     type: 'SystemAssigned'

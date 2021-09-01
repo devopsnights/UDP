@@ -29,7 +29,7 @@ extends:
   parameters:
     serviceConnection: 'AzureServiceConnection'
     environments:
-      - development
+      - dev
       # - uat
       # - prd
     configuration:
