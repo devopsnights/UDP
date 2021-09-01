@@ -11,6 +11,7 @@
 trigger:
   branches:
     include:
+    - feature/*
     - main
   paths:
     include:

@@ -11,7 +11,7 @@ jobs:
     steps:
       
       # generating application artefacts
-      - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
+      # - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
           # configuring node
           # - task: NodeTool@0
           #   inputs:
