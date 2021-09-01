@@ -45,7 +45,7 @@ extends:
               repositoryType: 'FactoryGitHubConfiguration'
               repositoryName: 'UDP'
               accountName: 'devopsnights'
-              collaborationBranch: 'main'
+              collaborationBranch: 'feature/datafactory'
               rootFolder: 'examples/azuredatafactory/src'
             application:
               enabled: true
