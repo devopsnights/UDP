@@ -41,7 +41,7 @@ jobs:
                 # overrideParameters: -dataFactoryName $(dataFactoryName) -environment development
                 overrideParameters: |
                   -dataFactoryName $(dataFactoryName) 
-                  -environment ${{ parameters.environment }}
+                  -environment development
                   -repositoryType FactoryGitHubConfiguration
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
