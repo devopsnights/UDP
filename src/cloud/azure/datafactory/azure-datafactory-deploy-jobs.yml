@@ -38,15 +38,15 @@ jobs:
                 location: 'northeurope'
                 templateLocation: 'Linked artifact'
                 csmFile: '$(Pipeline.Workspace)/datafactory/infrastructure/azure-datafactory.json '
-                overrideParameters: -dataFactoryName $(dataFactoryName) -environment ${{ parameters.environment }}
-                # overrideParameters: |
-                #   -dataFactoryName $(dataFactoryName) 
-                #   -environment ${{ parameters.environment }}
-                #   -repositoryType 'FactoryGitHubConfiguration'
-                #   -repositoryName 'UDP'
-                #   -accountName 'devopsnights'
-                #   -collaborationBranch 'feature/datafactory'
-                #   -rootFolder 'examples/azuredatafactory/src'
+                # overrideParameters: -dataFactoryName $(dataFactoryName) -environment ${{ parameters.environment }}
+                overrideParameters: >
+                  -dataFactoryName $(dataFactoryName) 
+                  -environment ${{ parameters.environment }}
+                  -repositoryType 'FactoryGitHubConfiguration'
+                  -repositoryName 'UDP'
+                  -accountName 'devopsnights'
+                  -collaborationBranch 'feature/datafactory'
+                  -rootFolder 'examples/azuredatafactory/src'
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
 
