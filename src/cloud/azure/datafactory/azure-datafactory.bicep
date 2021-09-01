@@ -2,11 +2,6 @@
 param dataFactoryName string = 'adf-template-bicep-gh'
 param location string = resourceGroup().location
 param environment string = ''
-
-// @allowed([
-//   'FactoryVSTSConfiguration'
-//   'FactoryGitHubConfiguration'
-// ])
 param repositoryType string = 'FactoryGitHubConfiguration'
 param projectName string  = 'Sandbox'
 param repositoryName string = 'azuredevops-yaml-quickstart-templates'
