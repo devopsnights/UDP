@@ -21,6 +21,10 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  workingDir: $(Build.Repository.LocalPath)/azuredatafactory/src
+  serviceConnection: 'AzureServiceConnection' 
+
 extends:
   # If you are using this example in your oun repository, 
   # you need to uncomment the next line and comment the line streight below
@@ -49,5 +53,6 @@ extends:
               rootFolder: 'examples/azuredatafactory/src'
             application:
               enabled: true
+              workingDirectory: $(Build.Repository.LocalPath)/examples/azuredatafactory/src
 
 
