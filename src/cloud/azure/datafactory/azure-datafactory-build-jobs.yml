@@ -53,7 +53,7 @@ jobs:
           
       # - checkout: yamlTemplates
       #   # condition: eq('${{ parameters.deploymentConfig.legacy }}', 'True')
-      # - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
+      - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
     
       # building bicep into ARM
       - task: AzureCLI@2  
@@ -63,7 +63,7 @@ jobs:
           scriptType: 'pscore'  
           scriptLocation: 'inlineScript'  
           inlineScript: |
-            $file = "$(Build.SourcesDirectory)src/cloud/azure/datafactory/azure-datafactory.bicep"
+            $file = "$(Build.SourcesDirectory)/src/cloud/azure/datafactory/azure-datafactory.bicep"
             New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
             az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
 
