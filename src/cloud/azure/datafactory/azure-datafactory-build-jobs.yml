@@ -49,7 +49,7 @@ jobs:
             displayName: 'Copying application artifact'
 
       # generating infrastructure artefacts
-      - ${{ if eq(resource.deployment.application.enabled, 'true') }}:
+      - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
           
           - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
         
