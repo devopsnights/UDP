@@ -17,16 +17,13 @@ jobs:
       vmImage: 'vs2017-win2016'
     strategy:
       runOnce:
-        deploy:
+        preDeploy:
           steps:
-
             - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:
                 source: 'current'
                 path: '$(Pipeline.Workspace)'
           
-            - powershell: Get-ChildItem $(Pipeline.Workspace) -recurse
-
             - task: AzureResourceManagerTemplateDeployment@3
               displayName: Creating ADF Infrastructure by IaC
               inputs:
@@ -50,4 +47,19 @@ jobs:
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
 
-                
+        deploy:
+          steps:
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: 'Deploying ADF Artificats'
+              inputs:
+                deploymentScope: 'Resource Group'
+                azureResourceManagerConnection: ${{ parameters.serviceConnection }}
+                subscriptionId: $(subscriptionId)
+                action: 'Create Or Update Resource Group'
+                resourceGroupName: 'RG-Datafactory'
+                location: 'northeurope'
+                templateLocation: 'Linked artifact'
+                csmFile: '$(Pipeline.Workspace)/datafactory/application/ARMTemplateForFactory.json'
+                csmParametersFile: '$(Pipeline.Workspace)/datafactory/application/ARMTemplateParametersForFactory.json'
+                overrideParameters: '-factoryName $(dataFactoryName)'
+                deploymentMode: 'Incremental'

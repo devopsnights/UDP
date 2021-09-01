@@ -11,57 +11,57 @@ jobs:
     steps:
       
       # generating application artefacts
-      # - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
+      - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
           # configuring node
-          # - task: NodeTool@0
-          #   inputs:
-          #     versionSpec: '10.x'
-          #   displayName: 'Install Node.js'
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '10.x'
+            displayName: 'Install Node.js'
 
-          # - task: Npm@1
-          #   inputs:
-          #     command: 'install'
-          #     verbose: true
-          #     workingDir: '${{ parameters.resource.workingDirectory }}'
-          #   displayName: 'Install npm package'
+          - task: Npm@1
+            inputs:
+              command: 'install'
+              verbose: true
+              workingDir: '${{ parameters.resource.workingDirectory }}'
+            displayName: 'Install npm package'
 
-          # # validating artifacts
-          # - task: Npm@1
-          #   inputs:
-          #     command: 'custom'
-          #     customCommand: 'run build validate ${{ parameters.resource.workingDirectory }} /subscriptions/337ba254-3aa0-4551-ba8e-89debefaa373/resourceGroups/RG-Datafactory/providers/Microsoft.DataFactory/factories/adf-testdeploywes'
-          #     workingDir: '${{ parameters.resource.workingDirectory }}'
-          #   displayName: 'Validate'
+          # validating artifacts
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              customCommand: 'run build validate ${{ parameters.resource.workingDirectory }} /subscriptions/337ba254-3aa0-4551-ba8e-89debefaa373/resourceGroups/RG-Datafactory/providers/Microsoft.DataFactory/factories/adf-testdeploywes'
+              workingDir: '${{ parameters.resource.workingDirectory }}'
+            displayName: 'Validate'
 
-          # # generating ARM Templates from source code
-          # - task: Npm@1
-          #   inputs:
-          #     command: 'custom'
-          #     customCommand: 'run build export ${{ parameters.resource.workingDirectory }} /subscriptions/337ba254-3aa0-4551-ba8e-89debefaa373/resourceGroups/RG-Datafactory/providers/Microsoft.DataFactory/factories/adf-testdeploywes artifacts'
-          #     workingDir: '${{ parameters.resource.workingDirectory }}'
-          #   displayName: 'Generate ARM template'
+          # generating ARM Templates from source code
+          - task: Npm@1
+            inputs:
+              command: 'custom'
+              customCommand: 'run build export ${{ parameters.resource.workingDirectory }} /subscriptions/337ba254-3aa0-4551-ba8e-89debefaa373/resourceGroups/RG-Datafactory/providers/Microsoft.DataFactory/factories/adf-testdeploywes artifacts'
+              workingDir: '${{ parameters.resource.workingDirectory }}'
+            displayName: 'Generate ARM template'
 
-          # - task: CopyFiles@2
-          #   inputs:
-          #     SourceFolder: '${{ parameters.resource.workingDirectory }}/artifacts'
-          #     Contents: '**'
-          #     TargetFolder: '$(build.artifactstagingdirectory)/application' 
-          #   displayName: 'Copying application artifact'
+          - task: CopyFiles@2
+            inputs:
+              SourceFolder: '${{ parameters.resource.workingDirectory }}/artifacts'
+              Contents: '**'
+              TargetFolder: '$(build.artifactstagingdirectory)/application' 
+            displayName: 'Copying application artifact'
 
       # generating infrastructure artefacts
-      # - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
+      - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
     
-      # building bicep into ARM
-      - task: AzureCLI@2  
-        displayName: 'Build bicep artifact' 
-        inputs: 
-          azureSubscription: ${{ parameters.serviceConnection }}
-          scriptType: 'pscore'  
-          scriptLocation: 'inlineScript'  
-          inlineScript: |
-            $file = "$(Build.SourcesDirectory)/src/cloud/azure/datafactory/azure-datafactory.bicep"
-            New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
-            az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
+          # building bicep into ARM
+          - task: AzureCLI@2  
+            displayName: 'Build bicep artifact' 
+            inputs: 
+              azureSubscription: ${{ parameters.serviceConnection }}
+              scriptType: 'pscore'  
+              scriptLocation: 'inlineScript'  
+              inlineScript: |
+                $file = "$(Build.SourcesDirectory)/src/cloud/azure/datafactory/azure-datafactory.bicep"
+                New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
+                az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
 
       - task: PublishPipelineArtifact@1
         inputs:
