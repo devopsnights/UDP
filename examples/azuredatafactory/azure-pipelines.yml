@@ -1,0 +1,43 @@
+# If you are using this example in your oun repository, 
+# you need to uncomment the lines below:
+# resources:
+#   repositories:
+#   - repository: UDP
+#     type: github
+#     endpoint: devopsnights
+#     name: devopsnights/UDP
+#     ref: refs/heads/main
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - examples/azuredatafactory
+  
+pool:
+  vmImage: 'ubuntu-latest'
+
+extends:
+  # If you are using this example in your oun repository, 
+  # you need to uncomment the next line and comment the line streight below
+  #template: src\orchestrator.yml@UDP
+  template: ..\..\src\orchestrator.yml
+  parameters:
+    serviceConnection: 'AzureServiceConnection'
+    environments:
+      - dev
+      - uat
+      - prd
+    configuration:
+      buildOnly: false
+      resources:
+        - type: azuredatafactory
+          enabled: true
+          deployment:
+            name: adf-quickstart-dev
+            infrastructure:
+              enabled: true
+            application:
+              enabled: false

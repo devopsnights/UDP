@@ -22,6 +22,11 @@ stages:
               - template: ./sqlserver/sqlserver-build-jobs.yml
                 parameters:
                   resource: ${{ resource }}
+            - ${{ if eq(resource.type, 'azuredatafactory') }}:
+              - template: ./cloud/azure/datafactory/azure-datafactory-build-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
+                  serviceConnection: ${{ serviceConnection }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
