@@ -42,5 +42,12 @@ extends:
             infrastructure:
               enabled: true
               filePath: src\cloud\azure\datafactory\azure-datafactory.bicep
+              repositoryType: 'FactoryGitHubConfiguration'
+              repositoryName: 'UDP'
+              accountName: 'devopsnights'
+              collaborationBranch: 'master'
+              rootFolder: 'examples/azuredatafactory/src'
             application:
               enabled: true
+
+
