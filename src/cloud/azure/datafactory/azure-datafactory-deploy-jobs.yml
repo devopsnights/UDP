@@ -41,7 +41,7 @@ jobs:
                 # overrideParameters: -dataFactoryName $(dataFactoryName) -environment development
                 overrideParameters: |
                   -dataFactoryName $(dataFactoryName) 
-                  -environment ${{ parameters.environment }}
+                  -environment $[ parameters.environment ]
                   -repositoryType 'FactoryGitHubConfiguration'
                   -repositoryName 'UDP'
                   -accountName 'devopsnights'
