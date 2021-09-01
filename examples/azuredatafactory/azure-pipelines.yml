@@ -40,4 +40,4 @@ extends:
             infrastructure:
               enabled: true
             application:
-              enabled: false
+              enabled: true
