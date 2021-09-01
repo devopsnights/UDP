@@ -26,7 +26,7 @@ stages:
               - template: ./cloud/azure/datafactory/azure-datafactory-build-jobs.yml
                 parameters:
                   resource: ${{ resource }}
-                  serviceConnection: ${{ serviceConnection }}
+                  serviceConnection: ${{ parameters.serviceConnection }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
