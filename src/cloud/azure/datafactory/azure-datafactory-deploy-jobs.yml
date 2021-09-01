@@ -42,11 +42,11 @@ jobs:
                 overrideParameters: >
                   -dataFactoryName $(dataFactoryName) 
                   -environment ${{ parameters.environment }}
-                  -repositoryType ${{ parameters.resource.repositoryType }}
-                  -repositoryName ${{ parameters.resource.repositoryName }}
-                  -accountName ${{ parameters.resource.accountName }}
-                  -collaborationBranch ${{ parameters.resource.collaborationBranch }}
-                  -rootFolder ${{ parameters.resource.rootFolder }}
+                  -repositoryType ${{ parameters.resource.deployment.infrastructure.repositoryType }}
+                  -repositoryName ${{ parameters.resource.deployment.infrastructure.repositoryName }}
+                  -accountName ${{ parameters.resource.deployment.infrastructure.accountName }}
+                  -collaborationBranch ${{ parameters.resource.deployment.infrastructure.collaborationBranch }}
+                  -rootFolder ${{ parameters.resource.deployment.infrastructure.rootFolder }}
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
 
