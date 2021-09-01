@@ -22,6 +22,8 @@ jobs:
               inputs:
                 source: 'current'
                 path: '$(Pipeline.Workspace)'
+          
+            - powershell: Get-ChildItem $(Pipeline.Workspace) -recurse
 
             - task: AzureResourceManagerTemplateDeployment@3
               displayName: Creating ADF Infrastructure by IaC

@@ -50,10 +50,6 @@ jobs:
 
       # generating infrastructure artefacts
       # - ${{ if eq(parameters.resource.deployment.application.enabled, 'true') }}:
-          
-      # - checkout: yamlTemplates
-      #   # condition: eq('${{ parameters.deploymentConfig.legacy }}', 'True')
-      - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
     
       # building bicep into ARM
       - task: AzureCLI@2  
