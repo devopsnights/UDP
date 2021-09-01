@@ -81,3 +81,4 @@ stages:
                           parameters:
                             resource: ${{ resource }}
                             serviceConnection: ${{ parameters.serviceConnection }}
+                            environment: ${{ env }}

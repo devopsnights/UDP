@@ -3,6 +3,8 @@ parameters:
   type: string
 - name: resource
   type: object
+- name: environment
+  type: string
 
 jobs:
   - deployment: 
@@ -39,12 +41,8 @@ jobs:
                 # overrideParameters: -dataFactoryName $(dataFactoryName) -environment development
                 overrideParameters: |
                   -dataFactoryName $(dataFactoryName) 
-                  -environment development
+                  -environment ${{ parameters.environment }}
                   -repositoryType 'FactoryGitHubConfiguration'
-                  -repositoryName 'UDP'
-                  -accountName 'devopsnights'
-                  -collaborationBranch 'feature/datafactory'
-                  -rootFolder 'examples/azuredatafactory/src'
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
 
