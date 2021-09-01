@@ -40,5 +40,12 @@ jobs:
                 overrideParameters: |
                   -dataFactoryName $(dataFactoryName) 
                   -environment development
+                  -repositoryType 'FactoryGitHubConfiguration'
+                  -repositoryName 'UDP'
+                  -accountName 'devopsnights'
+                  -collaborationBranch 'feature/datafactory'
+                  -rootFolder 'examples/azuredatafactory/src'
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
+
+                
