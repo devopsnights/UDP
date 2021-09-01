@@ -13,7 +13,6 @@ param repositoryName string = 'azuredevops-yaml-quickstart-templates'
 param accountName string = 'devopsnights'
 param collaborationBranch string = 'master'
 param rootFolder string = '/azuredatafactory/src'
-param hostName string = ''
 
 var azDevopsRepoConfiguration = {
   accountName: accountName
