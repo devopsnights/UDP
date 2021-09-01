@@ -1,0 +1,15 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+
+jobs:
+  - deployment: 
+    displayName: Azure Data Factory Deployment
+    environment: develop
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - powershell: write-host "hello"
