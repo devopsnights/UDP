@@ -16,6 +16,7 @@ trigger:
   paths:
     include:
     - examples/azuredatafactory
+    - src/cloud/azure/datafactory
   
 pool:
   vmImage: 'ubuntu-latest'
@@ -40,5 +41,6 @@ extends:
             name: adf-quickstart-dev
             infrastructure:
               enabled: true
+              filePath: src\cloud\azure\datafactory\azure-datafactory.bicep
             application:
               enabled: true

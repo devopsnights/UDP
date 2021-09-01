@@ -8,8 +8,32 @@ jobs:
   - deployment: 
     displayName: Azure Data Factory Deployment
     environment: develop
+    variables:
+      dataFactoryName: adf-quickstart-dev
+      subscriptionId: 337ba254-3aa0-4551-ba8e-89debefaa373
+    pool:
+      vmImage: 'vs2017-win2016'
     strategy:
       runOnce:
         deploy:
           steps:
-            - powershell: write-host "hello"
+
+            - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
+              inputs:
+                source: 'current'
+                path: '$(Pipeline.Workspace)'
+
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: Creating ADF Infrastructure by IaC
+              inputs:
+                deploymentScope: 'Resource Group'
+                azureResourceManagerConnection: '${{ parameters.serviceConnection }}'
+                subscriptionId: '$(subscriptionId)'
+                action: 'Create Or Update Resource Group'
+                resourceGroupName: 'RG-Datafactory'
+                location: 'northeurope'
+                templateLocation: 'Linked artifact'
+                csmFile: '$(Pipeline.Workspace)\datafactory\infrastructure\datafactory.json'
+                overrideParameters: -dataFactoryName $(dataFactoryName) -environment development
+                deploymentMode: 'Incremental'
+                deploymentOutputs: 'ArmOutputs'
