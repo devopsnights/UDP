@@ -2,4 +2,4 @@
 
 ## High Level Architecture
 
-![High Level Architecture](./docs/HighLevel.png)
+![High Level Architecture](./docs/HighLevel.HighLevel.jpg)
