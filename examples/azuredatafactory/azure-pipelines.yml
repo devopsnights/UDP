@@ -34,7 +34,7 @@ extends:
     serviceConnection: 'AzureServiceConnection'
     environments:
       - dev
-      # - uat
+      - uat
       - prd
     configuration:
       buildOnly: false
