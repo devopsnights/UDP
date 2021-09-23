@@ -35,7 +35,7 @@ extends:
     environments:
       - dev
       # - uat
-      # - prd
+      - prd
     configuration:
       buildOnly: false
       resources:
