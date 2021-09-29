@@ -9,5 +9,5 @@ pool:
 jobs:
   - job: runTests
     steps:    
-      - powershell: WriteHost "Runnings tests"
+      - powershell: Write-Host "Runnings tests"
        
