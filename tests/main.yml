@@ -1,0 +1,13 @@
+trigger:
+  branches:
+    include:
+    - main
+  
+pool:
+  vmImage: 'windows-latest'
+
+jobs:
+  - job: runTests
+    steps:    
+      - powershell: WriteHost "Runnings tests"
+       
