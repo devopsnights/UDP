@@ -42,6 +42,8 @@ function Get-ProjectUrl {
     
     $projectsUrl = "{0}_apis/projects?api-version=5.0" -f $azdoBaseUrl
 
+    $header = Get-Header -personalAccessToken $personalAccessToken
+
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
     Write-Host "Projects: $projects"
 
