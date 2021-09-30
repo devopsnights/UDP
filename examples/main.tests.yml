@@ -14,14 +14,13 @@ jobs:
       
       - task: AzurePowerShell@4
         inputs:
-          azureSubscription: $(azureSubscription)
+          azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
-          scriptPath: $(Build.SourcesDirectory)\examples\run.tests
+          scriptPath: $(Build.SourcesDirectory)\examples\run.tests.ps1
           scriptArguments:
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
 
-     
-      
+      -
       - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
        
