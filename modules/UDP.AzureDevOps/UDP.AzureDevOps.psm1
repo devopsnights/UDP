@@ -59,19 +59,13 @@ function Test-YamlPipeline {
         [string]$yamlFilePath,
         [string]$pipelineId 
     )
-    
-    Write-Host $env:orgUrl
-    Write-Host $env:teamProject
-    Write-Host $env:personalAccessToken
-    Write-Host $env:yamlFilePath
-    Write-Host $env:pipelineId 
-
 
     $header = Get-Header -personalAccessToken $personalAccessToken
 
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
 
     $projectsUrl = "{0}_apis/pipelines/{1}/preview?api-version=6.1-preview.1" -f $projectBaseUrl, $pipelineId
+    Write-Host "Project URL: $projectsUrl"
 
     $body = @{
         PreviewRun = $true
