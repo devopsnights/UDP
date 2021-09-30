@@ -35,7 +35,8 @@ function Get-ProjectUrl {
     param (
         [string]$orgUrl,
         [string]$teamProject,
-        [object]$header
+        [object]$header,
+        $personalAccessToken
     )
 
     $azdoBaseUrl = Get-Url -orgUrl $orgUrl -header $header
