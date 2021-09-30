@@ -2,7 +2,7 @@ trigger:
   branches:
     include:
     - main
-    - feauture/*
+    - feature/*
   
 pool:
   vmImage: 'windows-latest'

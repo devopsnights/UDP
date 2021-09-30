@@ -1,7 +1,7 @@
 
 variables:
-  customModulesDirectory: 'C:\repo\wes\UDP\modules\'
+  customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
   orgUrl: 'https://dev.azure.com/wesleycamargo'
   teamProject: 'UDP'
-  yamlFilePath: 'C:\repo\wes\UDP\examples\dotnetcore\azure-pipelines.yml'
+  yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
   pipelineId : '99'
