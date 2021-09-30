@@ -43,6 +43,9 @@ function Get-ProjectUrl {
     $projectsUrl = "{0}_apis/projects?api-version=5.0" -f $azdoBaseUrl
 
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
+    Write-Host "Projects: $projects"
+
+
 
     $projectId = $(($projects.value | where { $_.name -eq $teamProject }).id)
 
@@ -61,6 +64,8 @@ function Test-YamlPipeline {
     )
 
     $header = Get-Header -personalAccessToken $personalAccessToken
+    Write-Host "Header: $header"
+
 
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
 
