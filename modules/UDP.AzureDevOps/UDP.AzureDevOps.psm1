@@ -60,6 +60,13 @@ function Test-YamlPipeline {
         [string]$pipelineId 
     )
     
+    Write-Host $env:orgUrl
+    Write-Host $env:teamProject
+    Write-Host $env:personalAccessToken
+    Write-Host $env:yamlFilePath
+    Write-Host $env:pipelineId 
+
+
     $header = Get-Header -personalAccessToken $personalAccessToken
 
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
