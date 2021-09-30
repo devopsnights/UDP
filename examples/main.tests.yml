@@ -21,6 +21,5 @@ jobs:
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
 
-      -
       - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
        
