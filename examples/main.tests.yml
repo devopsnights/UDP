@@ -7,9 +7,14 @@ trigger:
 pool:
   vmImage: 'windows-latest'
 
+variables:
+- template: vars.yml
+
 jobs:
   - job: runTests
     steps:    
+      - powershell: Get-Item env:*
+      
       - checkout: self
         persistCredentials: true
       
@@ -37,6 +42,3 @@ jobs:
           failIfCoverageEmpty: false
         displayName: "Publish Unit Test Code Coverage"
         condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
-
-      - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
-       
