@@ -2,6 +2,7 @@ trigger:
   branches:
     include:
     - main
+    - feauture/*
   
 pool:
   vmImage: 'windows-latest'
@@ -20,6 +21,22 @@ jobs:
           scriptArguments:
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
+
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: "NUnit" 
+          testResultsFiles: "**/TestResults.Pester.xml"
+          testRunTitle: "PS_Win2016_Unit"
+          failTaskOnFailedTests: true
+        displayName: "Publish Unit Test Results"
+        condition: in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed')
+
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          summaryFileLocation: "**/CodeCoverage.xml"
+          failIfCoverageEmpty: false
+        displayName: "Publish Unit Test Code Coverage"
+        condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
 
       - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
        
