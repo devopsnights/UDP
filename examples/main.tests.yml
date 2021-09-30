@@ -9,5 +9,19 @@ pool:
 jobs:
   - job: runTests
     steps:    
-      - powershell: Write-Host "Runnings tests"
+      - checkout: self
+        persistCredentials: true
+      
+      - task: AzurePowerShell@4
+        inputs:
+          azureSubscription: $(azureSubscription)
+          scriptType: "FilePath"
+          scriptPath: $(Build.SourcesDirectory)\examples\run.tests
+          scriptArguments:
+          azurePowerShellVersion: "latestVersion"
+          errorActionPreference: "continue"
+
+     
+      
+      - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
        
