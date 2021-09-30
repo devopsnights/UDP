@@ -35,23 +35,16 @@ function Get-ProjectUrl {
     param (
         [string]$orgUrl,
         [string]$teamProject,
-        [object]$header,
-        $personalAccessToken
+        [object]$header
     )
 
     $azdoBaseUrl = Get-Url -orgUrl $orgUrl -header $header
     
     $projectsUrl = "{0}_apis/projects?api-version=5.0" -f $azdoBaseUrl
 
-    $header = Get-Header -personalAccessToken $personalAccessToken
-
-    Write-Host ($header | Out-String) 
-    Write-Host $projectsUrl
+    Write-Host "Projects URL:  $projectsUrl"
 
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
-    Write-Host "Projects: $projects"
-
-
 
     $projectId = $(($projects.value | where { $_.name -eq $teamProject }).id)
 
@@ -68,13 +61,12 @@ function Test-YamlPipeline {
         [string]$yamlFilePath,
         [string]$pipelineId 
     )
-
+    
     $header = Get-Header -personalAccessToken $personalAccessToken
- 
+
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
 
     $projectsUrl = "{0}_apis/pipelines/{1}/preview?api-version=6.1-preview.1" -f $projectBaseUrl, $pipelineId
-    Write-Host "Project URL: $projectsUrl"
 
     $body = @{
         PreviewRun = $true
