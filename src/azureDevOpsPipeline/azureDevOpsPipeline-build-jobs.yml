@@ -25,3 +25,4 @@ jobs:
         env:
           # secrets needs to be mapped as env variables
           personalAccessToken: ${{ parameters.resource.personalAccessToken }}
+          customModulesDirectory: ${{ parameters.resource.customModulesDirectory }}
