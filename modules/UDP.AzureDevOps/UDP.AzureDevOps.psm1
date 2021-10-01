@@ -3,6 +3,8 @@ function Get-Header(){
     param (
         [string]$personalAccessToken
     )
+    Write-Host "pat: $env:personalAccessToken"
+
     Write-Host "Initialize authentication context" -ForegroundColor Yellow
     $token = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes(":$($personalAccessToken)"))
     return @{authorization = "Basic $token" }
