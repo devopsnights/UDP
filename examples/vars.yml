@@ -5,5 +5,5 @@ variables:
   # teamProject: 'UDP'
   # yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
   # pipelineId : '99'
-  - template: examples\global.vars.tests.yml
+  - template: global.vars.tests.yml
   - template: examples\dotnetcore\dotnetcore.vars.tests.yml
