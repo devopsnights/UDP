@@ -13,10 +13,10 @@ trigger:
     include:
     - main
     - feature/tests
-  paths:
-    include:
-    - examples/azureDevOpsPipeline
-    - src/azureDevOpsPipeline
+  # paths:
+  #   include:
+  #   - examples/azureDevOpsPipeline
+  #   - src/azureDevOpsPipeline
   
 pool:
   vmImage: 'windows-latest'
