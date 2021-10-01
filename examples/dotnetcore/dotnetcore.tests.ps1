@@ -1,6 +1,9 @@
 BeforeAll {
     Write-Host "Importing modules"
     $moduleName = "UDP.AzureDevOps"
+
+    Get-ChildItem -Path env:
+
     $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
     Write-Host "Module 'UDP.AzureDevOps' location: $module"
 
