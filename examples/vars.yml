@@ -6,4 +6,4 @@ variables:
   # yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
   # pipelineId : '99'
   - template: global.vars.tests.yml
-  - template: examples\dotnetcore\dotnetcore.vars.tests.yml
+  - template: dotnetcore\dotnetcore.vars.tests.yml
