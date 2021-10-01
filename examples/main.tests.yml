@@ -8,7 +8,7 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-- template: vars.yml
+- template: main-vars.yml
 
 jobs:
   - job: runTests
