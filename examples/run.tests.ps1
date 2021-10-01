@@ -2,6 +2,8 @@ param(
     $TestResultsPath = "$PSScriptRoot\testResults"
 )
   
+Get-ChildItem -Path env:
+
 $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'dotnetcore\dotnetcore.tests.ps1'
 $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
 
@@ -12,5 +14,7 @@ $config = New-PesterConfiguration
 $config.TestResult.OutputFormat = "NUnitXML"
 $config.TestResult.OutputPath = $testResultsFile 
 $config.Run.Container = $container
+
+
 
 Invoke-Pester -Configuration $config 
