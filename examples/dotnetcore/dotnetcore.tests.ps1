@@ -1,16 +1,4 @@
-# param(
-#     [string]$customModulesDirectory = "C:\repo\wes\UDP\modules\",
-#     [string]$orgUrl,
-#     [string]$teamProject,
-#     [string]$personalAccessToken,
-#     [string]$yamlFilePath,
-#     [string]$pipelineId 
-# )
-
 BeforeAll {
-    # Import-Module C:\repo\wes\UDP\modules\UDP.AzureDevOps
-
-
     $moduleName = "UDP.AzureDevOps"
     $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
 

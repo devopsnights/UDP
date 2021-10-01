@@ -1,4 +1,3 @@
-
 param(
     $TestResultsPath = "$PSScriptRoot\testResults"
 )
@@ -6,13 +5,12 @@ param(
 $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'dotnetcore\dotnetcore.tests.ps1'
 $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
 
-if (Test-Path $testScript) {
-    $pester = @{
-        Script       = $testScript
-        OutputFormat = 'NUnitXml'
-        OutputFile   = $testResultsFile
-        PassThru     = $true 
-        ExcludeTag   = 'Incomplete'
-    }
-    Invoke-Pester @pester
-}
+# Create configuration for pester execution
+$container = New-PesterContainer -Path $testScript 
+
+$config = New-PesterConfiguration
+$config.TestResult.OutputFormat = "NUnitXML"
+$config.TestResult.OutputPath = $testResultsFile 
+$config.Run.Container = $container
+
+Invoke-Pester -Configuration $config 

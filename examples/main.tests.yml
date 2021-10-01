@@ -25,6 +25,7 @@ jobs:
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
         env:
+          # secrets needs to be mapped as env variables
           personalAccessToken: $(personalAccessToken)
 
       - task: PublishTestResults@2
