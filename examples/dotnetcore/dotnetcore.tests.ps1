@@ -22,6 +22,9 @@ Describe "dotnetCore" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Should validate YAML structure' {
             
+            Write-Host "pat: $env:personalAccessToken"
+
+
             $finalYaml = Test-YamlPipeline -orgUrl $env:orgUrl `
                 -teamProject $env:teamProject `
                 -personalAccessToken $env:personalAccessToken `
