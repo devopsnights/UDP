@@ -26,6 +26,7 @@ stages:
               - template: ./azureDevOpsPipeline/azureDevOpsPipeline-build-jobs.yml
                 parameters:
                   resource: ${{ resource }}
+                  configuration: ${{ parameters.configuration.global }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
