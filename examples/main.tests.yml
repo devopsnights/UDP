@@ -12,34 +12,35 @@ variables:
 
 jobs:
   - job: runTests
-    steps:    
-      - checkout: self
-        persistCredentials: true
+    steps: 
+      - powershell: Write-Host ${{ variables.globalVariables.customModulesDirectory }}   
+      # - checkout: self
+      #   persistCredentials: true
       
-      - task: AzurePowerShell@4
-        inputs:
-          azureSubscription: AzureServiceConnection
-          scriptType: "FilePath"
-          scriptPath: $(Build.SourcesDirectory)\examples\run.tests.ps1
-          scriptArguments:
-          azurePowerShellVersion: "latestVersion"
-          errorActionPreference: "continue"
-        env:
-          # secrets needs to be mapped as env variables
-          personalAccessToken: $(personalAccessToken)
+      # - task: AzurePowerShell@4
+      #   inputs:
+      #     azureSubscription: AzureServiceConnection
+      #     scriptType: "FilePath"
+      #     scriptPath: $(Build.SourcesDirectory)\examples\run.tests.ps1
+      #     scriptArguments:
+      #     azurePowerShellVersion: "latestVersion"
+      #     errorActionPreference: "continue"
+      #   env:
+      #     # secrets needs to be mapped as env variables
+      #     personalAccessToken: $(personalAccessToken)
 
-      - task: PublishTestResults@2
-        inputs:
-          testRunner: "NUnit" 
-          testResultsFiles: "**/TestResults.Pester.xml"
-          testRunTitle: "PS_Win2016_Unit"
-          failTaskOnFailedTests: true
-        displayName: "Publish Unit Test Results"
-        condition: in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed')
+      # - task: PublishTestResults@2
+      #   inputs:
+      #     testRunner: "NUnit" 
+      #     testResultsFiles: "**/TestResults.Pester.xml"
+      #     testRunTitle: "PS_Win2016_Unit"
+      #     failTaskOnFailedTests: true
+      #   displayName: "Publish Unit Test Results"
+      #   condition: in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed')
 
-      - task: PublishCodeCoverageResults@1
-        inputs:
-          summaryFileLocation: "**/CodeCoverage.xml"
-          failIfCoverageEmpty: false
-        displayName: "Publish Unit Test Code Coverage"
-        condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
+      # - task: PublishCodeCoverageResults@1
+      #   inputs:
+      #     summaryFileLocation: "**/CodeCoverage.xml"
+      #     failIfCoverageEmpty: false
+      #   displayName: "Publish Unit Test Code Coverage"
+      #   condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
