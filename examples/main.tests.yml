@@ -24,6 +24,8 @@ jobs:
           scriptArguments:
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
+        env:
+          personalAccessToken: $(personalAccessToken)
 
       - task: PublishTestResults@2
         inputs:
