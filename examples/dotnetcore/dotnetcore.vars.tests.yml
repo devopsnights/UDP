@@ -1,0 +1,5 @@
+variables:
+  # variables will be consumed as environment variables in the powerhell scripts
+  teamProject: 'UDP'
+  yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
+  pipelineId : '99'
