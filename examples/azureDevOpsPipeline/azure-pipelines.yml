@@ -1,0 +1,45 @@
+# If you are using this example in your oun repository, 
+# you need to uncomment the lines below:
+# resources:
+#   repositories:
+#   - repository: UDP
+#     type: github
+#     endpoint: devopsnights
+#     name: devopsnights/UDP
+#     ref: refs/heads/main
+
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - examples/azureDevOpsPipeline
+  
+pool:
+  vmImage: 'windows-latest'
+
+extends:
+  # If you are using this example in your oun repository, 
+  # you need to uncomment the next line and comment the line streight below
+  #template: src\orchestrator.yml@UDP 
+  template: ..\..\src\orchestrator.yml
+  parameters:
+    serviceConnection: 'AzureServiceConnection'
+    environments:
+      - dev
+      - uat
+      - prd
+    configuration:
+      buildOnly: true
+      resources:
+        - type: azureDevOpsPipeline
+          enabled: true
+          personalAccessToken: batata
+          deployment:
+            type: azureWebApp
+            name: wa-udp-dotnetcore-windows
+            infrastructure:
+              enabled: false
+            application:
+              enabled: true
