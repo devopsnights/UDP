@@ -32,6 +32,7 @@ extends:
       - prd
     configuration:
       buildOnly: true
+      customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
       resources:
         - type: azureDevOpsPipeline
           enabled: true

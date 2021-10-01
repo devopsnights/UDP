@@ -1,6 +1,9 @@
 BeforeAll {
+    Write-Host "Importing modules"
     $moduleName = "UDP.AzureDevOps"
     $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
+    Write-Host "Module 'UDP.AzureDevOps' location: $module"
+
 
     Import-Module $module -Force
     Install-Module powershell-yaml -Force
