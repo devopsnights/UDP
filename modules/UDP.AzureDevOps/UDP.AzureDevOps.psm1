@@ -47,12 +47,11 @@ function Get-ProjectUrl {
 
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
 
-    Write-Host "Projects: $projects"
-
-
     $projectId = $(($projects.value | where { $_.name -eq $teamProject }).id)
 
     $url = "{0}{1}/" -f $azdoBaseUrl, $projectId
+
+    Write-Host "Team Project '$teamProject' URL: $projects"
 
     return $url
 }
