@@ -21,7 +21,7 @@ jobs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
           scriptPath: $(Build.SourcesDirectory)\examples\run.tests.ps1
-          scriptArguments:
+          scriptArguments: -TestResultsPath $(Build.ArtifactStagingDirectory)\testResults\
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
         env:
@@ -36,7 +36,7 @@ jobs:
       - task: PublishTestResults@2
         inputs:
           testRunner: "NUnit" 
-          testResultsFiles: "**/TestResults.Pester.xml"
+          testResultsFiles: "$(Build.ArtifactStagingDirectory)/**/TestResults.Pester.xml"
           testRunTitle: "PS_Win2016_Unit"
           failTaskOnFailedTests: true
         displayName: "Publish Unit Test Results"
