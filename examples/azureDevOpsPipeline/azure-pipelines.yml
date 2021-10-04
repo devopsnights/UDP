@@ -36,14 +36,19 @@ extends:
       buildOnly: true
       global:
         customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
+        orgUrl: 'https://dev.azure.com/wesleycamargo'
+        teamProject: 'UDP'
       resources:
-        - type: azureDevOpsPipeline
+        - type: 'azureDevOpsPipeline'
           enabled: true
-          personalAccessToken: batata
-          deployment:
-            type: azureWebApp
-            name: wa-udp-dotnetcore-windows
-            infrastructure:
-              enabled: false
-            application:
-              enabled: true
+          personalAccessToken: '$(personalAccessToken)'
+          yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
+          pipelineId : '99'
+          
+          # deployment:
+          #   type: azureWebApp
+          #   name: wa-udp-dotnetcore-windows
+          #   infrastructure:
+          #     enabled: false
+          #   application:
+          #     enabled: true

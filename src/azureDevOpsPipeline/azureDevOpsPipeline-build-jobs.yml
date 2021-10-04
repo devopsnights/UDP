@@ -28,3 +28,7 @@ jobs:
           # secrets needs to be mapped as env variables
           personalAccessToken: ${{ parameters.resource.personalAccessToken }}
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
+          orgUrl: ${{ parameters.configuration.orgUrl }}
+          teamProject: ${{ parameters.configuration.teamProject }}
+          yamlFilePath: ${{ parameters.configuration.yamlFilePath }}
+          pipelineId: ${{ parameters.configuration.pipelineId }}
