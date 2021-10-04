@@ -30,7 +30,7 @@ jobs:
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
           orgUrl: ${{ parameters.configuration.orgUrl }}
           teamProject: ${{ parameters.configuration.teamProject }}
-          yamlFilePath: ${{ parameters.resourc.tests.yamlFilePath }}
+          yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
       - task: PublishTestResults@2
