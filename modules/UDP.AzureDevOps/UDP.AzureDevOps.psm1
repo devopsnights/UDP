@@ -51,7 +51,7 @@ function Get-ProjectUrl {
 
     $url = "{0}{1}/" -f $azdoBaseUrl, $projectId
 
-    Write-Host "Team Project '$teamProject' URL: $projects"
+    Write-Host "Team Project '$teamProject' URL: $url"
 
     return $url
 }
