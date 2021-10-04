@@ -5,7 +5,7 @@ param(
 Get-ChildItem -Path env:
 
 $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'dotnetcore\dotnetcore.tests.ps1'
-$testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
+# $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
 
 # Create configuration for pester execution
 $container = New-PesterContainer -Path $testScript 
