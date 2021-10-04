@@ -15,6 +15,7 @@ $config.TestResult.OutputFormat = "NUnitXML"
 $config.TestResult.OutputPath = $testResultsFile 
 $config.Run.Container = $container
 
+Write-Host "TestResultsFile: $testResultsFile"
 
 
 Invoke-Pester -Configuration $config 
