@@ -1,5 +1,5 @@
 param(
-    $TestResultsPath = "$PSScriptRoot\testResults"
+    $TestResultsFile = "$PSScriptRoot\testResults"
 )
   
 Get-ChildItem -Path env:
