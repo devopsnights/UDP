@@ -30,5 +30,5 @@ jobs:
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
           orgUrl: ${{ parameters.configuration.orgUrl }}
           teamProject: ${{ parameters.configuration.teamProject }}
-          yamlFilePath: ${{ parameters.configuration.yamlFilePath }}
-          pipelineId: ${{ parameters.configuration.pipelineId }}
+          yamlFilePath: ${{ parameters.resource.yamlFilePath }}
+          pipelineId: ${{ parameters.resource.pipelineId }}
