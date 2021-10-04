@@ -26,12 +26,12 @@ jobs:
           errorActionPreference: "continue"
         env:
           # secrets needs to be mapped as env variables
-          personalAccessToken: ${{ parameters.resource.personalAccessToken }}
+          personalAccessToken: ${{ parameters.configuration.personalAccessToken }}
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
           orgUrl: ${{ parameters.configuration.orgUrl }}
           teamProject: ${{ parameters.configuration.teamProject }}
-          yamlFilePath: ${{ parameters.resource.yamlFilePath }}
-          pipelineId: ${{ parameters.resource.pipelineId }}
+          yamlFilePath: ${{ parameters.resourc.tests.yamlFilePath }}
+          pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
       - task: PublishTestResults@2
         inputs:

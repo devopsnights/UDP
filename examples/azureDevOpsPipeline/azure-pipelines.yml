@@ -38,12 +38,14 @@ extends:
         customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
         orgUrl: 'https://dev.azure.com/wesleycamargo'
         teamProject: 'UDP'
+        personalAccessToken: '$(personalAccessToken)'
       resources:
         - type: 'azureDevOpsPipeline'
           enabled: true
-          personalAccessToken: '$(personalAccessToken)'
-          yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
-          pipelineId : '99'
+          tests:
+            enabled: true
+            yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
+            pipelineId : '99'
           
           # deployment:
           #   type: azureWebApp
