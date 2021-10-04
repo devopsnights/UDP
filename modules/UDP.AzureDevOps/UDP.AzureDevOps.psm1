@@ -71,6 +71,8 @@ function Test-YamlPipeline {
 
     $projectsUrl = "{0}_apis/pipelines/{1}/preview?api-version=6.1-preview.1" -f $projectBaseUrl, $pipelineId
 
+    Write-Host "Preview API URL: $projectsUrl"
+
     $body = @{
         PreviewRun = $true
     }
