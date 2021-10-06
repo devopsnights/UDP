@@ -2,10 +2,10 @@ param(
     $TestResultsFile
 )
   
-Get-ChildItem $Build.SourcesDirectory -Recurse
+Get-ChildItem "$(Pipeline.Workspace)/s" -Recurse
 
 # $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'pipeline-tests.ps1'
-$testScript = Join-Path -Path $Build.SourcesDirectory -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
+$testScript = Join-Path -Path "$(Pipeline.Workspace)/s" -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
 
 Write-Host $testScript
 
