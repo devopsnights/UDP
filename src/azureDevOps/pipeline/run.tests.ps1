@@ -2,14 +2,13 @@ param(
     $TestResultsFile
 )
   
-Get-ChildItem $PSScriptRoot -Recurse
+Get-ChildItem $Build.SourcesDirectory -Recurse
 
 # $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'pipeline-tests.ps1'
-$testScript = Join-Path -Path "$($Build.SourcesDirectory)" -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
+$testScript = Join-Path -Path $Build.SourcesDirectory -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
 
+Write-Host $testScript
 
-
-src
 # $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
 
 # Create configuration for pester execution
