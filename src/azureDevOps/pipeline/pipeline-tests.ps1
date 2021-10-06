@@ -22,7 +22,8 @@ Describe "dotnetCore" -Tag dotnetCore {
             #     -pipelineId $env:pipelineId
             
             $finalYaml = New-AzureDevOpsPipeline `
-                -personalAccessToken $env:personalAccessToken 
+                -personalAccessToken $env:personalAccessToken
+                -orgUrl $env:orgUrl
 
             $valid = $true
             try {
