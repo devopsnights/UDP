@@ -5,7 +5,9 @@ param(
 Get-ChildItem $PSScriptRoot -Recurse
 
 # $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'pipeline-tests.ps1'
-$testScript = Join-Path -Path $PSScriptRoot -ChildPath '../../dotnetcore/dotnetcore-tests.ps1'
+$testScript = Join-Path -Path "$($Build.SourcesDirectory)" -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
+
+
 
 src
 # $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
