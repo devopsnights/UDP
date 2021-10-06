@@ -23,7 +23,7 @@ stages:
                 parameters:
                   resource: ${{ resource }}
             - ${{ if eq(resource.type, 'azureDevOpsPipeline') }}:
-              - template: ./azureDevOpsPipeline/azureDevOpsPipeline-build-jobs.yml
+              - template: ./azureDevOps/pipeline/pipeline-tests-jobs.yml
                 parameters:
                   resource: ${{ resource }}
                   configuration: ${{ parameters.configuration.global }}
