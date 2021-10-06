@@ -7,7 +7,7 @@ Get-ChildItem "$($Pipeline.Workspace)/s" -Recurse
 # $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'pipeline-tests.ps1'
 $testScript = Join-Path -Path "$($Pipeline.Workspace)/s" -ChildPath 'src/dotnetcore/dotnetcore-tests.ps1'
 
-Write-Host $testScript
+Write-Host "Script path: $testScript"
 
 # $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
 
