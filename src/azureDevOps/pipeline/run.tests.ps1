@@ -2,7 +2,7 @@ param(
     $TestResultsFile
 )
   
-Get-ChildItem -Path env:
+Get-ChildItem -Recurse
 
 $testScript = Join-Path -Path $PSScriptRoot -ChildPath 'dotnetcore\dotnetcore.tests.ps1'
 # $testResultsFile = Join-Path -Path $TestResultsPath -ChildPath 'TestResults.Pester.xml'
