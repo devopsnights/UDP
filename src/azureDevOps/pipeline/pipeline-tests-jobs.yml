@@ -14,6 +14,8 @@ jobs:
       - checkout: self
         persistCredentials: true
 
+      - powerhell: Get-ChildItem $(Build.SourcesDirectory) -Recurse
+
       - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
         env:
           AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
