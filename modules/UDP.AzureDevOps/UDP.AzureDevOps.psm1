@@ -1,5 +1,5 @@
 
-function Get-Header(){
+function Get-Header() {
     param (
         [string]$personalAccessToken
     )
@@ -88,4 +88,24 @@ function Test-YamlPipeline {
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Post -ContentType "application/json" -Headers $header -Body ($body | ConvertTo-Json -Compress -Depth 100)
 
     return $projects.finalYaml
+}
+
+function New-AzureDevOpsPipeline {
+    param (
+        $personalAccessToken
+    )
+    Write-Output $personalAccessToken | az devops login
+
+   
+    # Set-Item -Path Env:AZURE_DEVOPS_EXT_GITHUB_PAT -value "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"
+
+    # (admin:repo_hook, repo, user)
+
+    az pipelines create `
+        --name dotnetCore-tests `
+        --org https://dev.azure.com/wesleycamargo -p UDP-Tests `
+        --repository https://github.com/wesleycamargo/UDP `
+        --branch feature/tests `
+        --yaml-path examples/dotnetcore/azure-pipelines.yml `
+        --service-connection ceb2bb80-16b4-4450-b4a9-4cfaf1b73234
 }
