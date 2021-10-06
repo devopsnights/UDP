@@ -2,8 +2,6 @@ BeforeAll {
     Write-Host "Importing modules"
     $moduleName = "UDP.AzureDevOps"
 
-    Get-ChildItem -Path env:
-
     $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
     Write-Host "Module 'UDP.AzureDevOps' location: $module"
 
@@ -22,7 +20,7 @@ Describe "dotnetCore" -Tag dotnetCore {
             #     -pipelineId $env:pipelineId
             
             New-AzureDevOpsPipeline `
-                -personalAccessToken $env:personalAccessToken
+                -personalAccessToken $env:personalAccessToken `
                 -orgUrl $env:orgUrl `
                 -teamProject $env:teamProject `
                 -yamlFilePath $env:yamlFilePath `
