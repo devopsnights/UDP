@@ -150,7 +150,7 @@ function Remove-AzureDevOpsPipelines {
     Write-Host $pipeline
 }
 
-function Get-AzureDevOpsPipelineRuns {
+function Wait-AzureDevOpsPipelineRuns {
     param (
         [string]$personalAccessToken,
         [string]$teamProject,
