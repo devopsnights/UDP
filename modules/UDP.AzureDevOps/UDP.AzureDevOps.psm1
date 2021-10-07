@@ -62,7 +62,7 @@ function Test-YamlPipeline {
         [string]$teamProject,
         [string]$personalAccessToken,
         [string]$yamlFilePath,
-        [string]$pipelineId 
+        [string]$pipelineId
     )
     
     $header = Get-Header -personalAccessToken $personalAccessToken
@@ -92,20 +92,95 @@ function Test-YamlPipeline {
 
 function New-AzureDevOpsPipeline {
     param (
-        $personalAccessToken
+        [string]$personalAccessToken,
+        [string]$pipelineName,
+        [string]$orgUrl = "https://dev.azure.com/wesleycamargo",
+        [string]$teamProject = "UDP-Tests",
+        [string]$repository = "https://github.com/wesleycamargo/UDP",
+        [string]$branch = "feature/tests",
+        [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",
+        [string]$serviceConnection = "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
     )
     Write-Output $personalAccessToken | az devops login
 
-   
-    # Set-Item -Path Env:AZURE_DEVOPS_EXT_GITHUB_PAT -value "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"
-
     # (admin:repo_hook, repo, user)
 
-    az pipelines create `
-        --name dotnetCore-tests `
-        --org https://dev.azure.com/wesleycamargo -p UDP-Tests `
-        --repository https://github.com/wesleycamargo/UDP `
-        --branch feature/tests `
-        --yaml-path examples/dotnetcore/azure-pipelines.yml `
-        --service-connection ceb2bb80-16b4-4450-b4a9-4cfaf1b73234
+    $pipeline = az pipelines create `
+        --name $pipelineName `
+        --org $orgUrl `
+        -p $teamProject `
+        --repository $repository `
+        --branch $branch `
+        --yaml-path $yamlPath `
+        --service-connection $serviceConnection -o json | ConvertFrom-Json
+
+    return $pipeline
+}
+
+
+function Get-AzureDevOpsPipelines {
+    param (
+        [string]$personalAccessToken,
+        [string]$pipelineName,
+        [string]$orgUrl = "https://dev.azure.com/wesleycamargo",
+        [string]$teamProject = "UDP-Tests"
+    )
+    Write-Output $personalAccessToken | az devops login
+
+    $pipelines = az pipelines list `
+        --org $orgUrl `
+        -p $teamProject | ConvertFrom-Json
+
+    return $pipelines
+}
+
+function Remove-AzureDevOpsPipelines {
+    param (
+        [string]$personalAccessToken,
+        [string]$pipelineId,
+        [string]$orgUrl = "https://dev.azure.com/wesleycamargo",
+        [string]$teamProject = "UDP-Tests"
+    )
+    Write-Output $personalAccessToken | az devops login
+
+    $pipeline = az pipelines delete --org $orgUrl -p $teamProject --id $pipelineId -y
+    
+    Write-Host $pipeline
+}
+
+function Get-AzureDevOpsPipelineRuns {
+    param (
+        [string]$personalAccessToken,
+        [string]$teamProject,
+        [string]$orgUrl,
+        [string]$pipelineId
+    )
+
+    Write-Host "Getting build runs..." -ForegroundColor Blue
+
+    $header = Get-Header -personalAccessToken $personalAccessToken
+    $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
+    $buildUrl = "{0}_apis/build/builds?api-version=6.0" -f $projectBaseUrl, $pipelineId
+
+    do {
+        $buildsResult = Invoke-RestMethod -Uri $buildUrl -Method Get -Headers $header -ContentType "application/json"
+    
+        $pipelineBuilds = $buildsResult.value | where { $_.definition.id -eq $pipelineId }
+    
+        if ($pipelineBuilds) {
+            foreach ($build in $pipelineBuilds) {
+
+                if ($build.status -eq "completed") {
+                    Write-Host "Pipeline status: $($build.status)" -ForegroundColor Green
+                }
+                else {
+                    Write-Host "Pipeline status: $($build.status)" -ForegroundColor Blue
+
+                }
+                Start-Sleep -Seconds 5
+            }
+        }
+    } until ($build.status -eq "completed")
+
+    return $build
 }

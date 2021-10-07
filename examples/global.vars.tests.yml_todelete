@@ -1,7 +1,0 @@
-variables:
-  # variables will be consumed as environment variables in the powerhell scripts
-  customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
-  orgUrl: 'https://dev.azure.com/wesleycamargo'
-  # teamProject: 'UDP'
-  # yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
-  # pipelineId : '99'

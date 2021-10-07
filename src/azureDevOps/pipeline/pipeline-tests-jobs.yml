@@ -14,8 +14,6 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - powershell: Get-ChildItem $(Build.SourcesDirectory) -Recurse
-
       - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
         env:
           AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
@@ -26,8 +24,8 @@ jobs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
           # scriptPath: $(Build.SourcesDirectory)/examples/run.tests.ps1
-          scriptPath: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.tests.ps1
-          scriptArguments: -TestResultsFile "$(Build.ArtifactStagingDirectory)/testResults/TestResults.Pester.xml"
+          scriptPath: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.pipeline.tests.ps1
+          scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
         env:
