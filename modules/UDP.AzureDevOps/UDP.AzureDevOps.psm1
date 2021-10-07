@@ -103,6 +103,8 @@ function New-AzureDevOpsPipeline {
     )
     Write-Output $personalAccessToken | az devops login
 
+    Get-ChildItem -Path env:
+
     # (admin:repo_hook, repo, user)
 
     $pipeline = az pipelines create `

@@ -14,11 +14,6 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - script: echo ${AZURE_DEVOPS_CLI_PAT} | az devops login
-        env:
-          AZURE_DEVOPS_CLI_PAT: $(System.AccessToken)
-        displayName: 'Login Azure DevOps Extension'
-
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
         inputs:
