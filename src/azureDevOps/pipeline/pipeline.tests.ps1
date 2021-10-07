@@ -25,9 +25,9 @@ Describe "YAML Pipelines" -Tag dotnetCore {
                 -teamProject $env:testsTeamProject `
                 -yamlFilePath $env:yamlFilePath `
                 -pipelineId $env:pipelineId `
-                -pipelineName "dotnetCore-tests"
-                -repository $env:repository
-                -branch $env:branch
+                -pipelineName "dotnetCore-tests" `
+                -repository $env:repository `
+                -branch $env:branch `
                 -serviceConnection "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
             
             if ($pipeline) {
