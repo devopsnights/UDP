@@ -94,8 +94,8 @@ function New-AzureDevOpsPipeline {
     param (
         [string]$personalAccessToken,
         [string]$pipelineName,
-        [string]$orgUrl = "https://dev.azure.com/wesleycamargo",
-        [string]$teamProject = "UDP-Tests",
+        [string]$orgUrl,
+        [string]$teamProject,
         [string]$repository = "https://github.com/wesleycamargo/UDP",
         [string]$branch = "feature/tests",
         [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",

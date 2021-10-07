@@ -20,6 +20,7 @@ jobs:
         displayName: 'Login Azure DevOps Extension'
 
       - task: AzurePowerShell@4
+        displayName: Running Unit Tests
         inputs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
@@ -33,7 +34,7 @@ jobs:
           personalAccessToken: ${{ parameters.configuration.personalAccessToken }}
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
           orgUrl: ${{ parameters.configuration.orgUrl }}
-          teamProject: ${{ parameters.configuration.teamProject }}
+          testsTeamProject: ${{ parameters.configuration.teamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
@@ -52,3 +53,4 @@ jobs:
           failIfCoverageEmpty: false
         displayName: "Publish Unit Test Code Coverage"
         condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
+        enabled: false

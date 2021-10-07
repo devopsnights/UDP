@@ -39,6 +39,7 @@ extends:
         orgUrl: 'https://dev.azure.com/wesleycamargo'
         teamProject: 'UDP'
         personalAccessToken: '$(personalAccessToken)'
+        testsTeamProject: UDP-Tests
       resources:
         - type: 'azureDevOpsPipeline'
           enabled: true
