@@ -25,7 +25,7 @@ extends:
   # If you are using this example in your oun repository, 
   # you need to uncomment the next line and comment the line streight below
   #template: src\orchestrator.yml@UDP 
-  template: ..\..\..\src\orchestrator.yml
+  template: \..\src\orchestrator.yml
   parameters:
     serviceConnection: 'AzureServiceConnection'
     environments:
