@@ -40,6 +40,8 @@ extends:
         teamProject: 'UDP'
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
+        repository: https://github.com/wesleycamargo/UDP
+        branch: feature/tests
       resources:
         - type: 'azureDevOpsPipeline'
           enabled: true

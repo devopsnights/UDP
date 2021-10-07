@@ -96,10 +96,14 @@ function New-AzureDevOpsPipeline {
         [string]$pipelineName,
         [string]$orgUrl,
         [string]$teamProject,
-        [string]$repository = "https://github.com/wesleycamargo/UDP",
-        [string]$branch = "feature/tests",
-        [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",
-        [string]$serviceConnection = "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
+        # [string]$repository = "https://github.com/wesleycamargo/UDP",
+        # [string]$branch = "feature/tests",
+        # [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",
+        # [string]$serviceConnection = "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
+        [string]$repository,
+        [string]$branch,
+        [string]$yamlFilePath,
+        [string]$serviceConnection
     )
     Write-Output $personalAccessToken | az devops login
 

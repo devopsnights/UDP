@@ -32,6 +32,9 @@ jobs:
           testsTeamProject: ${{ parameters.configuration.testsTeamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
+          repository: ${{ parameters.configuration.repository }}
+          branch: ${{ parameters.configuration.branch }}
+          
 
       - task: PublishTestResults@2
         inputs:
