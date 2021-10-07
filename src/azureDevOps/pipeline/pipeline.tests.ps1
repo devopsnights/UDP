@@ -11,18 +11,6 @@ BeforeAll {
         Write-Host "Module 'UDP.AzureDevOps' location: $module"
         Import-Module $module -Force
     }
-   
-    # $moduleName = "powershell-yaml"
-
-    # if (Get-Module -ListAvailable -Name $moduleName) {
-    #     Write-Host "Module $moduleName already loaded"
-    # } 
-    # else {
-    #     Write-Host "Importing modules $moduleName "
-    #     $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
-    #     Write-Host "Module 'UDP.AzureDevOps' location: $module"
-    #     Import-Module $moduleName -Force
-    # }
 }
 
 Describe "YAML Pipelines" -Tag dotnetCore {
@@ -46,7 +34,6 @@ Describe "YAML Pipelines" -Tag dotnetCore {
             }
 
             $build.result | Should -Be "succeeded"
-            # "succeeded" | Should -Be "succeeded"
         }
     }
 }

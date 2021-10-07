@@ -167,6 +167,9 @@ function Wait-AzureDevOpsPipelineRuns {
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
     $buildUrl = "{0}_apis/build/builds?api-version=6.0" -f $projectBaseUrl, $pipelineId
 
+    $timeout = New-TimeSpan -Minutes 5
+    $endTime = (Get-Date).Add($timeout)
+    
     do {
         $buildsResult = Invoke-RestMethod -Uri $buildUrl -Method Get -Headers $header -ContentType "application/json"
     
@@ -185,7 +188,7 @@ function Wait-AzureDevOpsPipelineRuns {
                 Start-Sleep -Seconds 5
             }
         }
-    } until ($build.status -eq "completed")
+    } until ($build.status -eq "completed" -or ((Get-Date) -gt $endTime))
 
     return $build
 }

@@ -1,5 +1,6 @@
 param(
-    [string]$TestResultsDirectory = "$env:Build_SourcesDirectory\tests\results\"
+    [string]$TestResultsDirectory = "$env:Build_SourcesDirectory\tests\results\",
+    [string[]]$TestScripts
 )
 
 $testScript = Join-Path -Path $env:Build_SourcesDirectory -ChildPath 'src/azureDevOps/pipeline/pipeline.tests.ps1'
@@ -7,7 +8,7 @@ $testScript = Join-Path -Path $env:Build_SourcesDirectory -ChildPath 'src/azureD
 Write-Host "Script path: $testScript"
 
 # Create configuration for pester execution
-$container = New-PesterContainer -Path $testScript 
+$container = New-PesterContainer -Path $testScripts 
 
 $config = New-PesterConfiguration
 $config.TestResult.Enabled = $true
