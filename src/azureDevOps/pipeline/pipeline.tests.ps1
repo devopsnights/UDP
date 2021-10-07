@@ -17,7 +17,7 @@ Describe "YAML Pipelines" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Should create an YAML pipeline' {
 
-            Write-Host "repo: $env:repository"
+            
 
             $pipeline = New-AzureDevOpsPipeline `
                 -personalAccessToken $env:personalAccessToken `

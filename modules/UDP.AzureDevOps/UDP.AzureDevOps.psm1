@@ -107,7 +107,7 @@ function New-AzureDevOpsPipeline {
     )
     Write-Output $personalAccessToken | az devops login
 
-    Get-ChildItem -Path env:
+    Write-Host "repo: $repository"
 
     # (admin:repo_hook, repo, user)
 
