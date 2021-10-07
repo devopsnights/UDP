@@ -19,9 +19,8 @@ trigger:
   #   - src/azureDevOpsPipeline
   
 pool:
-  # vmImage: 'windows-latest'
-  name: TestsPool
-
+  vmImage: 'windows-latest'
+  
 extends:
   # If you are using this example in your oun repository, 
   # you need to uncomment the next line and comment the line streight below

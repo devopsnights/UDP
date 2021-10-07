@@ -17,7 +17,8 @@ trigger:
     - examples/dotnetcore
   
 pool:
-  vmImage: 'windows-latest'
+  # vmImage: 'windows-latest'
+  name: TestsPool
 
 extends:
   # If you are using this example in your oun repository, 
