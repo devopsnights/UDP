@@ -107,6 +107,9 @@ function New-AzureDevOpsPipeline {
 
     # (admin:repo_hook, repo, user)
 
+    Write-Host "Creating pipeline '$pipelineName'"
+    Write-Host "PAT $personalAccessToken"
+
     $pipeline = az pipelines create `
         --name $pipelineName `
         --org $orgUrl `
