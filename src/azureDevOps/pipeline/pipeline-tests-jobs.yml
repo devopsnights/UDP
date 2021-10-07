@@ -29,7 +29,7 @@ jobs:
           personalAccessToken: ${{ parameters.configuration.personalAccessToken }}
           customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
           orgUrl: ${{ parameters.configuration.orgUrl }}
-          testsTeamProject: ${{ parameters.configuration.teamProject }}
+          testsTeamProject: ${{ parameters.configuration.testsTeamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
