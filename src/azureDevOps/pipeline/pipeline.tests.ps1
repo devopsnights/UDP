@@ -60,7 +60,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 
 AfterAll {
 
-    # Write-Host "##[warning]TearDown var:  $env:skipTearDown"
+    Write-Host "TearDown var:  $env:skipTearDown"
     if ($env:skipTearDown -ne "true") {
         Write-Host "##[warning]Test execution finished. Tearing down pipelines on Team Project $env:testsTeamProject." -ForegroundColor Yellow
         $pipelines = Get-AzureDevOpsPipelines `

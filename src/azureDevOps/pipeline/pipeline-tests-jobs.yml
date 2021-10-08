@@ -39,7 +39,7 @@ jobs:
           pipelineName: ${{ parameters.resource.tests.pipelineName }}
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
-          skipTearDown: false
+          skipTearDown: true
 
       - task: PublishTestResults@2
         inputs:
