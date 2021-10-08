@@ -1,20 +1,20 @@
 BeforeAll {
    
-    Write-Host "##[section]==============================================="
+    Write-Host "##[section]===============================================" -ForegroundColor Green
     Write-Host "##[section]Environment variables:"
-    Write-Host "##[section]==============================================="
-    Write-Host "##[section]personalAccessToken: " $env:personalAccessToken
-    Write-Host "##[section]customModulesDirectory: " $env:customModulesDirectory
-    Write-Host "##[section]orgUrl: " $env:orgUrl
-    Write-Host "##[section]testsTeamProject: " $env:testsTeamProject
-    Write-Host "##[section]yamlFilePath: " $env:yamlFilePath
-    Write-Host "##[section]pipelineName: " $env:pipelineName
-    Write-Host "##[section]repository: " $env:repository
-    Write-Host "##[section]branch: " $env:branch
-    Write-Host "##[section]skipTeardown: " $env:skipTeardown
-    Write-Host "##[section]serviceConnectionId: " $env:serviceConnectionId
-    Write-Host "##[section]pipelineId: " $env:pipelineId
-    Write-Host "##[section]==============================================="
+    Write-Host "##[section]===============================================" -ForegroundColor Green
+    Write-Host "##[section]personalAccessToken: " $env:personalAccessToken -ForegroundColor Green
+    Write-Host "##[section]customModulesDirectory: " $env:customModulesDirectory -ForegroundColor Green
+    Write-Host "##[section]orgUrl: " $env:orgUrl -ForegroundColor Green
+    Write-Host "##[section]testsTeamProject: " $env:testsTeamProject -ForegroundColor Green
+    Write-Host "##[section]yamlFilePath: " $env:yamlFilePath -ForegroundColor Green
+    Write-Host "##[section]pipelineName: " $env:pipelineName -ForegroundColor Green
+    Write-Host "##[section]repository: " $env:repository -ForegroundColor Green
+    Write-Host "##[section]branch: " $env:branch -ForegroundColor Green
+    Write-Host "##[section]skipTeardown: " $env:skipTeardown -ForegroundColor Green
+    Write-Host "##[section]serviceConnectionId: " $env:serviceConnectionId -ForegroundColor Green
+    Write-Host "##[section]pipelineId: " $env:pipelineId -ForegroundColor Green
+    Write-Host "##[section]===============================================" -ForegroundColor Green
     
     $moduleName = "UDP.AzureDevOps"
 
@@ -66,7 +66,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 
             Write-Host $pipeline
 
-            $pipeline.name | Should -Be $env:pipelineName
+            $build.result | Should -Be "succeeded"
         }
     }
 }
