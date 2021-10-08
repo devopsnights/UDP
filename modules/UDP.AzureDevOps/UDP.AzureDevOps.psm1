@@ -105,9 +105,8 @@ function New-AzureDevOpsPipeline {
         # [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",
         # [string]$serviceConnection = "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
     )
-    Write-Output $personalAccessToken | az devops login
 
-    Write-Host "branch: $branch"
+    Write-Output $personalAccessToken | az devops login
 
     # (admin:repo_hook, repo, user)
 

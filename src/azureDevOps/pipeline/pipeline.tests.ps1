@@ -11,6 +11,23 @@ BeforeAll {
         Write-Host "Module 'UDP.AzureDevOps' location: $module"
         Import-Module $module -Force
     }
+
+    Write-Verbose "==============================================="
+    Write-Verbose "Environment variables:"
+    Write-Verbose "==============================================="
+    Write-Verbose "personalAccessToken: " $env:personalAccessToken
+    Write-Verbose "customModulesDirectory: " $env:customModulesDirectory
+    Write-Verbose "orgUrl: " $env:orgUrl
+    Write-Verbose "testsTeamProject: " $env:testsTeamProject
+    Write-Verbose "yamlFilePath: " $env:yamlFilePath
+    Write-Verbose "pipelineName: " $env:pipelineName
+    Write-Verbose "repository: " $env:repository
+    Write-Verbose "branch: " $env:branch
+    Write-Verbose "skipTearDown: " $env:skipTearDown
+    Write-Verbose "serviceConnectionId: " $env:serviceConnectionId
+    Write-Verbose "pipelineId: " $env:pipelineId
+    Write-Verbose "==============================================="
+
 }
 
 Describe "YAML Pipelines" -Tag dotnetCore {

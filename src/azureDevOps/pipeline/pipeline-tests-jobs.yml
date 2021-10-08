@@ -14,8 +14,6 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - powershell: Write-Host "Repo= ${{ parameters.globalConfiguration.repository }}"
-
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
         inputs:
