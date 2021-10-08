@@ -92,7 +92,7 @@ function Test-YamlPipeline {
 
 function New-AzureDevOpsPipeline {
     param (
-        [string]$personalAccessToken,
+        [string]$personalAccessToken, 
         [string]$pipelineName,
         [string]$orgUrl,
         [string]$teamProject,
@@ -104,11 +104,7 @@ function New-AzureDevOpsPipeline {
 
     Write-Output $personalAccessToken | az devops login
 
-    # (admin:repo_hook, repo, user)
-
     Write-Host "##[command]Creating pipeline '$pipelineName'"
-
-    Write-Host "Branch name: $branch"
 
     $pipeline = az pipelines create `
         --name $pipelineName `
@@ -117,11 +113,44 @@ function New-AzureDevOpsPipeline {
         --repository $repository `
         --branch $branch `
         --yaml-path $yamlFilePath `
+        --skip-first-run `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
 
     return $pipeline
 }
 
+
+function New-AzureDevOpsPipelineRun {
+    param (
+        [string]$personalAccessToken,
+        [string]$pipelineName,
+        [string]$orgUrl,
+        [string]$teamProject,
+        [string]$branch
+    )
+
+    Write-Output $personalAccessToken | az devops login
+
+    Write-Host "##[command]Executing pipeline '$pipelineName'"
+
+    if ($env:SYSTEM_DEBUG -eq "true") {
+        $pipeline = az pipelines run --name $pipelineName `
+            --org $orgUrl `
+            -p $teamProject `
+            --branch $branch `
+            -o json `
+            --debug | ConvertFrom-Json
+    }
+    else {
+        $pipeline = az pipelines run --name $pipelineName `
+            --org $orgUrl `
+            -p $teamProject `
+            --branch $branch `
+            -o json | ConvertFrom-Json
+    }
+
+    return $pipeline
+}
 
 function Get-AzureDevOpsPipelines {
     param (

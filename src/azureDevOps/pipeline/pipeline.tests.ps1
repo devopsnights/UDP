@@ -31,7 +31,7 @@ BeforeAll {
 
 Describe "YAML Pipelines" -Tag YAMLPipelines {
     Context "Validate YAML" {
-        It 'Should create a YAML pipeline definition and execute successfuly' {
+        It 'Should create a YAML pipeline definition' {
 
             $pipeline = New-AzureDevOpsPipeline `
                 -personalAccessToken $env:personalAccessToken `
@@ -43,6 +43,18 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -branch $env:branch `
                 -serviceConnection $env:serviceConnectionId
 
+            $pipeline.name | Should -Be $env:pipelineName
+        }
+
+        It 'Should execute successfuly a pipeline definition' {
+
+            $pipeline = New-AzureDevOpsPipelineRun `
+                -personalAccessToken $env:personalAccessToken `
+                -orgUrl $env:orgUrl `
+                -teamProject $env:testsTeamProject `
+                -pipelineName $env:pipelineName `
+                -branch $env:branch
+
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `
                     -personalAccessToken $env:personalAccessToken `
@@ -52,7 +64,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                     -timeoutMinutes $env:timeoutMinutes
             }
 
-            $build.result | Should -Be "succeeded"
+            $pipeline.name | Should -Be $env:pipelineName
         }
     }
 }
