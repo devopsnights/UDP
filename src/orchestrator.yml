@@ -22,6 +22,11 @@ stages:
               - template: ./sqlserver/sqlserver-build-jobs.yml
                 parameters:
                   resource: ${{ resource }}
+            - ${{ if eq(resource.type, 'azureDevOpsPipeline') }}:
+              - template: ./azureDevOps/pipeline/pipeline-tests-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
+                  globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
 
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
