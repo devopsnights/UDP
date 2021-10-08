@@ -47,7 +47,7 @@ extends:
           enabled: true
           tests:
             enabled: true
-            yamlFilePath: '$(Build.SourcesDirectory)\examples\dotnetcore\azure-pipelines.yml'
+            yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
             pipelineId : '99'
           
           # deployment:
