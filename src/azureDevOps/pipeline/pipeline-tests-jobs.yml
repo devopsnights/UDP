@@ -18,7 +18,6 @@ jobs:
 
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
-        failOnStandardError: false
         inputs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
@@ -26,6 +25,7 @@ jobs:
           scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
+          failOnStandardError: false
         env:
           # mapping global variables
           personalAccessToken: ${{ parameters.globalConfiguration.personalAccessToken }}
