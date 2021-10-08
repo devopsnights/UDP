@@ -23,7 +23,7 @@ jobs:
           scriptType: "FilePath"
           scriptPath: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.pipeline.tests.ps1
           # scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/" -TestScripts "$(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1"
-          scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/" -TestScripts "${{ parameters.resource.tests.testFilesToRun }}"
+          scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
         env:
