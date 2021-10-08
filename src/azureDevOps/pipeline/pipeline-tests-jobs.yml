@@ -18,6 +18,7 @@ jobs:
 
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
+        failOnStderr: false
         inputs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
