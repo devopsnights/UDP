@@ -1,3 +1,8 @@
+- name: skipTeardown
+  displayName: Skip Teardown after tests?
+  type: boolean
+  default: false
+
 # If you are using this example in your oun repository, 
 # you need to uncomment the lines below:
 # resources:
@@ -41,7 +46,7 @@ extends:
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
         repository: https://github.com/wesleycamargo/UDP
-        branch: $(Build.SourceBranch) #feature/tests #environment var?
+        branch: $(Build.SourceBranch) 
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
       resources:
         - type: 'azureDevOpsPipeline'

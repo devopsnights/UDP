@@ -11,7 +11,7 @@ BeforeAll {
     Write-Host "##[section]pipelineName: " $env:pipelineName
     Write-Host "##[section]repository: " $env:repository
     Write-Host "##[section]branch: " $env:branch
-    Write-Host "##[section]skipTearDown: " $env:skipTearDown
+    Write-Host "##[section]skipTeardown: " $env:skipTeardown
     Write-Host "##[section]serviceConnectionId: " $env:serviceConnectionId
     Write-Host "##[section]pipelineId: " $env:pipelineId
     Write-Host "##[section]==============================================="
@@ -60,8 +60,9 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 
 AfterAll {
 
-    Write-Host "TearDown var:  $env:skipTearDown"
-    if ($env:skipTearDown -ne "true") {
+    Write-Host "TearDown var:  $env:skipTeardown"
+    
+    if ($env:skipTeardown -ne "true") {
         Write-Host "##[warning]Test execution finished. Tearing down pipelines on Team Project $env:testsTeamProject." -ForegroundColor Yellow
         $pipelines = Get-AzureDevOpsPipelines `
             -personalAccessToken $env:personalAccessToken `
