@@ -1,4 +1,3 @@
-
 function Get-Header() {
     param (
         [string]$personalAccessToken
@@ -39,16 +38,13 @@ function Get-ProjectUrl {
         [object]$header
     )
 
-    $azdoBaseUrl = Get-Url -orgUrl $orgUrl -header $header
-    
+    $azdoBaseUrl = Get-Url -orgUrl $orgUrl -header $header    
     $projectsUrl = "{0}_apis/projects?api-version=5.0" -f $azdoBaseUrl
 
     Write-Verbose "Projects API URL: $projectsUrl"
 
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
-
     $projectId = $(($projects.value | where { $_.name -eq $teamProject }).id)
-
     $url = "{0}{1}/" -f $azdoBaseUrl, $projectId
 
     Write-Verbose "Team Project '$teamProject' URL: $url"
@@ -213,7 +209,6 @@ function Wait-AzureDevOpsPipelineRuns {
                 }
                 else {
                     Write-Host "##[command]Pipeline status: $($build.status)" -ForegroundColor Blue
-
                 }
                 Start-Sleep -Seconds 5
             }
