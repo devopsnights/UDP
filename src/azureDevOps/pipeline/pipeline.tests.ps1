@@ -15,8 +15,8 @@ BeforeAll {
     Write-Verbose "==============================================="
     Write-Verbose "Environment variables:"
     Write-Verbose "==============================================="
-    Write-Verbose "customModulesDirectory: " $env:customModulesDirectory
-    Write-Verbose "personalAccessToken: " $env:personalAccessToken
+    Write-Host "customModulesDirectory: " $env:customModulesDirectory
+    # Write-Verbose "personalAccessToken: " $env:personalAccessToken
 
 
 }
