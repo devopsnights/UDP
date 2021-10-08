@@ -37,6 +37,7 @@ jobs:
           skipTearDown: false
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
+          timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
 
       - task: PublishTestResults@2
         inputs:

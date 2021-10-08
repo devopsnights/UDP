@@ -156,7 +156,8 @@ function Wait-AzureDevOpsPipelineRuns {
         [string]$personalAccessToken,
         [string]$teamProject,
         [string]$orgUrl,
-        [string]$pipelineId
+        [string]$pipelineId,
+        [string]$timeoutMinutes = 5
     )
 
     Write-Host "##[command]Getting build runs..." -ForegroundColor Blue
@@ -165,7 +166,7 @@ function Wait-AzureDevOpsPipelineRuns {
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
     $buildUrl = "{0}_apis/build/builds?api-version=6.0" -f $projectBaseUrl, $pipelineId
 
-    $timeout = New-TimeSpan -Minutes 5
+    $timeout = New-TimeSpan -Minutes $timeoutMinutes
     $endTime = (Get-Date).Add($timeout)
     
     do {
@@ -186,7 +187,11 @@ function Wait-AzureDevOpsPipelineRuns {
                 Start-Sleep -Seconds 5
             }
         }
-    } until ($build.status -eq "completed" -or ((Get-Date) -gt $endTime))
+        $timeoutReached = ((Get-Date) -gt $endTime)
+        if ($timeoutReached) {
+            Write-Warning "Timeout reached"
+        }
+    } until ($build.status -eq "completed" -or $timeoutReached)
 
     return $build
 }

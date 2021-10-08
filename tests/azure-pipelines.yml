@@ -51,6 +51,7 @@ extends:
             yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
             pipelineId : '99'
             pipelineName: dotnetCore-tests
+            timeoutMinutes: 5
           
           # deployment:
           #   type: azureWebApp

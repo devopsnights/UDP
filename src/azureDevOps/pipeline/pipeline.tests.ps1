@@ -48,7 +48,8 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                     -personalAccessToken $env:personalAccessToken `
                     -orgUrl $env:orgUrl `
                     -teamProject $env:testsTeamProject `
-                    -pipelineId $pipeline.definition.id
+                    -pipelineId $pipeline.definition.id `
+                    -timeoutMinutes $env:timeoutMinutes
             }
 
             $build.result | Should -Be "succeeded"
