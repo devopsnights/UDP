@@ -115,7 +115,7 @@ function New-AzureDevOpsPipeline {
         --org $orgUrl `
         -p $teamProject `
         --repository $repository `
-        --branch $branch ` #.Replace("refs/heads/","") `
+        --branch $branch `
         --yaml-path $yamlFilePath `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
 
