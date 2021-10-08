@@ -15,13 +15,13 @@ BeforeAll {
     Write-Verbose "==============================================="
     Write-Verbose "Environment variables:"
     Write-Verbose "==============================================="
-    Write-Host "customModulesDirectory: " $env:customModulesDirectory
+    Write-Verbose "customModulesDirectory: " $env:customModulesDirectory
     # Write-Verbose "personalAccessToken: " $env:personalAccessToken
 
 
 }
 
-Describe "YAML Pipelines" -Tag YAMlPipelines {
+Describe "YAML Pipelines" -Tag YAMLPipelines {
     Context "Validate YAML" {
         It 'Should create a YAML pipeline definition and execute successfuly' {
 
