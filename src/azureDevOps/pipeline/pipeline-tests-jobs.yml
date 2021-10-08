@@ -1,0 +1,56 @@
+parameters:
+- name: resource
+  type: object
+- name: globalConfiguration
+  type: object
+
+jobs:
+  - job: BuildJob
+    displayName: Build Job
+    steps:
+      - checkout: self
+        persistCredentials: true
+
+      - powershell: Write-Host ${{ parameters.resource.tests.testFilesToRun }}
+
+      - task: AzurePowerShell@4
+        displayName: Running Unit Tests
+        inputs:
+          azureSubscription: AzureServiceConnection
+          scriptType: "FilePath"
+          scriptPath: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.pipeline.tests.ps1
+          scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
+          azurePowerShellVersion: "latestVersion"
+          errorActionPreference: "continue"
+        env:
+          # mapping global variables
+          personalAccessToken: ${{ parameters.globalConfiguration.personalAccessToken }}
+          customModulesDirectory: ${{ parameters.globalConfiguration.customModulesDirectory }}
+          orgUrl: ${{ parameters.globalConfiguration.orgUrl }}
+          testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
+          repository: ${{ parameters.globalConfiguration.repository }}
+          branch: ${{ parameters.globalConfiguration.branch }}
+          serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
+          #mapping test specific variables
+          yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
+          pipelineName: ${{ parameters.resource.tests.pipelineName }}
+          timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
+          testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
+          skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
+
+      - task: PublishTestResults@2
+        inputs:
+          testRunner: "NUnit" 
+          testResultsFiles: "$(Build.ArtifactStagingDirectory)/testResults/**/testResults.xml"
+          testRunTitle: "PS_Win2016_Unit"
+          failTaskOnFailedTests: true
+        displayName: "Publish Unit Test Results"
+        condition: in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed')
+
+      - task: PublishCodeCoverageResults@1
+        inputs:
+          summaryFileLocation: "$(Build.ArtifactStagingDirectory)/testResults/**/coverage.xml"
+          failIfCoverageEmpty: false
+        displayName: "Publish Unit Test Code Coverage"
+        condition: and(in(variables['Agent.JobStatus'], 'Succeeded', 'SucceededWithIssues', 'Failed'), eq(variables['System.PullRequest.IsFork'], false))
+        enabled: false
