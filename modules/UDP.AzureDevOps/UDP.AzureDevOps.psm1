@@ -108,6 +108,8 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
+    Write-Host "Branch name: $branch"
+
     $pipeline = az pipelines create `
         --name $pipelineName `
         --org $orgUrl `
