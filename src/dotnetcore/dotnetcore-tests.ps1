@@ -46,23 +46,23 @@ Describe "dotnetCore" -Tag dotnetCore {
 
 AfterAll {
 
-    Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
-    $pipelines = Get-AzureDevOpsPipelines `
-        -personalAccessToken $env:personalAccessToken `
-        -orgUrl $env:orgUrl `
-        -teamProject $env:testsTeamProject
+    # Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
+    # $pipelines = Get-AzureDevOpsPipelines `
+    #     -personalAccessToken $env:personalAccessToken `
+    #     -orgUrl $env:orgUrl `
+    #     -teamProject $env:testsTeamProject
 
-    Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
+    # Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
     
-    foreach ($pipeline in $pipelines) {
-        Write-Host "Removing pipeline:" -ForegroundColor Yellow
-        Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
-        Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
+    # foreach ($pipeline in $pipelines) {
+    #     Write-Host "Removing pipeline:" -ForegroundColor Yellow
+    #     Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
+    #     Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
 
-        Remove-AzureDevOpsPipelines `
-            -personalAccessToken $env:personalAccessToken `
-            -orgUrl $env:orgUrl `
-            -teamProject $env:testsTeamProject `
-            -pipelineId  $pipeline.id
-    }   
+    #     Remove-AzureDevOpsPipelines `
+    #         -personalAccessToken $env:personalAccessToken `
+    #         -orgUrl $env:orgUrl `
+    #         -teamProject $env:testsTeamProject `
+    #         -pipelineId  $pipeline.id
+    # }   
 }
