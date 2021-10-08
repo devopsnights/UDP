@@ -25,7 +25,6 @@ jobs:
           scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
           azurePowerShellVersion: "latestVersion"
           errorActionPreference: "continue"
-          failOnStandardError: false
         env:
           # mapping global variables
           personalAccessToken: ${{ parameters.globalConfiguration.personalAccessToken }}
