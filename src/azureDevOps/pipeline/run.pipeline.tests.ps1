@@ -3,6 +3,8 @@ param(
     [string[]]$TestScripts
 )
 
+Write-Host "Test scripts: $TestScripts"
+
 # Create configuration for pester execution
 $container = New-PesterContainer -Path $TestScripts 
 
