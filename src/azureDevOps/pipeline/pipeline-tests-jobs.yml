@@ -7,8 +7,7 @@ parameters:
 jobs:
   - job: BuildJob
     variables:
-      BuildPlatform: 'Any CPU'
-      BuildConfiguration: 'Release'
+      skipTearDown: false
     displayName: Build Job
     steps:
       - checkout: self
@@ -39,7 +38,7 @@ jobs:
           pipelineName: ${{ parameters.resource.tests.pipelineName }}
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
-          skipTearDown: true
+          skipTearDown: ${{ variables.skipTearDown }}
 
       - task: PublishTestResults@2
         inputs:
