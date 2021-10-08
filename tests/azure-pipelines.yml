@@ -41,7 +41,7 @@ extends:
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
         repository: https://github.com/wesleycamargo/UDP
-        branch: feature/tests
+        branch: feature/tests #environment var?
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
       resources:
         - type: 'azureDevOpsPipeline'
@@ -52,7 +52,3 @@ extends:
             pipelineName: dotnetCore-tests
             timeoutMinutes: 5
             testFilesToRun: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1,$(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1
-# $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1
-             
-            # testFilesToRun: "'$(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1'"
-            # pipelineId : '99'

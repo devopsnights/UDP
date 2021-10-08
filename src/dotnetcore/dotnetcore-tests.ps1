@@ -11,17 +11,25 @@ BeforeAll {
         Write-Host "Module 'UDP.AzureDevOps' location: $module"
         Import-Module $module -Force
     }
-   
-    $moduleName = "powershell-yaml"
 
-    if (Get-Module -ListAvailable -Name $moduleName) {
-        Write-Host "Module $moduleName already loaded"
-    } 
-    else {
-        Write-Host "Importing modules $moduleName "
-        $module = Join-Path -Path $env:customModulesDirectory -ChildPath $moduleName
-        Write-Host "Module 'UDP.AzureDevOps' location: $module"
-        Import-Module $moduleName -Force
+    # run yaml pipeline to deploy
+    $pipeline = New-AzureDevOpsPipeline `
+        -personalAccessToken $env:personalAccessToken `
+        -orgUrl $env:orgUrl `
+        -teamProject $env:testsTeamProject `
+        -yamlFilePath $env:yamlFilePath `
+        -pipelineName $env:pipelineName `
+        -repository $env:repository `
+        -branch $env:branch `
+        -serviceConnection $env:serviceConnectionId
+
+    if ($pipeline) {
+        $build = Wait-AzureDevOpsPipelineRuns `
+            -personalAccessToken $env:personalAccessToken `
+            -orgUrl $env:orgUrl `
+            -teamProject $env:testsTeamProject `
+            -pipelineId $pipeline.definition.id `
+            -timeoutMinutes $env:timeoutMinutes
     }
 }
 
@@ -29,21 +37,7 @@ Describe "dotnetCore" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Should create an YAML pipeline' {
 
-            # $pipeline = New-AzureDevOpsPipeline `
-            #     -personalAccessToken $env:personalAccessToken `
-            #     -orgUrl $env:orgUrl `
-            #     -teamProject $env:testsTeamProject `
-            #     -yamlFilePath $env:yamlFilePath `
-            #     -pipelineId $env:pipelineId `
-            #     -pipelineName "dotnetCore-tests"
-
-            # $pipeline | Should -NotBe ""
-
-            # $build = Wait-AzureDevOpsPipelineRuns `
-            #     -personalAccessToken $env:personalAccessToken `
-            #     -orgUrl $env:orgUrl `
-            #     -teamProject $env:testsTeamProject `
-            #     -pipelineId $pipeline.definition.id
+           #health check on web app
 
             $true | Should -BeTrue
         }

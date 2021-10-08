@@ -42,7 +42,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -repository $env:repository `
                 -branch $env:branch `
                 -serviceConnection $env:serviceConnectionId
-                # -pipelineId $env:pipelineId `
+
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `
                     -personalAccessToken $env:personalAccessToken `
