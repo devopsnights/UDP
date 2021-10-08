@@ -33,13 +33,12 @@ jobs:
           orgUrl: ${{ parameters.configuration.orgUrl }}
           testsTeamProject: ${{ parameters.configuration.testsTeamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
-          pipelineId: ${{ parameters.resource.tests.pipelineId }}
-          pipelineName: dotnetCore-tests
+          pipelineName: ${{ parameters.resource.tests.pipelineName }}
           repository: ${{ parameters.configuration.repository }}
           branch: ${{ parameters.configuration.branch }}
           skipTearDown: false
-          serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
-          
+          serviceConnectionId: ${{ parameters.configuration.serviceConnectionId }}
+          pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
       - task: PublishTestResults@2
         inputs:

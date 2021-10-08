@@ -22,12 +22,11 @@ Describe "YAML Pipelines" -Tag dotnetCore {
                 -orgUrl $env:orgUrl `
                 -teamProject $env:testsTeamProject `
                 -yamlFilePath $env:yamlFilePath `
-                -pipelineId $env:pipelineId `
                 -pipelineName $env:pipelineName `
                 -repository $env:repository `
                 -branch $env:branch `
                 -serviceConnection $env:serviceConnectionId
-            
+                # -pipelineId $env:pipelineId `
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `
                     -personalAccessToken $env:personalAccessToken `
