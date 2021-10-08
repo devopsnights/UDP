@@ -1,19 +1,19 @@
 BeforeAll {
    
-    Write-Host "==============================================="
-    Write-Host "Environment variables:"
-    Write-Host "==============================================="
-    Write-Host "personalAccessToken: " $env:personalAccessToken
-    Write-Host "customModulesDirectory: " $env:customModulesDirectory
-    Write-Host "orgUrl: " $env:orgUrl
-    Write-Host "testsTeamProject: " $env:testsTeamProject
-    Write-Host "yamlFilePath: " $env:yamlFilePath
-    Write-Host "pipelineName: " $env:pipelineName
-    Write-Host "repository: " $env:repository
-    Write-Host "branch: " $env:branch
-    Write-Host "skipTearDown: " $env:skipTearDown
-    Write-Host "serviceConnectionId: " $env:serviceConnectionId
-    Write-Host "pipelineId: " $env:pipelineId
+    Write-Host "##[section]==============================================="
+    Write-Host "##[section]Environment variables:"
+    Write-Host "##[section]==============================================="
+    Write-Host "##[section]personalAccessToken: " $env:personalAccessToken
+    Write-Host "##[section]customModulesDirectory: " $env:customModulesDirectory
+    Write-Host "##[section]orgUrl: " $env:orgUrl
+    Write-Host "##[section]testsTeamProject: " $env:testsTeamProject
+    Write-Host "##[section]yamlFilePath: " $env:yamlFilePath
+    Write-Host "##[section]pipelineName: " $env:pipelineName
+    Write-Host "##[section]repository: " $env:repository
+    Write-Host "##[section]branch: " $env:branch
+    Write-Host "##[section]skipTearDown: " $env:skipTearDown
+    Write-Host "##[section]serviceConnectionId: " $env:serviceConnectionId
+    Write-Host "##[section]pipelineId: " $env:pipelineId
     Write-Host "==============================================="
     
     $moduleName = "UDP.AzureDevOps"
@@ -59,8 +59,8 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 
 AfterAll {
 
-    Write-Host "TearDown var:  $env:skipTearDown"
-    Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
+    # Write-Host "##[warning]TearDown var:  $env:skipTearDown"
+    Write-Host "##[warning]Test execution finished. Tearing down pipelines on Team Project $env:testsTeamProject." -ForegroundColor Yellow
     $pipelines = Get-AzureDevOpsPipelines `
         -personalAccessToken $env:personalAccessToken `
         -orgUrl $env:orgUrl `
@@ -69,15 +69,14 @@ AfterAll {
     Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
     
     foreach ($pipeline in $pipelines) {
-        Write-Host "Removing pipeline:" -ForegroundColor Yellow
-        Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
-        Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
+        Write-Host "##[warning]Removing pipeline:" -ForegroundColor Yellow
+        Write-Host "##[warning]Name: $($pipeline.name)" -ForegroundColor Yellow
+        Write-Host "##[warning]Id $($pipeline.id)" -ForegroundColor Yellow
 
         Remove-AzureDevOpsPipelines `
             -personalAccessToken $env:personalAccessToken `
             -orgUrl $env:orgUrl `
             -teamProject $env:testsTeamProject `
             -pipelineId  $pipeline.id
-    }   
-    
+    }
 }
