@@ -61,23 +61,27 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 AfterAll {
 
     # Write-Host "##[warning]TearDown var:  $env:skipTearDown"
-    Write-Host "##[warning]Test execution finished. Tearing down pipelines on Team Project $env:testsTeamProject." -ForegroundColor Yellow
-    $pipelines = Get-AzureDevOpsPipelines `
-        -personalAccessToken $env:personalAccessToken `
-        -orgUrl $env:orgUrl `
-        -teamProject $env:testsTeamProject
-
-    Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
-    
-    foreach ($pipeline in $pipelines) {
-        Write-Host "##[warning]Removing pipeline:" -ForegroundColor Yellow
-        Write-Host "##[warning]Name: $($pipeline.name)" -ForegroundColor Yellow
-        Write-Host "##[warning]Id $($pipeline.id)" -ForegroundColor Yellow
-
-        Remove-AzureDevOpsPipelines `
+    if ($env:skipTearDown -ne "true") {
+        Write-Host "##[warning]Test execution finished. Tearing down pipelines on Team Project $env:testsTeamProject." -ForegroundColor Yellow
+        $pipelines = Get-AzureDevOpsPipelines `
             -personalAccessToken $env:personalAccessToken `
             -orgUrl $env:orgUrl `
-            -teamProject $env:testsTeamProject `
-            -pipelineId  $pipeline.id
+            -teamProject $env:testsTeamProject
+
+        Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
+    
+        foreach ($pipeline in $pipelines) {
+            Write-Host "##[warning]Removing pipeline:" -ForegroundColor Yellow
+            Write-Host "##[warning]Name: $($pipeline.name)" -ForegroundColor Yellow
+            Write-Host "##[warning]Id $($pipeline.id)" -ForegroundColor Yellow
+
+            Remove-AzureDevOpsPipelines `
+                -personalAccessToken $env:personalAccessToken `
+                -orgUrl $env:orgUrl `
+                -teamProject $env:testsTeamProject `
+                -pipelineId  $pipeline.id
+        }
+    }else{
+        Write-Host "Skipping teardown"
     }
 }
