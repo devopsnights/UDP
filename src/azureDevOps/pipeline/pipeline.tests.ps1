@@ -1,5 +1,21 @@
 BeforeAll {
    
+    Write-Host "==============================================="
+    Write-Host "Environment variables:"
+    Write-Host "==============================================="
+    Write-Host "personalAccessToken: " $env:personalAccessToken
+    Write-Host "customModulesDirectory: " $env:customModulesDirectory
+    Write-Host "orgUrl: " $env:orgUrl
+    Write-Host "testsTeamProject: " $env:testsTeamProject
+    Write-Host "yamlFilePath: " $env:yamlFilePath
+    Write-Host "pipelineName: " $env:pipelineName
+    Write-Host "repository: " $env:repository
+    Write-Host "branch: " $env:branch
+    Write-Host "skipTearDown: " $env:skipTearDown
+    Write-Host "serviceConnectionId: " $env:serviceConnectionId
+    Write-Host "pipelineId: " $env:pipelineId
+    Write-Host "==============================================="
+    
     $moduleName = "UDP.AzureDevOps"
 
     if (Get-Module -ListAvailable -Name $moduleName) {
@@ -11,14 +27,6 @@ BeforeAll {
         Write-Host "Module 'UDP.AzureDevOps' location: $module"
         Import-Module $module -Force
     }
-    
-    Write-Verbose "==============================================="
-    Write-Verbose "Environment variables:"
-    Write-Verbose "==============================================="
-    Write-Verbose "customModulesDirectory: " $env:customModulesDirectory
-    # Write-Verbose "personalAccessToken: " $env:personalAccessToken
-
-
 }
 
 Describe "YAML Pipelines" -Tag YAMLPipelines {
