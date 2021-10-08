@@ -120,7 +120,7 @@ function New-AzureDevOpsPipeline {
         -p $teamProject `
         --repository $repository `
         --branch $branch `
-        --yaml-path $yamlPath `
+        --yaml-path $yamlFilePath `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
 
     return $pipeline
