@@ -1,7 +1,7 @@
 parameters:
 - name: resource
   type: object
-- name: configuration
+- name: globalConfiguration
   type: object
 
 jobs:
@@ -14,7 +14,7 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - powershell: Write-Host "Repo= ${{ parameters.configuration.repository }}"
+      - powershell: Write-Host "Repo= ${{ parameters.globalConfiguration.repository }}"
 
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
@@ -28,16 +28,16 @@ jobs:
           errorActionPreference: "continue"
         env:
           # secrets needs to be mapped as env variables
-          personalAccessToken: ${{ parameters.configuration.personalAccessToken }}
-          customModulesDirectory: ${{ parameters.configuration.customModulesDirectory }}
-          orgUrl: ${{ parameters.configuration.orgUrl }}
-          testsTeamProject: ${{ parameters.configuration.testsTeamProject }}
+          personalAccessToken: ${{ parameters.globalConfiguration.personalAccessToken }}
+          customModulesDirectory: ${{ parameters.globalConfiguration.customModulesDirectory }}
+          orgUrl: ${{ parameters.globalConfiguration.orgUrl }}
+          testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineName: ${{ parameters.resource.tests.pipelineName }}
-          repository: ${{ parameters.configuration.repository }}
-          branch: ${{ parameters.configuration.branch }}
+          repository: ${{ parameters.globalConfiguration.repository }}
+          branch: ${{ parameters.globalConfiguration.branch }}
           skipTearDown: false
-          serviceConnectionId: ${{ parameters.configuration.serviceConnectionId }}
+          serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
       - task: PublishTestResults@2
