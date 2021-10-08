@@ -3,10 +3,6 @@ param(
     [string[]]$TestScripts
 )
 
-# $testScript = Join-Path -Path $env:Build_SourcesDirectory -ChildPath 'src/azureDevOps/pipeline/pipeline.tests.ps1'
-
-# Write-Host "Script path: $testScript"
-
 # Create configuration for pester execution
 $container = New-PesterContainer -Path $TestScripts 
 

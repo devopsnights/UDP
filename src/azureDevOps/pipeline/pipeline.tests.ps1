@@ -11,14 +11,19 @@ BeforeAll {
         Write-Host "Module 'UDP.AzureDevOps' location: $module"
         Import-Module $module -Force
     }
-
+    
+    Write-Verbose "==============================================="
+    Write-Verbose "Environment variables:"
+    Write-Verbose "==============================================="
+    Write-Verbose "customModulesDirectory: " $env:customModulesDirectory
+    Write-Verbose "personalAccessToken: " $env:personalAccessToken
 
 
 }
 
-Describe "YAML Pipelines" -Tag dotnetCore {
+Describe "YAML Pipelines" -Tag YAMlPipelines {
     Context "Validate YAML" {
-        It 'Should create an YAML pipeline' {
+        It 'Should create a YAML pipeline definition and execute successfuly' {
 
             $pipeline = New-AzureDevOpsPipeline `
                 -personalAccessToken $env:personalAccessToken `
