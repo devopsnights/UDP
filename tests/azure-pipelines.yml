@@ -41,7 +41,7 @@ extends:
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
         repository: https://github.com/wesleycamargo/UDP
-        branch: $(Build.SourceBranchName) #feature/tests #environment var?
+        branch: $(Build.SourceBranch) #feature/tests #environment var?
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
       resources:
         - type: 'azureDevOpsPipeline'
