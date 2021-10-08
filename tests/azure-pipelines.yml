@@ -1,7 +1,8 @@
-- name: skipTeardown
-  displayName: Skip Teardown after tests?
-  type: boolean
-  default: false
+parameters:
+  - name: skipTeardown
+    displayName: Skip Teardown after tests?
+    type: boolean
+    default: false
 
 # If you are using this example in your oun repository, 
 # you need to uncomment the lines below:
