@@ -64,6 +64,8 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                     -timeoutMinutes $env:timeoutMinutes
             }
 
+            Write-Host $pipeline
+
             $pipeline.name | Should -Be $env:pipelineName
         }
     }
