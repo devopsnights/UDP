@@ -1,0 +1,62 @@
+parameters:
+  - name: skipTeardown
+    displayName: Skip teardown after tests?
+    type: boolean
+    default: false
+
+# If you are using this example in your oun repository, 
+# you need to uncomment the lines below:
+# resources:
+#   repositories:
+#   - repository: UDP
+#     type: github
+#     endpoint: devopsnights
+#     name: devopsnights/UDP
+#     ref: refs/heads/main
+
+trigger:
+  branches:
+    include:
+    - main
+    - feature/tests
+  # paths:
+  #   include:
+  #   - examples/azureDevOpsPipeline
+  #   - src/azureDevOpsPipeline
+  
+pool:
+  vmImage: 'windows-latest'
+  
+extends:
+  # If you are using this example in your oun repository, 
+  # you need to uncomment the next line and comment the line streight below
+  #template: src\orchestrator.yml@UDP 
+  template: ..\src\orchestrator.yml
+  parameters:
+    serviceConnection: 'AzureServiceConnection'
+    environments:
+      - dev
+      # - uat
+      # - prd
+    configuration:
+      buildOnly: true
+      globalConfiguration:
+        customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
+        orgUrl: 'https://dev.azure.com/wesleycamargo'
+        teamProject: 'UDP'
+        personalAccessToken: '$(personalAccessToken)'
+        testsTeamProject: UDP-Tests
+        repository: https://github.com/wesleycamargo/UDP
+        branch: $(Build.SourceBranch) 
+        serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
+      resources:
+        - type: 'azureDevOpsPipeline'
+          enabled: true
+          tests:
+            enabled: true
+            yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
+            pipelineName: dotnetCore-tests
+            timeoutMinutes: 5
+            skipTeardown: ${{ parameters.skipTeardown }}
+            testFilesToRun:
+              $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 #,$(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1

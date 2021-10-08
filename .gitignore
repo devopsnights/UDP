@@ -144,6 +144,9 @@ coverage*[.json, .xml, .info]
 *.coverage
 *.coveragexml
 
+# Pester test results
+*.testResults.xml
+
 # NCrunch
 _NCrunch_*
 .*crunch*.local.xml
