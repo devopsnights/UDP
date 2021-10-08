@@ -49,14 +49,7 @@ extends:
           tests:
             enabled: true
             yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
-            pipelineId : '99'
             pipelineName: dotnetCore-tests
             timeoutMinutes: 5
-          
-          # deployment:
-          #   type: azureWebApp
-          #   name: wa-udp-dotnetcore-windows
-          #   infrastructure:
-          #     enabled: false
-          #   application:
-          #     enabled: true
+            testFilesToRun: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.pipeline.tests.ps1
+            # pipelineId : '99'
