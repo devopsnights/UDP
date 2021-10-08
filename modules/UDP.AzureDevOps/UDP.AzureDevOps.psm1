@@ -107,7 +107,7 @@ function New-AzureDevOpsPipeline {
     )
     Write-Output $personalAccessToken | az devops login
 
-    Write-Host "repo: $repository"
+    Write-Host "branch: $branch"
 
     # (admin:repo_hook, repo, user)
 
