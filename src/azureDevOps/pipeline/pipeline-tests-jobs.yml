@@ -14,6 +14,8 @@ jobs:
       - checkout: self
         persistCredentials: true
 
+      - powershell: Write-Host ${{ parameters.resource.tests.testFilesToRun }}
+
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
         inputs:
