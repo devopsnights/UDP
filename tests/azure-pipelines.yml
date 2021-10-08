@@ -34,7 +34,7 @@ extends:
       - prd
     configuration:
       buildOnly: true
-      global:
+      globalConfiguration:
         customModulesDirectory: '$(Build.SourcesDirectory)\modules\'
         orgUrl: 'https://dev.azure.com/wesleycamargo'
         teamProject: 'UDP'
