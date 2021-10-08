@@ -36,6 +36,7 @@ jobs:
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
           repository: ${{ parameters.configuration.repository }}
           branch: ${{ parameters.configuration.branch }}
+          skipTearDown: true
           
 
       - task: PublishTestResults@2
