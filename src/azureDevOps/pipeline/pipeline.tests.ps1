@@ -14,7 +14,7 @@ BeforeAll {
     Write-Host "##[section]skipTearDown: " $env:skipTearDown
     Write-Host "##[section]serviceConnectionId: " $env:serviceConnectionId
     Write-Host "##[section]pipelineId: " $env:pipelineId
-    Write-Host "==============================================="
+    Write-Host "##[section]==============================================="
     
     $moduleName = "UDP.AzureDevOps"
 

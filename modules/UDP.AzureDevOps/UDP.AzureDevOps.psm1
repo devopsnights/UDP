@@ -43,7 +43,7 @@ function Get-ProjectUrl {
     
     $projectsUrl = "{0}_apis/projects?api-version=5.0" -f $azdoBaseUrl
 
-    Write-Host "Projects API URL: $projectsUrl"
+    Write-Verbose "Projects API URL: $projectsUrl"
 
     $projects = Invoke-RestMethod -Uri $projectsUrl -Method Get -ContentType "application/json" -Headers $header
 
@@ -51,7 +51,7 @@ function Get-ProjectUrl {
 
     $url = "{0}{1}/" -f $azdoBaseUrl, $projectId
 
-    Write-Host "Team Project '$teamProject' URL: $url"
+    Write-Verbose "Team Project '$teamProject' URL: $url"
 
     return $url
 }
@@ -71,7 +71,7 @@ function Test-YamlPipeline {
 
     $projectsUrl = "{0}_apis/pipelines/{1}/preview?api-version=6.1-preview.1" -f $projectBaseUrl, $pipelineId
 
-    Write-Host "Preview API URL: $projectsUrl"
+    Write-Verbose "Preview API URL: $projectsUrl"
 
     $body = @{
         PreviewRun = $true
@@ -100,18 +100,13 @@ function New-AzureDevOpsPipeline {
         [string]$branch,
         [string]$yamlFilePath,
         [string]$serviceConnection
-                # [string]$repository = "https://github.com/wesleycamargo/UDP",
-        # [string]$branch = "feature/tests",
-        # [string]$yamlPath = "examples/dotnetcore/azure-pipelines.yml",
-        # [string]$serviceConnection = "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
     )
 
     Write-Output $personalAccessToken | az devops login
 
     # (admin:repo_hook, repo, user)
 
-    Write-Host "Creating pipeline '$pipelineName'"
-    Write-Host "PAT $personalAccessToken"
+    Write-Host "##[command]Creating pipeline '$pipelineName'"
 
     $pipeline = az pipelines create `
         --name $pipelineName `
@@ -164,7 +159,7 @@ function Wait-AzureDevOpsPipelineRuns {
         [string]$pipelineId
     )
 
-    Write-Host "Getting build runs..." -ForegroundColor Blue
+    Write-Host "##[command]Getting build runs..." -ForegroundColor Blue
 
     $header = Get-Header -personalAccessToken $personalAccessToken
     $projectBaseUrl = Get-ProjectUrl -teamProject $teamProject -orgUrl $orgUrl -personalAccessToken $personalAccessToken -header $header
@@ -182,10 +177,10 @@ function Wait-AzureDevOpsPipelineRuns {
             foreach ($build in $pipelineBuilds) {
 
                 if ($build.status -eq "completed") {
-                    Write-Host "Pipeline status: $($build.status)" -ForegroundColor Green
+                    Write-Host "##[section]Pipeline status: $($build.status)" -ForegroundColor Green
                 }
                 else {
-                    Write-Host "Pipeline status: $($build.status)" -ForegroundColor Blue
+                    Write-Host "##[command]Pipeline status: $($build.status)" -ForegroundColor Blue
 
                 }
                 Start-Sleep -Seconds 5
