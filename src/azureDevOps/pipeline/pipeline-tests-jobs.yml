@@ -39,6 +39,7 @@ jobs:
           skipTearDown: false
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
+          testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
           # pipelineId: ${{ parameters.resource.tests.pipelineId }}
 
       - task: PublishTestResults@2
