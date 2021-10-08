@@ -17,18 +17,16 @@ Describe "YAML Pipelines" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Should create an YAML pipeline' {
 
-            
-
             $pipeline = New-AzureDevOpsPipeline `
                 -personalAccessToken $env:personalAccessToken `
                 -orgUrl $env:orgUrl `
                 -teamProject $env:testsTeamProject `
                 -yamlFilePath $env:yamlFilePath `
                 -pipelineId $env:pipelineId `
-                -pipelineName "dotnetCore-tests" `
+                -pipelineName $env:pipelineName `
                 -repository $env:repository `
                 -branch $env:branch `
-                -serviceConnection "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
+                -serviceConnection $env:serviceConnectionId
             
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `

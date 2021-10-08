@@ -34,9 +34,11 @@ jobs:
           testsTeamProject: ${{ parameters.configuration.testsTeamProject }}
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineId: ${{ parameters.resource.tests.pipelineId }}
+          pipelineName: dotnetCore-tests
           repository: ${{ parameters.configuration.repository }}
           branch: ${{ parameters.configuration.branch }}
           skipTearDown: false
+          serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
           
 
       - task: PublishTestResults@2
