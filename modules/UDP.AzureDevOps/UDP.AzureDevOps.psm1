@@ -86,6 +86,18 @@ function Test-YamlPipeline {
     return $projects.finalYaml
 }
 
+function Get-Branch {
+ 
+    if ($env:System_PullRequest_pullRequestId) {
+        $branchName = $env:System_PullRequest_SourceBranch
+    }
+    else {
+        $branchName = $env:Build_SourceBranch
+    }
+
+    return $branchName
+}
+
 function New-AzureDevOpsPipeline {
     param (
         [string]$personalAccessToken, 
@@ -102,11 +114,14 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
-    if($env:System_PullRequest_pullRequestId){
+    if ($env:System_PullRequest_pullRequestId) {
         $branchName = $env:System_PullRequest_SourceBranch
-    }else{
+    }
+    else {
         $branchName = $env:Build_SourceBranch
     }
+
+    $branchName = Get-Branch
     
     $pipeline = az pipelines create `
         --name $pipelineName `
@@ -135,13 +150,15 @@ function New-AzureDevOpsPipelineRun {
 
     Write-Host "##[command]Executing pipeline '$pipelineName'"
 
-    if($env:System_PullRequest_pullRequestId){
+    # 
+    if ($env:System_PullRequest_pullRequestId) {
         $branchName = $env:System_PullRequest_SourceBranch
-    }else{
+    }
+    else {
         $branchName = $env:Build_SourceBranch
     }
 
-    # $branchName = $env:System_PullRequest_SourceBranch
+    $branchName = Get-Branch
 
     if ($env:SYSTEM_DEBUG -eq "true") {
         $pipeline = az pipelines run --name $pipelineName `
