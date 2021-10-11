@@ -3,7 +3,12 @@ BeforeAll {
     Write-Host "##[section]===============================================" -ForegroundColor Green
     Write-Host "##[section]Environment variables:"
     Write-Host "##[section]===============================================" -ForegroundColor Green
-    Write-Host "##[section]personalAccessToken: " $env:personalAccessToken -ForegroundColor Green
+    if ($env:personalAccessToken) {
+        Write-Host "personalAccessToken: ***" -ForegroundColor Green
+    }
+    else{
+        Write-Host "personalAccessToken: notDefined" -ForegroundColor Red 
+    }
     Write-Host "##[section]customModulesDirectory: " $env:customModulesDirectory -ForegroundColor Green
     Write-Host "##[section]orgUrl: " $env:orgUrl -ForegroundColor Green
     Write-Host "##[section]testsTeamProject: " $env:testsTeamProject -ForegroundColor Green
