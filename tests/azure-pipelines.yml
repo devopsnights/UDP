@@ -18,7 +18,7 @@ trigger:
   branches:
     include:
     - main
-    - feature/tests
+    - feature/appconfig
   # paths:
   #   include:
   #   - examples/azureDevOpsPipeline
