@@ -8,6 +8,7 @@
 
 There are two ways to configure your debug environment. The first and recommended is to add the script execution in your PowerShell profile. The second is to run the script manually, in this case time you create a new session in the terminal you need to run the script.
 
+
 ### Powershell Profile
 
 To setup your local environment add the lines below in your $profile in your VSCode powershell session.
