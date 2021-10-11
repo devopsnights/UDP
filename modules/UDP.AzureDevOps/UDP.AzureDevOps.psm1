@@ -102,12 +102,18 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
+    if($env:System_PullRequest_SourceBranch){
+        $branchName = $env:System_PullRequest_SourceBranch
+    }else{
+        $branchName = $env:Build_SourceBranch
+    }
+    
     $pipeline = az pipelines create `
         --name $pipelineName `
         --org $orgUrl `
         -p $teamProject `
         --repository $repository `
-        --branch $branch `
+        --branch $branchName `
         --yaml-path $yamlFilePath `
         --skip-first-run `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
