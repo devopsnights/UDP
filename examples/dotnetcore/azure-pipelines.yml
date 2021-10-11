@@ -38,7 +38,7 @@ extends:
           enabled: true
           deployment:
             type: azureWebApp
-            name: wa-udp-dotnetcore-windows
+            name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
             infrastructure:
               enabled: false
             application:
