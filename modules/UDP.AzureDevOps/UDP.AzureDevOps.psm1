@@ -102,10 +102,10 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
-    if($env:System_PullRequest_SourceBranch){
-        $branchName = $env:System_PullRequest_SourceBranch
-    }else{
+    if($env:System_PullRequest_pullRequestId){
         $branchName = $env:Build_SourceBranch
+    }else{
+        $branchName = $env:System_PullRequest_SourceBranch
     }
     
     $pipeline = az pipelines create `
