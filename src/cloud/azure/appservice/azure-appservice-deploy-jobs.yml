@@ -5,6 +5,8 @@ parameters:
   type: object
 - name: environment
   type: string
+- name: globalConfiguration
+  type: object
 
 jobs:
   - deployment: 
@@ -16,19 +18,12 @@ jobs:
         
         deploy:
           steps:
-            # - task: AzureAppConfiguration@3
-            #   inputs:
-            #     azureSubscription: ${{ parameters.serviceConnection }}
-            #     ConfigstoreName: 'UDP-Tests'
-            #     KeyFilter: '*'
-            #     Label: 'dev'
-            # - powershell: "Get-Item -Path Env:"
             
             - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
               parameters:
                 environment: ${{ parameters.environment }}        
                 serviceConnection: ${{ parameters.serviceConnection }}
-          
+                globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
             
             - task: DownloadBuildArtifacts@0
               inputs:
@@ -42,6 +37,6 @@ jobs:
                 ConnectionType: 'AzureRM'
                 azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
                 appType: 'webApp'
-                # WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
-                WebAppName: $(TESTS/DOTNETCORE/WEBAPPNAME) #'wa-udp-dotnetCore'
+                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
+                # WebAppName: $(TESTS/DOTNETCORE/WEBAPPNAME) #'wa-udp-dotnetCore'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'

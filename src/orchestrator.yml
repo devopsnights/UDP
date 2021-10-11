@@ -70,8 +70,10 @@ stages:
                         - template: ./dotnetcore/dotnetcore-deploy-jobs.yml
                           parameters:
                             environment: ${{ env }}
+                            globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
                             serviceConnection: ${{ parameters.serviceConnection }}
                             resource: ${{ resource }}
+
                     - ${{ if eq(resource.type, 'sqlServer') }}:
                         - template: ./sqlserver/sqlserver-deploy-jobs.yml
                           parameters:

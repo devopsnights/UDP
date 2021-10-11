@@ -5,6 +5,8 @@ parameters:
   type: object
 - name: environment
   type: string
+- name: globalConfiguration
+  type: object
 
 jobs:
 
@@ -15,3 +17,4 @@ jobs:
           serviceConnection: ${{ parameters.serviceConnection }}
           resource: ${{ parameters.resource }}
           environment: ${{ parameters.environment }}
+          globalConfiguration: ${{ parameters.configuration.globalConfiguration }}

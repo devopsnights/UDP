@@ -33,6 +33,8 @@ extends:
       # - prd
     configuration:
       buildOnly: false
+      globalConfiguration:
+        appConfigurationName: UDP-Tests
       resources:
         - type: dotnetCore
           enabled: true
