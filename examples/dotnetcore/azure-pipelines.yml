@@ -12,9 +12,10 @@ trigger:
   branches:
     include:
     - main
-  paths:
-    include:
-    - examples/dotnetcore
+    - feature/appconfig
+  # paths:
+  #   include:
+  #   - examples/dotnetcore
   
 pool:
   vmImage: 'windows-latest'

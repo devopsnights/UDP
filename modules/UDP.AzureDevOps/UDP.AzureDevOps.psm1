@@ -110,7 +110,7 @@ function New-AzureDevOpsPipeline {
         --branch $branch `
         --yaml-path $yamlFilePath `
         --skip-first-run `
-        --service-connection $serviceConnection -o json | ConvertFrom-Json
+        --service-connection $serviceConnection | ConvertFrom-Json
 
     return $pipeline
 }
