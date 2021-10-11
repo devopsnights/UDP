@@ -3,8 +3,14 @@ parameters:
   type: string
 - name: resource
   type: object
+- name: environment
+  type: string
 
 jobs:
+  - template: ../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+    parameters:
+      environment: ${{ environment }}
+  
   - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
       - template: ../cloud/azure/appservice/azure-appservice-deploy-jobs.yml
         parameters:

@@ -3,6 +3,8 @@ parameters:
   type: string
 - name: resource
   type: object
+- name: environment
+  type: string
 
 jobs:
   - deployment: 
@@ -22,7 +24,7 @@ jobs:
             #     Label: 'dev'
             # - powershell: "Get-Item -Path Env:"
             
-            - template: ../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+           
             
             - task: DownloadBuildArtifacts@0
               inputs:
