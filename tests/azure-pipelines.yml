@@ -60,7 +60,7 @@ extends:
           enabled: true
           tests:
             enabled: true
-            yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
+            yamlFilePath: 'examples/dotnetcore/azure-pipelines.yml'
             pipelineName: dotnetCore-tests
             timeoutMinutes: 5
             skipTeardown: ${{ parameters.skipTeardown }}
