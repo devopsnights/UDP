@@ -107,6 +107,8 @@ function New-AzureDevOpsPipeline {
     }else{
         $branchName = $env:System_PullRequest_SourceBranch
     }
+
+    Get-ChildItem -Path Env:
     
     $pipeline = az pipelines create `
         --name $pipelineName `
