@@ -15,7 +15,6 @@ jobs:
     strategy:
       runOnce:
         
-        
         deploy:
           steps:
             
@@ -35,8 +34,7 @@ jobs:
             - task: AzureRmWebAppDeployment@4
               inputs:
                 ConnectionType: 'AzureRM'
-                azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
+                azureSubscription: ${{ parameters.serviceConnection }}
                 appType: 'webApp'
-                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
-                # WebAppName: $(TESTS/DOTNETCORE/WEBAPPNAME) #'wa-udp-dotnetCore'
+                WebAppName: ${{ parameters.resource.deployment.name }} 
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
