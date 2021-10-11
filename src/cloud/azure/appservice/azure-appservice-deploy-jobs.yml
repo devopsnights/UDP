@@ -20,7 +20,7 @@ jobs:
                 ConfigstoreName: 'UDP-Tests'
                 KeyFilter: '*'
                 Label: 'dev'
-            - powershell: $env
+            - powershell: Get-Item -Path Env
             - task: DownloadBuildArtifacts@0
               inputs:
                 buildType: 'current'
