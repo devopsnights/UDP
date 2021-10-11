@@ -45,7 +45,6 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -yamlFilePath $env:yamlFilePath `
                 -pipelineName $env:pipelineName `
                 -repository $env:repository `
-                -branch $env:branch `
                 -serviceConnection $env:serviceConnectionId
 
             $pipeline.name | Should -Be $env:pipelineName

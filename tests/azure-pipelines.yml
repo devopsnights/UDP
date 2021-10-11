@@ -26,12 +26,6 @@ trigger:
   
 pool:
   vmImage: 'windows-latest'
-
-variables:
-  ${{ if ne( variables['system.pullRequest.sourceBranch'], '' ) }}: 
-    branchName: $(System.PullRequest.SourceBranch)
-  ${{ else }}: 
-    branchName: $(Build.SourceBranch)
   
 extends:
   # If you are using this example in your oun repository, 
@@ -53,7 +47,6 @@ extends:
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
         repository: https://github.com/wesleycamargo/UDP
-        branch: ${{ variables.branchName }}
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
       resources:
         - type: 'azureDevOpsPipeline'
