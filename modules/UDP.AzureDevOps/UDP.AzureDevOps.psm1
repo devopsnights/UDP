@@ -144,6 +144,7 @@ function New-AzureDevOpsPipelineRun {
     Write-Host "System_PullRequest_SourceBranch: $env:System_PullRequest_SourceBranch"
     Write-Host "Build_SourceBranch: $env:Build_SourceBranch"
 
+    $branchName = $env:System_PullRequest_SourceBranch
 
     if ($env:SYSTEM_DEBUG -eq "true") {
         $pipeline = az pipelines run --name $pipelineName `
