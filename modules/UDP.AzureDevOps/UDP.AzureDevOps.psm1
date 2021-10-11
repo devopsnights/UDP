@@ -114,13 +114,6 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
-    if ($env:System_PullRequest_pullRequestId) {
-        $branchName = $env:System_PullRequest_SourceBranch
-    }
-    else {
-        $branchName = $env:Build_SourceBranch
-    }
-
     $branchName = Get-Branch
     
     $pipeline = az pipelines create `
@@ -149,14 +142,6 @@ function New-AzureDevOpsPipelineRun {
     Write-Output $personalAccessToken | az devops login
 
     Write-Host "##[command]Executing pipeline '$pipelineName'"
-
-    # 
-    if ($env:System_PullRequest_pullRequestId) {
-        $branchName = $env:System_PullRequest_SourceBranch
-    }
-    else {
-        $branchName = $env:Build_SourceBranch
-    }
 
     $branchName = Get-Branch
 
