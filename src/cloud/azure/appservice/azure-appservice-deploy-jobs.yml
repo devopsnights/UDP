@@ -14,13 +14,6 @@ jobs:
         
         deploy:
           steps:
-            - task: AzureAppConfiguration@3
-              inputs:
-                azureSubscription: 'MVP Sponsorship'
-                ConfigstoreName: 'UDP-Tests'
-                KeyFilter: '*'
-                Label: 'dev'
-            - powershell: $env
             - task: DownloadBuildArtifacts@0
               inputs:
                 buildType: 'current'
@@ -33,6 +26,5 @@ jobs:
                 ConnectionType: 'AzureRM'
                 azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
                 appType: 'webApp'
-                # WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
-                WebAppName: $(webAppName) #'wa-udp-dotnetCore'
+                WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
