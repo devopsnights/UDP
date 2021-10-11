@@ -16,7 +16,7 @@ jobs:
           steps:
             - task: AzureAppConfiguration@3
               inputs:
-                azureSubscription: 'MVP Sponsorship'
+                azureSubscription: ${{ parameters.serviceConnection }}
                 ConfigstoreName: 'UDP-Tests'
                 KeyFilter: '*'
                 Label: 'dev'
