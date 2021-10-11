@@ -24,7 +24,9 @@ jobs:
             #     Label: 'dev'
             # - powershell: "Get-Item -Path Env:"
             
-           
+            - template: ../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+              parameters:
+                environment: ${{ parameters.environment }}          
             
             - task: DownloadBuildArtifacts@0
               inputs:
