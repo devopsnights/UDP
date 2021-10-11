@@ -34,5 +34,5 @@ jobs:
                 azureSubscription: ${{ parameters.serviceConnection }} # 'ServiceConnection'
                 appType: 'webApp'
                 # WebAppName: ${{ parameters.resource.deployment.name }} #'wa-udp-dotnetCore'
-                WebAppName: $(webAppName) #'wa-udp-dotnetCore'
+                WebAppName: ${{ variables.webAppName }} #'wa-udp-dotnetCore'
                 packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
