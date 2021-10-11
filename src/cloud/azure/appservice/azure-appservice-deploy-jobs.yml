@@ -23,7 +23,7 @@ jobs:
               parameters:
                 environment: ${{ parameters.environment }}        
                 serviceConnection: ${{ parameters.serviceConnection }}
-                globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
+                globalConfiguration: ${{ parameters.globalConfiguration }}
             
             - task: DownloadBuildArtifacts@0
               inputs:

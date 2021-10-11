@@ -17,4 +17,4 @@ jobs:
           serviceConnection: ${{ parameters.serviceConnection }}
           resource: ${{ parameters.resource }}
           environment: ${{ parameters.environment }}
-          globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
+          globalConfiguration: ${{ parameters.globalConfiguration }}
