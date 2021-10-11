@@ -22,8 +22,8 @@ jobs:
             - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
               parameters:
                 environment: ${{ parameters.environment }}        
-                serviceConnection: ${{ parameters.serviceConnection }}
                 globalConfiguration: ${{ parameters.globalConfiguration }}
+                serviceConnection: ${{ parameters.serviceConnection }}
             
             - task: DownloadBuildArtifacts@0
               inputs:
