@@ -56,8 +56,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -personalAccessToken $env:personalAccessToken `
                 -orgUrl $env:orgUrl `
                 -teamProject $env:testsTeamProject `
-                -pipelineName $env:pipelineName `
-                -branch $env:branch
+                -pipelineName $env:pipelineName 
 
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `
