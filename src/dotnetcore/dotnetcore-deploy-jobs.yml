@@ -9,7 +9,7 @@ parameters:
 jobs:
   - template: ../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
     parameters:
-      environment: ${{ environment }}
+      environment: ${{ parameters.environment }}
   
   - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
       - template: ../cloud/azure/appservice/azure-appservice-deploy-jobs.yml
