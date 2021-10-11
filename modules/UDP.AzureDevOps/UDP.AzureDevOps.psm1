@@ -86,19 +86,6 @@ function Test-YamlPipeline {
     return $projects.finalYaml
 }
 
-function Get-Branch {
- 
-    # if the source branch is a pull request, must change to source trigger branch
-    if ($env:System_PullRequest_pullRequestId) {
-        $branchName = $env:System_PullRequest_SourceBranch
-    }
-    else {
-        $branchName = $env:Build_SourceBranch
-    }
-
-    return $branchName
-}
-
 function New-AzureDevOpsPipeline {
     param (
         [string]$personalAccessToken, 
@@ -106,6 +93,7 @@ function New-AzureDevOpsPipeline {
         [string]$orgUrl,
         [string]$teamProject,
         [string]$repository,
+        [string]$branch,
         [string]$yamlFilePath,
         [string]$serviceConnection
     )
@@ -113,13 +101,19 @@ function New-AzureDevOpsPipeline {
     Write-Output $personalAccessToken | az devops login
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
+
+    if($env:System_PullRequest_pullRequestId){
+        $branchName = $env:System_PullRequest_SourceBranch
+    }else{
+        $branchName = $env:Build_SourceBranch
+    }
     
     $pipeline = az pipelines create `
         --name $pipelineName `
         --org $orgUrl `
         -p $teamProject `
         --repository $repository `
-        --branch Get-Branch `
+        --branch $branchName `
         --yaml-path $yamlFilePath `
         --skip-first-run `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
@@ -133,18 +127,27 @@ function New-AzureDevOpsPipelineRun {
         [string]$personalAccessToken,
         [string]$pipelineName,
         [string]$orgUrl,
-        [string]$teamProject
+        [string]$teamProject,
+        [string]$branch
     )
 
     Write-Output $personalAccessToken | az devops login
 
     Write-Host "##[command]Executing pipeline '$pipelineName'"
 
+    if($env:System_PullRequest_pullRequestId){
+        $branchName = $env:System_PullRequest_SourceBranch
+    }else{
+        $branchName = $env:Build_SourceBranch
+    }
+
+    # $branchName = $env:System_PullRequest_SourceBranch
+
     if ($env:SYSTEM_DEBUG -eq "true") {
         $pipeline = az pipelines run --name $pipelineName `
             --org $orgUrl `
             -p $teamProject `
-            --branch Get-Branch `
+            --branch $branchName `
             -o json `
             --debug | ConvertFrom-Json
     }
@@ -152,7 +155,7 @@ function New-AzureDevOpsPipelineRun {
         $pipeline = az pipelines run --name $pipelineName `
             --org $orgUrl `
             -p $teamProject `
-            --branch Get-Branch `
+            --branch $branchName `
             -o json | ConvertFrom-Json
     }
 
