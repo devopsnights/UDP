@@ -14,13 +14,16 @@ jobs:
         
         deploy:
           steps:
-            - task: AzureAppConfiguration@3
-              inputs:
-                azureSubscription: ${{ parameters.serviceConnection }}
-                ConfigstoreName: 'UDP-Tests'
-                KeyFilter: '*'
-                Label: 'dev'
-            - powershell: "Get-Item -Path Env:"
+            # - task: AzureAppConfiguration@3
+            #   inputs:
+            #     azureSubscription: ${{ parameters.serviceConnection }}
+            #     ConfigstoreName: 'UDP-Tests'
+            #     KeyFilter: '*'
+            #     Label: 'dev'
+            # - powershell: "Get-Item -Path Env:"
+            
+            - template: ../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+            
             - task: DownloadBuildArtifacts@0
               inputs:
                 buildType: 'current'

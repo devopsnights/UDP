@@ -69,6 +69,7 @@ stages:
                     - ${{ if eq(resource.type, 'dotnetCore') }}:
                         - template: ./dotnetcore/dotnetcore-deploy-jobs.yml
                           parameters:
+                            environment: ${{ env }}
                             serviceConnection: ${{ parameters.serviceConnection }}
                             resource: ${{ resource }}
                     - ${{ if eq(resource.type, 'sqlServer') }}:
