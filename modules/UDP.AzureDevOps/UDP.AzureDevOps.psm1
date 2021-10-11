@@ -102,16 +102,18 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
+    Write-Host "Source Branch: $env:Build_SourceBranch"
+    Write-Host "System_PullRequest_SourceBranch: $env:System_PullRequest_SourceBranch"
+
+    Get-ChildItem -Path Env:
+
     if($env:System_PullRequest_pullRequestId){
         $branchName = $env:System_PullRequest_SourceBranch
     }else{
         $branchName = $env:Build_SourceBranch
     }
 
-    Write-Host "Source Branch: $env:Build_SourceBranch"
-    Write-Host "System_PullRequest_SourceBranch: $env:System_PullRequest_SourceBranch"
-
-    Get-ChildItem -Path Env:
+  
     
     $pipeline = az pipelines create `
         --name $pipelineName `
