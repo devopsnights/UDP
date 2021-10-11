@@ -14,4 +14,4 @@ jobs:
         parameters:
           serviceConnection: ${{ parameters.serviceConnection }}
           resource: ${{ parameters.resource }}
-          environment: ${{ environment }}
+          environment: ${{ parameters.environment }}
