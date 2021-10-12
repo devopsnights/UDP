@@ -17,7 +17,7 @@ jobs:
         
         deploy:
           steps:
-            
+
             - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
               parameters:
                 environment: ${{ parameters.environment }}        
