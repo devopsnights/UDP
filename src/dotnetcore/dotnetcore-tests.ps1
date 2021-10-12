@@ -23,6 +23,12 @@ BeforeAll {
         -branch $env:branch `
         -serviceConnection $env:serviceConnectionId
 
+    $pipeline = New-AzureDevOpsPipelineRun `
+        -personalAccessToken $env:personalAccessToken `
+        -orgUrl $env:orgUrl `
+        -teamProject $env:testsTeamProject `
+        -pipelineName $env:pipelineName 
+
     if ($pipeline) {
         $build = Wait-AzureDevOpsPipelineRuns `
             -personalAccessToken $env:personalAccessToken `
