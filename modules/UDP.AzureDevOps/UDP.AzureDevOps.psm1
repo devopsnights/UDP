@@ -86,6 +86,18 @@ function Test-YamlPipeline {
     return $projects.finalYaml
 }
 
+function Get-Branch {
+ 
+    if ($env:System_PullRequest_pullRequestId) {
+        $branchName = $env:System_PullRequest_SourceBranch
+    }
+    else {
+        $branchName = $env:Build_SourceBranch
+    }
+
+    return $branchName
+}
+
 function New-AzureDevOpsPipeline {
     param (
         [string]$personalAccessToken, 
@@ -102,12 +114,14 @@ function New-AzureDevOpsPipeline {
 
     Write-Host "##[command]Creating pipeline '$pipelineName'"
 
+    $branchName = Get-Branch
+    
     $pipeline = az pipelines create `
         --name $pipelineName `
         --org $orgUrl `
         -p $teamProject `
         --repository $repository `
-        --branch $branch `
+        --branch $branchName `
         --yaml-path $yamlFilePath `
         --skip-first-run `
         --service-connection $serviceConnection -o json | ConvertFrom-Json
@@ -129,11 +143,13 @@ function New-AzureDevOpsPipelineRun {
 
     Write-Host "##[command]Executing pipeline '$pipelineName'"
 
+    $branchName = Get-Branch
+
     if ($env:SYSTEM_DEBUG -eq "true") {
         $pipeline = az pipelines run --name $pipelineName `
             --org $orgUrl `
             -p $teamProject `
-            --branch $branch `
+            --branch $branchName `
             -o json `
             --debug | ConvertFrom-Json
     }
@@ -141,7 +157,7 @@ function New-AzureDevOpsPipelineRun {
         $pipeline = az pipelines run --name $pipelineName `
             --org $orgUrl `
             -p $teamProject `
-            --branch $branch `
+            --branch $branchName `
             -o json | ConvertFrom-Json
     }
 
