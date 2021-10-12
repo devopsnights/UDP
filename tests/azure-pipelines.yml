@@ -18,7 +18,7 @@ trigger:
   branches:
     include:
     - main
-    - feature/tests
+    - feature/appconfig
   # paths:
   #   include:
   #   - examples/azureDevOpsPipeline
@@ -47,16 +47,15 @@ extends:
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
         repository: https://github.com/wesleycamargo/UDP
-        branch: $(system.pullRequest.sourceBranch) 
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
       resources:
         - type: 'azureDevOpsPipeline'
           enabled: true
           tests:
             enabled: true
-            yamlFilePath: 'examples\dotnetcore\azure-pipelines.yml'
+            yamlFilePath: 'examples/dotnetcore/azure-pipelines.yml'
             pipelineName: dotnetCore-tests
-            timeoutMinutes: 5
+            timeoutMinutes: 10
             skipTeardown: ${{ parameters.skipTeardown }}
             testFilesToRun:
               $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 #,$(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1
