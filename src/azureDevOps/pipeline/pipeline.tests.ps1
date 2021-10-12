@@ -4,7 +4,7 @@ BeforeAll {
     Write-Host "##[section]Environment variables:"
     Write-Host "##[section]===============================================" -ForegroundColor Green
     if ($env:personalAccessToken) {
-        Write-Host "personalAccessToken: ***" -ForegroundColor Green
+        Write-Host "##[section]personalAccessToken: ***" -ForegroundColor Green
     }
     else{
         Write-Host "personalAccessToken: notDefined" -ForegroundColor Red 
