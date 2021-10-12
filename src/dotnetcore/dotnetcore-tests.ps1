@@ -35,11 +35,12 @@ BeforeAll {
 
 Describe "dotnetCore" -Tag dotnetCore {
     Context "Validate YAML" {
-        It 'Should create an YAML pipeline' {
+        It 'Web App state should be running' {
 
            #health check on web app
+           $webApp = az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
 
-            $true | Should -BeTrue
+           $webApp.state | Should -Be "Running"
         }
     }
 }
