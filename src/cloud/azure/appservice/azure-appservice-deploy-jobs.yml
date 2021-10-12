@@ -14,7 +14,7 @@ jobs:
     environment: develop
     strategy:
       runOnce:
-        ${{ if eq(resource.deployment.infrastructure.enabled, 'true') }}:
+        ${{ if eq(parameters.resource.deployment.infrastructure.enabled, 'true') }}:
           preDeploy:
             steps:
               - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
