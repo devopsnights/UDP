@@ -59,7 +59,7 @@ jobs:
               inputs:
                 buildType: 'current'
                 downloadType: 'single'
-                artifactName: 'drop'
+                artifactName: ${{ parameters.resource.type }}
                 downloadPath: '$(System.ArtifactsDirectory)'
             
             - task: AzureRmWebAppDeployment@4
