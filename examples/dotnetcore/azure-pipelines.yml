@@ -12,7 +12,7 @@ trigger:
   branches:
     include:
     - main
-    # - feature/appconfig
+    - feature/iacforappservice
   # paths:
   #   include:
   #   - examples/dotnetcore
