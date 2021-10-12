@@ -29,7 +29,7 @@ extends:
     serviceConnection: 'AzureServiceConnection'
     environments:
       - dev
-      - uat
+      # - uat
       # - prd
     configuration:
       buildOnly: false
@@ -44,9 +44,9 @@ extends:
           deployment:
             type: azureWebApp
             name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
-            servicePlanName: sp-udptests
             infrastructure:
               enabled: false
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
+              servicePlanName: sp-udptests
             application:
               enabled: true

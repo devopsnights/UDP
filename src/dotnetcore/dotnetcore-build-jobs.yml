@@ -62,9 +62,16 @@ jobs:
 
       - powershell: Write-Host ${{ parameters.resource.type }}
 
-      - task: PublishBuildArtifacts@1
-        displayName: 'Publish Artifact'
+      # - task: PublishBuildArtifacts@1
+      #   displayName: 'Publish Artifact'
+      #   inputs:
+      #     PathtoPublish: '$(build.artifactstagingdirectory)'
+      #     artifact: dotnetCore
+      #   condition: succeededOrFailed()
+
+
+      - task: PublishPipelineArtifact@1
         inputs:
-          PathtoPublish: '$(build.artifactstagingdirectory)'
-          artifact: dotnetCore
-        condition: succeededOrFailed()
+          targetPath: '$(build.artifactstagingdirectory)'
+          artifact: ${{ parameters.resource.type }}
+          publishLocation: 'pipeline'
