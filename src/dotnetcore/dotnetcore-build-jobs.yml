@@ -62,7 +62,7 @@ jobs:
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact'
-        artifact: ${{ parameters.resource.type }}
         inputs:
           PathtoPublish: '$(build.artifactstagingdirectory)'
+          artifact: ${{ parameters.resource.type }}
         condition: succeededOrFailed()
