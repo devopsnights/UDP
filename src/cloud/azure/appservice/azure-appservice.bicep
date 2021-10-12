@@ -1,5 +1,5 @@
 @minLength(1)
-param hostingPlanName string
+param servicePlanName string
 
 @allowed([
   'F1'
@@ -23,8 +23,8 @@ param skuName string = 'F1'
 param skuCapacity int = 1
 param siteName string = 'webSite${uniqueString(resourceGroup().id)}'
 
-resource hostingPlanName_resource 'Microsoft.Web/serverfarms@2015-08-01' = {
-  name: hostingPlanName
+resource servicePlanName_resource 'Microsoft.Web/serverfarms@2015-08-01' = {
+  name: servicePlanName
   location: resourceGroup().location
   tags: {
     displayName: 'HostingPlan'
@@ -34,7 +34,7 @@ resource hostingPlanName_resource 'Microsoft.Web/serverfarms@2015-08-01' = {
     capacity: skuCapacity
   }
   properties: {
-    name: hostingPlanName
+    name: servicePlanName
   }
 }
 
@@ -42,11 +42,11 @@ resource siteName_resource 'Microsoft.Web/sites@2015-08-01' = {
   name: siteName
   location: resourceGroup().location
   tags: {
-    'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/${hostingPlanName}': 'Resource'
+    'hidden-related:${resourceGroup().id}/providers/Microsoft.Web/serverfarms/${servicePlanName}': 'Resource'
     displayName: 'Website'
   }
   properties: {
     name: siteName
-    serverFarmId: hostingPlanName_resource.id
+    serverFarmId: servicePlanName_resource.id
   }
 }

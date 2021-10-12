@@ -35,12 +35,16 @@ extends:
       buildOnly: false
       globalConfiguration:
         appConfigurationName: UDP-Tests
+        subscriptionId: 337ba254-3aa0-4551-ba8e-89debefaa373
+        resourceGroupName: UDP-Tests
+        location: 'northeurope'
       resources:
         - type: dotnetCore
           enabled: true
           deployment:
             type: azureWebApp
             name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
+            servicePlanName: sp-udptests
             infrastructure:
               enabled: false
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
