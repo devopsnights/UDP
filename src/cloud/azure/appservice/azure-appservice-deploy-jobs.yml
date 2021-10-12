@@ -55,12 +55,17 @@ jobs:
                 globalConfiguration: ${{ parameters.globalConfiguration }}
                 serviceConnection: ${{ parameters.serviceConnection }}
             
-            - task: DownloadBuildArtifacts@0
+            # - task: DownloadBuildArtifacts@0
+            #   inputs:
+            #     buildType: 'current'
+            #     downloadType: 'single'
+            #     artifactName: ${{ parameters.resource.type }}
+            #     downloadPath: '$(System.ArtifactsDirectory)'
+
+            - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:
-                buildType: 'current'
-                downloadType: 'single'
-                artifactName: ${{ parameters.resource.type }}
-                downloadPath: '$(System.ArtifactsDirectory)'
+                source: 'current'
+                path: '$(Pipeline.Workspace)'
             
             - task: AzureRmWebAppDeployment@4
               inputs:
@@ -68,4 +73,4 @@ jobs:
                 azureSubscription: ${{ parameters.serviceConnection }}
                 appType: 'webApp'
                 WebAppName: ${{ parameters.resource.deployment.name }} 
-                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+                packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
