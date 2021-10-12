@@ -39,7 +39,7 @@ jobs:
                 resourceGroupName: ${{ parameters.globalConfiguration.resourceGroupName }}
                 location: ${{ parameters.globalConfiguration.location }}
                 templateLocation: 'Linked artifact'
-                csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-datafactory.json '
+                csmFile: '$(Pipeline.Workspace)/dotnetCore/infrastructure/azure-datafactory.json '
                 overrideParameters: >
                   -serverFarmName ${{ parameters.resource.deployment.infrastructure.serverFarmName }} 
                   -siteName ${{ parameters.resource.deployment.name }} 

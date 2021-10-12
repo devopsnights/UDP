@@ -60,9 +60,11 @@ jobs:
               serviceConnection: ${{ parameters.serviceConnection }}
               bicepFilePath: ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
 
+      - powershell: Write-Host ${{ parameters.resource.type }}
+
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact'
         inputs:
           PathtoPublish: '$(build.artifactstagingdirectory)'
-          artifact: ${{ parameters.resource.type }}
+          artifact: dotnetCore
         condition: succeededOrFailed()
