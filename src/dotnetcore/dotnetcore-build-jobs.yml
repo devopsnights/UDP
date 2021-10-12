@@ -49,9 +49,11 @@ jobs:
               scriptType: 'pscore'  
               scriptLocation: 'inlineScript'  
               inlineScript: |
-                $file = ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
+                $file = $bicepFilePath
                 New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
                 az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
+            env:
+              bicepFilePath: ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
 
           # - template: ../cloud/azure/bicep/azure-bicep-build-tasks.yml
           #   parameters:
