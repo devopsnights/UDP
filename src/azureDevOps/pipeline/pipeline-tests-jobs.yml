@@ -29,7 +29,6 @@ jobs:
           orgUrl: ${{ parameters.globalConfiguration.orgUrl }}
           testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
           repository: ${{ parameters.globalConfiguration.repository }}
-          branch: ${{ parameters.globalConfiguration.branch }}
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
           #mapping test specific variables
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}

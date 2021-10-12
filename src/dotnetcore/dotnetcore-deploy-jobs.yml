@@ -3,10 +3,18 @@ parameters:
   type: string
 - name: resource
   type: object
+- name: environment
+  type: string
+- name: globalConfiguration
+  type: object
 
 jobs:
+
+  
   - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
       - template: ../cloud/azure/appservice/azure-appservice-deploy-jobs.yml
         parameters:
           serviceConnection: ${{ parameters.serviceConnection }}
+          globalConfiguration: ${{ parameters.globalConfiguration }}
           resource: ${{ parameters.resource }}
+          environment: ${{ parameters.environment }}

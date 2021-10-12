@@ -4,7 +4,7 @@ BeforeAll {
     Write-Host "##[section]Environment variables:"
     Write-Host "##[section]===============================================" -ForegroundColor Green
     if ($env:personalAccessToken) {
-        Write-Host "personalAccessToken: ***" -ForegroundColor Green
+        Write-Host "##[section]personalAccessToken: ***" -ForegroundColor Green
     }
     else{
         Write-Host "personalAccessToken: notDefined" -ForegroundColor Red 
@@ -45,7 +45,6 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -yamlFilePath $env:yamlFilePath `
                 -pipelineName $env:pipelineName `
                 -repository $env:repository `
-                -branch $env:branch `
                 -serviceConnection $env:serviceConnectionId
 
             $pipeline.name | Should -Be $env:pipelineName
@@ -57,8 +56,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -personalAccessToken $env:personalAccessToken `
                 -orgUrl $env:orgUrl `
                 -teamProject $env:testsTeamProject `
-                -pipelineName $env:pipelineName `
-                -branch $env:branch
+                -pipelineName $env:pipelineName 
 
             if ($pipeline) {
                 $build = Wait-AzureDevOpsPipelineRuns `
