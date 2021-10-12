@@ -43,5 +43,6 @@ extends:
             name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
             infrastructure:
               enabled: false
+              iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
             application:
               enabled: true

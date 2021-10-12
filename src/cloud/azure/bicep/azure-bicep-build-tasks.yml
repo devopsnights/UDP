@@ -1,0 +1,20 @@
+parameters:
+  - name: serviceConnection
+    type: string
+  - name: bicepFilePath
+    type: string
+
+tasks:
+  - task: AzureCLI@2  
+    displayName: 'Build bicep artifact' 
+    inputs: 
+      azureSubscription: ${{ parameters.serviceConnection }}
+      scriptType: 'pscore'  
+      scriptLocation: 'inlineScript'  
+      inlineScript: |
+        $file = ${{ parameters.bicepFilePath }}
+        New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
+        az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
+
+
+      # $file = "$(Build.SourcesDirectory)/src/cloud/azure/datafactory/azure-datafactory.bicep"
