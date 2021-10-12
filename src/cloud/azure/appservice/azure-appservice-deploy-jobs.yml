@@ -21,7 +21,7 @@ jobs:
                 environment: ${{ parameters.environment }}        
                 globalConfiguration: ${{ parameters.globalConfiguration }}
                 serviceConnection: ${{ parameters.serviceConnection }}
-                
+
             - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:
                 source: 'current'
@@ -39,7 +39,7 @@ jobs:
                 resourceGroupName: ${{ parameters.globalConfiguration.resourceGroupName }}
                 location: ${{ parameters.globalConfiguration.location }}
                 templateLocation: 'Linked artifact'
-                csmFile: '$(Pipeline.Workspace)/infrastructure/azure-datafactory.json '
+                csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-datafactory.json '
                 overrideParameters: >
                   -serverFarmName ${{ parameters.resource.deployment.infrastructure.serverFarmName }} 
                   -siteName ${{ parameters.resource.deployment.name }} 

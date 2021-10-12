@@ -42,26 +42,27 @@ jobs:
           zipAfterPublish: True
 
       - ${{ if eq(parameters.resource.deployment.type, 'azureWebApp') }}:
-          - task: AzureCLI@2  
-            displayName: 'Build bicep artifact' 
-            inputs: 
-              azureSubscription: ${{ parameters.serviceConnection }}
-              scriptType: 'pscore'  
-              scriptLocation: 'inlineScript'  
-              inlineScript: |
-                $file = $env:bicepFilePath
-                New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
-                az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
-            env:
-              bicepFilePath: ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
-
-          # - template: ../cloud/azure/bicep/azure-bicep-build-tasks.yml
-          #   parameters:
-          #     serviceConnection: ${{ parameters.serviceConnection }}
+          # - task: AzureCLI@2  
+          #   displayName: 'Build bicep artifact' 
+          #   inputs: 
+          #     azureSubscription: ${{ parameters.serviceConnection }}
+          #     scriptType: 'pscore'  
+          #     scriptLocation: 'inlineScript'  
+          #     inlineScript: |
+          #       $file = $env:bicepFilePath
+          #       New-Item -ItemType Directory -Force -Path $(build.artifactstagingdirectory)/infrastructure
+          #       az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
+          #   env:
           #     bicepFilePath: ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
+
+          - template: ../cloud/azure/bicep/azure-bicep-build-tasks.yml
+            parameters:
+              serviceConnection: ${{ parameters.serviceConnection }}
+              bicepFilePath: ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact'
+        artifact: ${{ parameters.resource.type }}
         inputs:
           PathtoPublish: '$(build.artifactstagingdirectory)'
         condition: succeededOrFailed()
