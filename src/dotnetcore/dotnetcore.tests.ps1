@@ -12,12 +12,7 @@ BeforeAll {
         Import-Module $module -Force
     }
 
-    Write-Host "webapp: $env:webAppName"
-    Write-Host "rg: $env:resourceGroupName"
-    
-    az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
-
-    # run yaml pipeline to deploy
+    # create yaml pipeline 
     $pipeline = New-AzureDevOpsPipeline `
         -personalAccessToken $env:personalAccessToken `
         -orgUrl $env:orgUrl `
@@ -28,12 +23,14 @@ BeforeAll {
         -branch $env:branch `
         -serviceConnection $env:serviceConnectionId
 
+    # run yaml pipeline to deploy
     $pipeline = New-AzureDevOpsPipelineRun `
         -personalAccessToken $env:personalAccessToken `
         -orgUrl $env:orgUrl `
         -teamProject $env:testsTeamProject `
         -pipelineName $env:pipelineName 
 
+    # wait until the pipeline runs
     if ($pipeline) {
         $build = Wait-AzureDevOpsPipelineRuns `
             -personalAccessToken $env:personalAccessToken `
@@ -48,7 +45,6 @@ Describe "dotnetCore" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Web App state should be running' {
 
-           #health check on web app
            $webApp = az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
 
            $webApp.state | Should -Be "Running"
@@ -58,23 +54,23 @@ Describe "dotnetCore" -Tag dotnetCore {
 
 AfterAll {
 
-    # Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
-    # $pipelines = Get-AzureDevOpsPipelines `
-    #     -personalAccessToken $env:personalAccessToken `
-    #     -orgUrl $env:orgUrl `
-    #     -teamProject $env:testsTeamProject
+    Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
+    $pipelines = Get-AzureDevOpsPipelines `
+        -personalAccessToken $env:personalAccessToken `
+        -orgUrl $env:orgUrl `
+        -teamProject $env:testsTeamProject
 
-    # Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
+    Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
     
-    # foreach ($pipeline in $pipelines) {
-    #     Write-Host "Removing pipeline:" -ForegroundColor Yellow
-    #     Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
-    #     Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
+    foreach ($pipeline in $pipelines) {
+        Write-Host "Removing pipeline:" -ForegroundColor Yellow
+        Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
+        Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
 
-    #     Remove-AzureDevOpsPipelines `
-    #         -personalAccessToken $env:personalAccessToken `
-    #         -orgUrl $env:orgUrl `
-    #         -teamProject $env:testsTeamProject `
-    #         -pipelineId  $pipeline.id
-    # }   
+        Remove-AzureDevOpsPipelines `
+            -personalAccessToken $env:personalAccessToken `
+            -orgUrl $env:orgUrl `
+            -teamProject $env:testsTeamProject `
+            -pipelineId  $pipeline.id
+    }   
 }
