@@ -13,7 +13,7 @@ jobs:
 
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
-        enabled: false
+        enabled: true
         inputs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
