@@ -58,5 +58,7 @@ extends:
             timeoutMinutes: 10
             skipTeardown: ${{ parameters.skipTeardown }}
             testFilesToRun:
-              # $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
-              $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1
+              $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
+              # $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1
+            complementaryTestsFile: $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore.tests.ps1
+            complementaryTestsSteps: $(Build.SourcesDirectory)/src/dotnetcore/dotnetCore-tests-steps.yml

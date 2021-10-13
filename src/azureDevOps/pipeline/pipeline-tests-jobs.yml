@@ -1,8 +1,8 @@
 parameters:
-- name: resource
-  type: object
-- name: globalConfiguration
-  type: object
+  - name: resource
+    type: object
+  - name: globalConfiguration
+    type: object
 
 jobs:
   - job: BuildJob
@@ -15,6 +15,7 @@ jobs:
 
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
+        enabled: false
         inputs:
           azureSubscription: AzureServiceConnection
           scriptType: "FilePath"
@@ -36,6 +37,13 @@ jobs:
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
           skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
+
+      - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
+        - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
+          parameters:
+            resource: ${{ resource }}
+            globalConfiguration: ${{ parameters.globalConfiguration }}
+
 
       - task: PublishTestResults@2
         inputs:
