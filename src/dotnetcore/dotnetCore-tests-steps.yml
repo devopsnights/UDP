@@ -30,9 +30,9 @@ steps:
   #     skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
 
 
-  - ${{ each parameter in parameters }}:
-    - script: echo ${{ parameter.Key }} 
-    - script: echo ${{ parameter.Value }}
+  # - ${{ each parameter in parameters }}:
+  #   - script: echo ${{ parameter.Key }} 
+  #   - script: echo ${{ parameter.Value }}
 
   - ${{ each parameter in parameters.resource.tests }}:
     - script: echo ${{ parameter.Key }} 
