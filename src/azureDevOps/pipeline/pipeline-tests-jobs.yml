@@ -11,7 +11,7 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml 
+      - template: ../../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml 
         parameters:
           environment: ${{ parameters.resource.tests.environmentToValidate }}        
           globalConfiguration: ${{ parameters.globalConfiguration }}
