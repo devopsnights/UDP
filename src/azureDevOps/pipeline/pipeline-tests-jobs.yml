@@ -15,7 +15,7 @@ jobs:
         parameters:
           environment: ${{ parameters.resource.tests.environmentToValidate }}        
           globalConfiguration: ${{ parameters.globalConfiguration }}
-          serviceConnection: ${{ parameters.serviceConnection }}
+          serviceConnection: ${{ parameters.globalConfiguration.serviceConnection }}
       
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
