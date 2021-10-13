@@ -26,5 +26,5 @@ steps:
       yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
       pipelineName: ${{ parameters.resource.tests.pipelineName }}
       timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
-      testFilesToRun: ${{ parameters.resource.tests.complementaryTestsSteps }}
+      testFilesToRun: ${{ parameters.resource.tests.complementaryTestsFile }}
       skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
