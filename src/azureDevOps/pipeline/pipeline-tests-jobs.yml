@@ -11,6 +11,12 @@ jobs:
       - checkout: self
         persistCredentials: true
 
+      - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml 
+        parameters:
+          environment: ${{ parameters.environment }}        
+          globalConfiguration: ${{ parameters.globalConfiguration }}
+          serviceConnection: ${{ parameters.serviceConnection }}
+      
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
         enabled: true
