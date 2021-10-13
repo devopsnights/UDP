@@ -38,8 +38,8 @@ jobs:
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
           skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
 
-      - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
-        - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
+      # - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
+      #   - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
           # parameters:
           #   resource: ${{ resource }}
           #   globalConfiguration: ${{ parameters.globalConfiguration }}
