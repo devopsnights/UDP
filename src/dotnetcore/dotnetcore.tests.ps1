@@ -12,7 +12,9 @@ BeforeAll {
         Import-Module $module -Force
     }
 
-    Write-Host "webapp:"
+    Write-Host "webapp: $env:webAppName"
+    Write-Host "rg: $env:resourceGroupName"
+    
     az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
 
     # run yaml pipeline to deploy
