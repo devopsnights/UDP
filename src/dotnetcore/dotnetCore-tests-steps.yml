@@ -44,8 +44,8 @@ steps:
       azureSubscription: AzureServiceConnection
       ScriptType: 'InlineScript'
       Inline: 'Write-Host $env:'
+      azurePowerShellVersion: 'LatestVersion'
     env:
-      # mapping global variables
       customModulesDirectory: ${{ parameters.globalConfiguration.customModulesDirectory }}
       ${{ each parameter in parameters.resource.tests }}:
         ${{ parameter.Key }}: ${{ parameter.Value }} 
