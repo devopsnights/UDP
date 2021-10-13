@@ -1,0 +1,13 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Pester@10
+  inputs:
+    scriptFolder: '$(Build.SourcesDirectory)/src/dotnetcore/*'
+    resultsFile: '$(System.DefaultWorkingDirectory)\Test-Pester.XML'
+    usePSCore: False
+    additionalModulePath: '$(Build.SourcesDirectory)\modules\'
