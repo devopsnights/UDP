@@ -8,7 +8,7 @@ steps:
 - powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
 - task: Pester@10
   inputs:
-    scriptFolder: '$(Build.SourcesDirectory)/src/dotnetcore/*'
+    scriptFolder: '$(Build.SourcesDirectory)/**/dotnetcore/*.tests.ps1'
     resultsFile: '$(System.DefaultWorkingDirectory)\Test-Pester.XML'
-    usePSCore: False
+    usePSCore: false
     additionalModulePath: '$(Build.SourcesDirectory)\modules\'
