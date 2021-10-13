@@ -60,5 +60,8 @@ extends:
             testFilesToRun:
               $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
               # $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore-tests.ps1
-            complementaryTestsFile: $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore.tests.ps1
-            complementaryTestsSteps: ../../dotnetcore/dotnetCore-tests-steps.yml
+            # complementaryTestsFile: $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore.tests.ps1
+            # complementaryTestsSteps: ../../dotnetcore/dotnetCore-tests-steps.yml
+            environmentParameters:
+              webAppName: $(tests/dotnetCore/webAppName)
+              resourceGroupName: UDP-Tests

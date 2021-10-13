@@ -11,8 +11,6 @@ jobs:
       - checkout: self
         persistCredentials: true
 
-      - powershell: Write-Host ${{ parameters.resource.tests.testFilesToRun }}
-
       - task: AzurePowerShell@4
         displayName: Running Unit Tests
         enabled: false
@@ -31,18 +29,21 @@ jobs:
           testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
           repository: ${{ parameters.globalConfiguration.repository }}
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
-          #mapping test specific variables
+          # mapping test specific variables
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineName: ${{ parameters.resource.tests.pipelineName }}
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
           skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
+          # complementary environment variables provided by client
+          ${{ each parameter in parameters.resource.tests.environmentParameters }}:
+            ${{ parameter.Key }}: ${{ parameter.Value }}
 
-      - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
-        - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
-          parameters:
-            resource: ${{ parameters.resource }}
-            globalConfiguration: ${{ parameters.globalConfiguration }}
+      # - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
+      #   - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
+      #     parameters:
+      #       resource: ${{ parameters.resource }}
+      #       globalConfiguration: ${{ parameters.globalConfiguration }}
 
 
       - task: PublishTestResults@2
