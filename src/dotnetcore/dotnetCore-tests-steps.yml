@@ -34,16 +34,17 @@ steps:
   #   - script: echo ${{ parameter.Key }} 
   #   - script: echo ${{ parameter.Value }}
 
-  - ${{ each parameter in parameters.resource.tests }}:
-    - powershell: | 
-        Write-Host key: ${{ parameter.Key }} 
-        Write-Host value: ${{ parameter.Value }}
+  # - ${{ each parameter in parameters.resource.tests }}:
+  #   - powershell: | 
+  #       Write-Host key: ${{ parameter.Key }} 
+  #       Write-Host value: ${{ parameter.Value }}
 
   - task: AzurePowerShell@4
     inputs:
       azureSubscription: AzureServiceConnection
       ScriptType: 'InlineScript'
-      Inline: 'Write-Host $env:'
+      Inline: |
+        Write-Host "yamlFilePath $env:yamlFilePath"
       azurePowerShellVersion: 'LatestVersion'
     env:
       customModulesDirectory: ${{ parameters.globalConfiguration.customModulesDirectory }}
