@@ -40,7 +40,7 @@ steps:
 
   - task: AzurePowerShell@5
     inputs:
-      azureSubscription: 'MVP Sponsorship'
+      azureSubscription: AzureServiceConnection
       ScriptType: 'InlineScript'
       Inline: 'Write-Host $env:'
     env:
