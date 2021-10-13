@@ -41,7 +41,7 @@ jobs:
       - ${{ if ne(parameters.resource.tests.complementaryTestsSteps, 'true') }}: 
         - template:  ${{ parameters.resource.tests.complementaryTestsSteps }}
           parameters:
-            resource: ${{ resource }}
+            resource: ${{ parameters.resource }}
             globalConfiguration: ${{ parameters.globalConfiguration }}
 
 
