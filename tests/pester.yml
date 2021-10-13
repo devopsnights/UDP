@@ -5,6 +5,7 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
 - task: Pester@10
   inputs:
     scriptFolder: '$(Build.SourcesDirectory)/src/dotnetcore/*'
