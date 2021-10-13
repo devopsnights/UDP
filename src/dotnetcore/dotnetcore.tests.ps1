@@ -12,6 +12,9 @@ BeforeAll {
         Import-Module $module -Force
     }
 
+    Write-Host "webapp:"
+    az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
+
     # run yaml pipeline to deploy
     $pipeline = New-AzureDevOpsPipeline `
         -personalAccessToken $env:personalAccessToken `
