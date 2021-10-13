@@ -35,10 +35,11 @@ steps:
   #   - script: echo ${{ parameter.Value }}
 
   - ${{ each parameter in parameters.resource.tests }}:
-    - script: echo ${{ parameter.Key }} 
-    - script: echo ${{ parameter.Value }}
+    - powershell: | 
+        Write-Host key: ${{ parameter.Key }} 
+        Write-Host value: ${{ parameter.Value }}
 
-  - task: AzurePowerShell@5
+  - task: AzurePowerShell@4
     inputs:
       azureSubscription: AzureServiceConnection
       ScriptType: 'InlineScript'
