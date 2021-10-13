@@ -62,6 +62,7 @@ extends:
               $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore.tests.ps1
             # complementaryTestsFile: $(Build.SourcesDirectory)/src/dotnetcore/dotnetcore.tests.ps1
             # complementaryTestsSteps: ../../dotnetcore/dotnetCore-tests-steps.yml
+            environmentToValidate: dev
             environmentParameters:
               webAppName: $(TESTS/DOTNETCORE/WEBAPPNAME)
               resourceGroupName: UDP-Tests
