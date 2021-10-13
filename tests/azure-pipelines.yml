@@ -49,6 +49,7 @@ extends:
         repository: https://github.com/wesleycamargo/UDP
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
         serviceConnection: 'AzureServiceConnection'
+        appConfigurationName: UDP-Tests
       resources:
         - type: 'azureDevOpsPipeline'
           enabled: true
