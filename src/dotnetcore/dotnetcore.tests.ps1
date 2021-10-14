@@ -49,8 +49,8 @@ Describe "dotnetCore" -Tag dotnetCore {
                 
                 $keys = az appconfig kv list -n UDP-Tests --label "dev" -o json | ConvertFrom-Json
                 
-                $wa = $keys | where { $_.key -eq $env:webAppName }
-                $rg = $keys | where { $_.key -eq $env:resourceGroupName }
+                $wa = ($keys | where { $_.key -eq $env:webAppName }).value
+                $rg = ($keys | where { $_.key -eq $env:resourceGroupName }).value
 
                 Write-Host "rg: $rg"
                 Write-Host "wa: $wa"
