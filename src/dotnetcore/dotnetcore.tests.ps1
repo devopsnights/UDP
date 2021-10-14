@@ -86,7 +86,13 @@ AfterAll {
     }
 
     foreach ($environment in $env:environmentToValidate.Split(",")) {
+        $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
+                
+        $wa = ($keys | where { $_.key -eq $env:webAppNameKey }).value
+        $rg = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
+        Write-Host "rg: $rg"
+        Write-Host "wa: $wa"
 
     }
 
