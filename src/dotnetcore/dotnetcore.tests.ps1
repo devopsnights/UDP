@@ -94,6 +94,8 @@ AfterAll {
         Write-Host "rg: $rg"
         Write-Host "wa: $wa"
 
+        az webapp delete -n $wa -g $rg
+
     }
 
     
