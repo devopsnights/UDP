@@ -32,6 +32,7 @@ jobs:
           testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
           repository: ${{ parameters.globalConfiguration.repository }}
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
+          appConfigurationName: ${{ parameters.globalConfiguration.appConfigurationName }}
           # mapping test specific variables
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineName: ${{ parameters.resource.tests.pipelineName }}

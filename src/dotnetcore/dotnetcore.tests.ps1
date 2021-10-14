@@ -47,10 +47,10 @@ Describe "dotnetCore" -Tag dotnetCore {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
                 
-                $keys = az appconfig kv list -n UDP-Tests --label "dev" -o json | ConvertFrom-Json
+                $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
-                $wa = ($keys | where { $_.key -eq $env:webAppName }).value
-                $rg = ($keys | where { $_.key -eq $env:resourceGroupName }).value
+                $wa = ($keys | where { $_.key -eq $env:webAppNameKey }).value
+                $rg = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
                 Write-Host "rg: $rg"
                 Write-Host "wa: $wa"
@@ -83,6 +83,11 @@ AfterAll {
             -orgUrl $env:orgUrl `
             -teamProject $env:testsTeamProject `
             -pipelineId  $pipeline.id
+    }
+
+    foreach ($environment in $env:environmentToValidate.Split(",")) {
+
+
     }
 
     
