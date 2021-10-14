@@ -45,9 +45,20 @@ Describe "dotnetCore" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Web App state should be running' {
 
-           $webApp = az webapp show -n $env:webAppName -g $env:resourceGroupName | ConvertFrom-Json
+            foreach ($environment in $env:environmentToValidate.Split(",")) {
+                
+                $keys = az appconfig kv list -n UDP-Tests --label "dev" -o json | ConvertFrom-Json
+                
+                $wa = $keys | where { $_.key -eq $env:webAppName }
+                $rg = $keys | where { $_.key -eq $env:resourceGroupName }
 
-           $webApp.state | Should -Be "Running"
+                Write-Host "rg: $rg"
+                Write-Host "wa: $wa"
+
+                $webApp = az webapp show -n $wa -g $rg | ConvertFrom-Json
+
+                $webApp.state | Should -Be "Running"
+            }
         }
     }
 }
@@ -72,5 +83,7 @@ AfterAll {
             -orgUrl $env:orgUrl `
             -teamProject $env:testsTeamProject `
             -pipelineId  $pipeline.id
-    }   
+    }
+
+    
 }
