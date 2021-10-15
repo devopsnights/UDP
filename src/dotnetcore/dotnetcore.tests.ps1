@@ -49,13 +49,13 @@ Describe "dotnetCore" -Tag dotnetCore {
                 
                 $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
-                $wa = ($keys | where { $_.key -eq $env:webAppNameKey }).value
-                $rg = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
+                $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
+                $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
-                Write-Host "rg: $rg"
-                Write-Host "wa: $wa"
+                Write-Host "resourceGroupName: $resourceGroupName"
+                Write-Host "wa: $webAppName"
 
-                $webApp = az webapp show -n $wa -g $rg | ConvertFrom-Json
+                $webApp = az webapp show -n $webAppName -g $resourceGroupName | ConvertFrom-Json
 
                 $webApp.state | Should -Be "Running"
             }
@@ -88,13 +88,13 @@ AfterAll {
     foreach ($environment in $env:environmentToValidate.Split(",")) {
         $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
-        $wa = ($keys | where { $_.key -eq $env:webAppNameKey }).value
-        $rg = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
+        $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
+        $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
-        Write-Host "rg: $rg"
-        Write-Host "wa: $wa"
+        Write-Host "resourceGroupName: $resourceGroupName"
+        Write-Host "wa: $webAppName"
 
-        az webapp delete -n $wa -g $rg
+        az webapp delete -n $webAppName -g $resourceGroupName
 
     }
 

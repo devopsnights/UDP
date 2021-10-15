@@ -47,6 +47,6 @@ extends:
             infrastructure:
               enabled: true
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
-              servicePlanName: sp-udptests
+              servicePlanName: $(TESTS/DOTNETCORE/SERVICEPLANNAME)
             application:
               enabled: true

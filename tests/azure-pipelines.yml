@@ -65,4 +65,5 @@ extends:
             environmentParameters:
               webAppNameKey: tests/dotnetCore/webAppName
               resourceGroupNameKey: tests/dotnetCore/resourceGroupName #UDP-Tests
+              servicePlanName: tests/dotnetCore/servicePlanName
               environmentToValidate: dev,uat
