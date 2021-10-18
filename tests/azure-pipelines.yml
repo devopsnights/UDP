@@ -56,7 +56,7 @@ extends:
           tests:
             enabled: true
             yamlFilePath: 'examples/dotnetcore/azure-pipelines.yml'
-            pipelineName: dotnetCore-tests
+            pipelineName: dotnetCore-appService-tests
             timeoutMinutes: 10
             skipTeardown: ${{ parameters.skipTeardown }}
             testFilesToRun:
