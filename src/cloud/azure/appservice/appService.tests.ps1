@@ -65,38 +65,43 @@ Describe "dotnetCore" -Tag dotnetCore {
 
 AfterAll {
 
-    Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
-    $pipelines = Get-AzureDevOpsPipelines `
-        -personalAccessToken $env:personalAccessToken `
-        -orgUrl $env:orgUrl `
-        -teamProject $env:testsTeamProject
-
-    Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
+    Write-Host "Skip TearDown:  $env:skipTeardown"
     
-    foreach ($pipeline in $pipelines) {
-        Write-Host "Removing pipeline:" -ForegroundColor Yellow
-        Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
-        Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
-
-        Remove-AzureDevOpsPipelines `
+    if ($env:skipTeardown -ne "true") {
+        Write-Host "Test execution finished. Tearing down pipelines." -ForegroundColor Yellow
+        $pipelines = Get-AzureDevOpsPipelines `
             -personalAccessToken $env:personalAccessToken `
             -orgUrl $env:orgUrl `
-            -teamProject $env:testsTeamProject `
-            -pipelineId  $pipeline.id
-    }
+            -teamProject $env:testsTeamProject
 
-    foreach ($environment in $env:environmentToValidate.Split(",")) {
-        $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
+        Write-Host "Removing ALL pipelines on Team Project $teamProject" -ForegroundColor Yellow
+    
+        foreach ($pipeline in $pipelines) {
+            Write-Host "Removing pipeline:" -ForegroundColor Yellow
+            Write-Host "Name: $($pipeline.name)" -ForegroundColor Yellow
+            Write-Host "Id $($pipeline.id)" -ForegroundColor Yellow
+
+            Remove-AzureDevOpsPipelines `
+                -personalAccessToken $env:personalAccessToken `
+                -orgUrl $env:orgUrl `
+                -teamProject $env:testsTeamProject `
+                -pipelineId  $pipeline.id
+        }
+
+        foreach ($environment in $env:environmentToValidate.Split(",")) {
+            $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
-        $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
-        $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
+            $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
+            $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
-        Write-Host "resourceGroupName: $resourceGroupName"
-        Write-Host "wa: $webAppName"
+            Write-Host "Removing webApp: $webAppName"
 
-        az webapp delete -n $webAppName -g $resourceGroupName
+            az webapp delete -n $webAppName -g $resourceGroupName
 
+        }
     }
-
+    else {
+        Write-Host "Skipping teardown"
+    }
     
 }
