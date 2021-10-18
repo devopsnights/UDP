@@ -52,6 +52,7 @@ Describe "dotnetCore" -Tag dotnetCore {
                 $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
                 $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
+                Write-Host "Validating resources"
                 Write-Host "resourceGroupName: $resourceGroupName"
                 Write-Host "wa: $webAppName"
 
