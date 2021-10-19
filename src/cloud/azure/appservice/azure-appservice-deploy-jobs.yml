@@ -53,13 +53,6 @@ jobs:
                 environment: ${{ parameters.environment }}        
                 globalConfiguration: ${{ parameters.globalConfiguration }}
                 serviceConnection: ${{ parameters.serviceConnection }}
-            
-            # - task: DownloadBuildArtifacts@0
-            #   inputs:
-            #     buildType: 'current'
-            #     downloadType: 'single'
-            #     artifactName: ${{ parameters.resource.type }}
-            #     downloadPath: '$(System.ArtifactsDirectory)'
 
             - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:

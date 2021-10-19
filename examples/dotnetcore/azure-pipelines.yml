@@ -12,10 +12,6 @@ trigger:
   branches:
     include:
     - main
-    - feature/iacforappservice
-  # paths:
-  #   include:
-  #   - examples/dotnetcore
   
 pool:
   vmImage: 'windows-latest'
@@ -43,7 +39,7 @@ extends:
           enabled: true
           deployment:
             type: azureWebApp
-            name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
+            name: $(TESTS/DOTNETCORE/WEBAPPNAME) 
             infrastructure:
               enabled: true
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep

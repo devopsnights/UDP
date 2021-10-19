@@ -10,12 +10,6 @@ jobs:
     steps:
       - checkout: self
         persistCredentials: true
-
-      # - template: ../../cloud/azure/appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml 
-      #   parameters:
-      #     environment: ${{ parameters.resource.tests.environmentToValidate }}        
-      #     globalConfiguration: ${{ parameters.globalConfiguration }}
-      #     serviceConnection: ${{ parameters.globalConfiguration.serviceConnection }}
       
       - task: AzureCLI@2
         inputs:

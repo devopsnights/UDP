@@ -17,6 +17,3 @@ steps:
         az bicep build --file $file --outdir $(build.artifactstagingdirectory)/infrastructure
     env:
         bicepFilePath: ${{ parameters.bicepFilePath }}
-
-
-      # $file = "$(Build.SourcesDirectory)/src/cloud/azure/datafactory/azure-datafactory.bicep"
