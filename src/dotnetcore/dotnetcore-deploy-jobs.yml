@@ -1,12 +1,12 @@
 parameters:
-- name: serviceConnection
-  type: string
-- name: resource
-  type: object
-- name: environment
-  type: string
-- name: globalConfiguration
-  type: object
+  - name: serviceConnection
+    type: string
+  - name: resource
+    type: object
+  - name: environment
+    type: string
+  - name: globalConfiguration
+    type: object
 
 jobs:
 

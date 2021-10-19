@@ -12,10 +12,6 @@ trigger:
   branches:
     include:
     - main
-    # - feature/appconfig
-  # paths:
-  #   include:
-  #   - examples/dotnetcore
   
 pool:
   vmImage: 'windows-latest'
@@ -35,13 +31,18 @@ extends:
       buildOnly: false
       globalConfiguration:
         appConfigurationName: UDP-Tests
+        subscriptionId: 337ba254-3aa0-4551-ba8e-89debefaa373
+        resourceGroupName: UDP-Tests
+        location: 'northeurope'
       resources:
         - type: dotnetCore
           enabled: true
           deployment:
             type: azureWebApp
-            name: $(TESTS/DOTNETCORE/WEBAPPNAME) #wa-udp-dotnetcore-windows
+            name: $(TESTS/DOTNETCORE/WEBAPPNAME) 
             infrastructure:
-              enabled: false
+              enabled: true
+              iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
+              servicePlanName: $(TESTS/DOTNETCORE/SERVICEPLANNAME)
             application:
               enabled: true
