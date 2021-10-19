@@ -1,8 +1,8 @@
 parameters:
-- name: resource
-  type: object
-- name: globalConfiguration
-  type: object
+  - name: resource
+    type: object
+  - name: globalConfiguration
+    type: object
 
 jobs:
   - job: BuildJob
@@ -10,18 +10,14 @@ jobs:
     steps:
       - checkout: self
         persistCredentials: true
-
-      - powershell: Write-Host ${{ parameters.resource.tests.testFilesToRun }}
-
-      - task: AzurePowerShell@4
-        displayName: Running Unit Tests
+      
+      - task: AzureCLI@2
         inputs:
-          azureSubscription: AzureServiceConnection
-          scriptType: "FilePath"
+          azureSubscription: 'AzureServiceConnection'
+          scriptType: 'pscore'
+          scriptLocation: 'scriptPath'
           scriptPath: $(Build.SourcesDirectory)/src/azureDevOps/pipeline/run.pipeline.tests.ps1
-          scriptArguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
-          azurePowerShellVersion: "latestVersion"
-          errorActionPreference: "continue"
+          arguments: -TestResultsDirectory "$(Build.ArtifactStagingDirectory)/testResults/"
         env:
           # mapping global variables
           personalAccessToken: ${{ parameters.globalConfiguration.personalAccessToken }}
@@ -30,12 +26,16 @@ jobs:
           testsTeamProject: ${{ parameters.globalConfiguration.testsTeamProject }}
           repository: ${{ parameters.globalConfiguration.repository }}
           serviceConnectionId: ${{ parameters.globalConfiguration.serviceConnectionId }}
-          #mapping test specific variables
+          appConfigurationName: ${{ parameters.globalConfiguration.appConfigurationName }}
+          # mapping test specific variables
           yamlFilePath: ${{ parameters.resource.tests.yamlFilePath }}
           pipelineName: ${{ parameters.resource.tests.pipelineName }}
           timeoutMinutes: ${{ parameters.resource.tests.timeoutMinutes }}
           testFilesToRun: ${{ parameters.resource.tests.testFilesToRun }}
           skipTeardown: ${{ parameters.resource.tests.skipTeardown }}
+          # complementary environment variables provided by client
+          ${{ each parameter in parameters.resource.tests.environmentParameters }}:
+            ${{ parameter.Key }}: ${{ parameter.Value }}
 
       - task: PublishTestResults@2
         inputs:
