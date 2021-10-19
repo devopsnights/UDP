@@ -16,12 +16,18 @@ stages:
         - ${{ if eq(resource.enabled, 'true') }}:
             - ${{ if eq(resource.type, 'dotnetCore') }}:
               - template: ./dotnetcore/dotnetcore-build-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
+                  serviceConnection: ${{ parameters.serviceConnection }}
+
             - ${{ if eq(resource.type, 'nodejs') }}:
               - template: ./nodejs/nodejs-build-jobs.yml
+
             - ${{ if eq(resource.type, 'sqlserver') }}:
               - template: ./sqlserver/sqlserver-build-jobs.yml
                 parameters:
                   resource: ${{ resource }}
+
             - ${{ if eq(resource.type, 'azureDevOpsPipeline') }}:
               - template: ./azureDevOps/pipeline/pipeline-tests-jobs.yml
                 parameters:

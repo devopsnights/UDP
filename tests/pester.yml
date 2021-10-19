@@ -1,0 +1,14 @@
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- powershell: Get-ChildItem $(Build.SourcesDirectory) -recurse
+- task: Pester@10
+  inputs:
+    scriptFolder: '**\dotnetcore.tests.ps1'
+    resultsFile: '$(System.DefaultWorkingDirectory)\Test-Pester.XML'
+    usePSCore: false
+    additionalModulePath: '$(Build.SourcesDirectory)\modules\'

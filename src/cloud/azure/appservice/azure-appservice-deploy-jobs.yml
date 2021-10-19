@@ -14,7 +14,37 @@ jobs:
     environment: develop
     strategy:
       runOnce:
-        
+        ${{ if eq(parameters.resource.deployment.infrastructure.enabled, 'true') }}:
+          preDeploy:
+            steps:
+              - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+                parameters:
+                  environment: ${{ parameters.environment }}        
+                  globalConfiguration: ${{ parameters.globalConfiguration }}
+                  serviceConnection: ${{ parameters.serviceConnection }}
+
+              - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
+                inputs:
+                  source: 'current'
+                  path: '$(Pipeline.Workspace)'
+            
+              - task: AzureResourceManagerTemplateDeployment@3
+                displayName: Creating App Service Infrastructure by IaC
+                inputs:
+                  deploymentScope: 'Resource Group'
+                  azureResourceManagerConnection: '${{ parameters.serviceConnection }}'
+                  subscriptionId: ${{ parameters.globalConfiguration.subscriptionId }}
+                  action: 'Create Or Update Resource Group'
+                  resourceGroupName: ${{ parameters.globalConfiguration.resourceGroupName }}
+                  location: ${{ parameters.globalConfiguration.location }}
+                  templateLocation: 'Linked artifact'
+                  csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-appservice.json'
+                  overrideParameters: >
+                    -servicePlanName ${{ parameters.resource.deployment.infrastructure.servicePlanName }} 
+                    -siteName ${{ parameters.resource.deployment.name }} 
+                  deploymentMode: 'Incremental'
+                  deploymentOutputs: 'ArmOutputs'
+
         deploy:
           steps:
             
@@ -23,13 +53,11 @@ jobs:
                 environment: ${{ parameters.environment }}        
                 globalConfiguration: ${{ parameters.globalConfiguration }}
                 serviceConnection: ${{ parameters.serviceConnection }}
-            
-            - task: DownloadBuildArtifacts@0
+
+            - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:
-                buildType: 'current'
-                downloadType: 'single'
-                artifactName: 'drop'
-                downloadPath: '$(System.ArtifactsDirectory)'
+                source: 'current'
+                path: '$(Pipeline.Workspace)'
             
             - task: AzureRmWebAppDeployment@4
               inputs:
@@ -37,4 +65,4 @@ jobs:
                 azureSubscription: ${{ parameters.serviceConnection }}
                 appType: 'webApp'
                 WebAppName: ${{ parameters.resource.deployment.name }} 
-                packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+                packageForLinux: '$(Pipeline.Workspace)/**/*.zip'
