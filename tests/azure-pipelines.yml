@@ -30,7 +30,7 @@ extends:
   parameters:
     serviceConnection: 'AzureServiceConnection'
     environments:
-      - pr
+      - ci
       # - uat
       # - prd
     configuration:
@@ -61,4 +61,4 @@ extends:
               webAppNameKey: tests/dotnetCore/webAppName
               resourceGroupNameKey: tests/dotnetCore/resourceGroupName
               servicePlanName: tests/dotnetCore/servicePlanName
-              environmentToValidate: dev,uat
+              environmentToValidate: ci

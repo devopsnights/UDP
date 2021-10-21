@@ -24,8 +24,9 @@ extends:
   parameters:
     serviceConnection: 'AzureServiceConnection'
     environments:
-      - dev
-      - uat
+      - ci
+      # - dev
+      # - uat
       # - prd
     configuration:
       buildOnly: false
