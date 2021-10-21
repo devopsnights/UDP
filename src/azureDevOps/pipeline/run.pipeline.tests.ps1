@@ -5,6 +5,8 @@ param(
 
 Write-Host "Test scripts: $env:testFilesToRun"
 
+Get-ChildItem -Path Env:
+
 # Create configuration for pester execution
 $container = New-PesterContainer -Path $env:testFilesToRun.Split(",")
 
