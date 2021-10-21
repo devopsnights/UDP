@@ -16,36 +16,79 @@ BeforeAll {
         $env:branch = $env:System_PullRequest_SourceBranch
     }
 
-    # create yaml pipeline 
-    $pipeline = New-AzureDevOpsPipeline `
-        -personalAccessToken $env:personalAccessToken `
-        -orgUrl $env:orgUrl `
-        -teamProject $env:testsTeamProject `
-        -yamlFilePath $env:yamlFilePath `
-        -pipelineName $env:pipelineName `
-        -repository $env:repository `
-        -branch $env:branch `
-        -serviceConnection $env:serviceConnectionId
+    # # create yaml pipeline 
+    # $pipeline = New-AzureDevOpsPipeline `
+    #     -personalAccessToken $env:personalAccessToken `
+    #     -orgUrl $env:orgUrl `
+    #     -teamProject $env:testsTeamProject `
+    #     -yamlFilePath $env:yamlFilePath `
+    #     -pipelineName $env:pipelineName `
+    #     -repository $env:repository `
+    #     -branch $env:branch `
+    #     -serviceConnection $env:serviceConnectionId
 
-    # run yaml pipeline to deploy
-    $pipeline = New-AzureDevOpsPipelineRun `
-        -personalAccessToken $env:personalAccessToken `
-        -orgUrl $env:orgUrl `
-        -teamProject $env:testsTeamProject `
-        -pipelineName $env:pipelineName 
+    # # run yaml pipeline to deploy
+    # $pipeline = New-AzureDevOpsPipelineRun `
+    #     -personalAccessToken $env:personalAccessToken `
+    #     -orgUrl $env:orgUrl `
+    #     -teamProject $env:testsTeamProject `
+    #     -pipelineName $env:pipelineName 
 
-    # wait until the pipeline runs
-    if ($pipeline) {
-        $build = Wait-AzureDevOpsPipelineRuns `
-            -personalAccessToken $env:personalAccessToken `
-            -orgUrl $env:orgUrl `
-            -teamProject $env:testsTeamProject `
-            -pipelineId $pipeline.definition.id `
-            -timeoutMinutes $env:timeoutMinutes
+    # # wait until the pipeline runs
+    # if ($pipeline) {
+    #     $build = Wait-AzureDevOpsPipelineRuns `
+    #         -personalAccessToken $env:personalAccessToken `
+    #         -orgUrl $env:orgUrl `
+    #         -teamProject $env:testsTeamProject `
+    #         -pipelineId $pipeline.definition.id `
+    #         -timeoutMinutes $env:timeoutMinutes
+    # }
+}
+
+
+Describe "YAML Pipelines" -Tag YAMLPipelines {
+    Context "Validate YAML" {
+        It 'Should create a YAML pipeline definition' {
+
+            Get-ChildItem -Path Env:
+
+            $pipeline = New-AzureDevOpsPipeline `
+                -personalAccessToken $env:personalAccessToken `
+                -orgUrl $env:orgUrl `
+                -teamProject $env:testsTeamProject `
+                -yamlFilePath $env:yamlFilePath `
+                -pipelineName $env:pipelineName `
+                -repository $env:repository `
+                -serviceConnection $env:serviceConnectionId
+
+            $pipeline.name | Should -Be $env:pipelineName
+        }
+
+        It 'Should execute successfuly a pipeline definition' {
+
+            $pipeline = New-AzureDevOpsPipelineRun `
+                -personalAccessToken $env:personalAccessToken `
+                -orgUrl $env:orgUrl `
+                -teamProject $env:testsTeamProject `
+                -pipelineName $env:pipelineName 
+
+            if ($pipeline) {
+                $build = Wait-AzureDevOpsPipelineRuns `
+                    -personalAccessToken $env:personalAccessToken `
+                    -orgUrl $env:orgUrl `
+                    -teamProject $env:testsTeamProject `
+                    -pipelineId $pipeline.definition.id `
+                    -timeoutMinutes $env:timeoutMinutes
+            }
+
+            Write-Host $pipeline
+
+            $build.result | Should -Be "succeeded"
+        }
     }
 }
 
-Describe "dotnetCore" -Tag dotnetCore {
+Describe "App Service" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Web App state should be running' {
 
