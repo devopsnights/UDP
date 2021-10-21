@@ -40,7 +40,7 @@ stages:
 
         - stage:  ${{ env }}
           # enables depency according which branch triggered the process, using gitflow strategy
-          ${{ if eq(variables['system.pullRequest.pullRequestId'],'') }}:
+          ${{ if eq(variables.system_pullRequest_pullRequestId,'') }}:
             
               ${{ if eq(env, 'dev') }}:
                 condition: >-
