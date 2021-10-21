@@ -40,34 +40,35 @@ stages:
 
         - stage:  ${{ env }}
           # enables depency according which branch triggered the process, using gitflow strategy
-          ${{ if eq($(System.pullRequest.pullRequestId),'') }}:
-            
-              ${{ if eq(env, 'dev') }}:
-                condition: >-
-                  and( succeeded(),
-                    or( eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
-                        startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
-                        startsWith(variables['Build.SourceBranch'], 'refs/heads/users/')
-                      )
+          ${{ if eq(env, 'dev') }}:
+            condition: >-
+              and( succeeded(),
+                or( eq(variables['Build.SourceBranch'], 'refs/heads/develop'),
+                    startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
+                    startsWith(variables['Build.SourceBranch'], 'refs/heads/users/'),
+                    startsWith(variables['Build.SourceBranch'], 'refs/pull/')
+                  )
+                )
+            dependsOn: build
+          ${{ if eq(env, 'uat') }}:
+              condition: >-
+                and( succeeded(),
+                  or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/pull/')
                     )
-                dependsOn: build
-              ${{ if eq(env, 'uat') }}:
-                  condition: >-
-                    and( succeeded(),
-                      or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
-                          startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/'),
-                          startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
-                        )
-                      )
-                  dependsOn: build
-              ${{ if eq(env, 'prd') }}:
-                  condition: >-
-                    and( succeeded(),
-                      or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
-                          startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
-                        )
-                      )
-                  dependsOn: uat
+                  )
+              dependsOn: build
+          ${{ if eq(env, 'prd') }}:
+              condition: >-
+                and( succeeded(),
+                  or( startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/'),
+                      startsWith(variables['Build.SourceBranch'], 'refs/pull/')
+                    )
+                  )
+              dependsOn: uat
 
           jobs:
             # iterate in all resources defined on consumer YAML
