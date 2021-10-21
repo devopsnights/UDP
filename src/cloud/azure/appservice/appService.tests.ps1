@@ -16,6 +16,8 @@ BeforeAll {
         $env:branch = $env:System_PullRequest_SourceBranch
     }
 
+    Get-ChildItem -Path Env:
+
     # # create yaml pipeline 
     # $pipeline = New-AzureDevOpsPipeline `
     #     -personalAccessToken $env:personalAccessToken `
@@ -49,8 +51,6 @@ BeforeAll {
 Describe "YAML Pipelines" -Tag YAMLPipelines {
     Context "Validate YAML" {
         It 'Should create a YAML pipeline definition' {
-
-            Get-ChildItem -Path Env:
 
             $pipeline = New-AzureDevOpsPipeline `
                 -personalAccessToken $env:personalAccessToken `
