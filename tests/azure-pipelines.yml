@@ -41,7 +41,7 @@ extends:
         teamProject: 'UDP'
         personalAccessToken: '$(personalAccessToken)'
         testsTeamProject: UDP-Tests
-        repository: https://github.com/wesleycamargo/UDP
+        repository: $(Build.Repository.Uri)
         serviceConnectionId: "ceb2bb80-16b4-4450-b4a9-4cfaf1b73234"
         serviceConnection: 'AzureServiceConnection'
         appConfigurationName: UDP-Tests
