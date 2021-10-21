@@ -66,6 +66,12 @@ stages:
                     )
                   )
               dependsOn: uat
+          ${{ if eq(env, 'ci') }}:
+            condition: >-
+              and( succeeded(),
+                or( eq(variables['Build.SourceBranch'], 'refs/pull'))
+                )
+            dependsOn: build
 
           jobs:
             # iterate in all resources defined on consumer YAML
