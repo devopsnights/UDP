@@ -15,36 +15,6 @@ BeforeAll {
     if($env:Build_SourceBranch){
         $env:branch = $env:Build_SourceBranch
     }
-
-    Get-ChildItem -Path Env:
-
-    # # create yaml pipeline 
-    # $pipeline = New-AzureDevOpsPipeline `
-    #     -personalAccessToken $env:personalAccessToken `
-    #     -orgUrl $env:orgUrl `
-    #     -teamProject $env:testsTeamProject `
-    #     -yamlFilePath $env:yamlFilePath `
-    #     -pipelineName $env:pipelineName `
-    #     -repository $env:repository `
-    #     -branch $env:branch `
-    #     -serviceConnection $env:serviceConnectionId
-
-    # # run yaml pipeline to deploy
-    # $pipeline = New-AzureDevOpsPipelineRun `
-    #     -personalAccessToken $env:personalAccessToken `
-    #     -orgUrl $env:orgUrl `
-    #     -teamProject $env:testsTeamProject `
-    #     -pipelineName $env:pipelineName 
-
-    # # wait until the pipeline runs
-    # if ($pipeline) {
-    #     $build = Wait-AzureDevOpsPipelineRuns `
-    #         -personalAccessToken $env:personalAccessToken `
-    #         -orgUrl $env:orgUrl `
-    #         -teamProject $env:testsTeamProject `
-    #         -pipelineId $pipeline.definition.id `
-    #         -timeoutMinutes $env:timeoutMinutes
-    # }
 }
 
 
