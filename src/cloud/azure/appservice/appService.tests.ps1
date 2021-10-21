@@ -12,8 +12,8 @@ BeforeAll {
         Import-Module $module -Force
     }
 
-    if($env:System_PullRequest_SourceBranch){
-        $env:branch = $env:System_PullRequest_SourceBranch
+    if($env:Build_SourceBranch){
+        $env:branch = $env:Build_SourceBranch
     }
 
     Get-ChildItem -Path Env:
