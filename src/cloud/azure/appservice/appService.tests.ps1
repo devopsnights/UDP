@@ -12,6 +12,10 @@ BeforeAll {
         Import-Module $module -Force
     }
 
+    if($env:System_PullRequest_SourceBranch){
+        $env:branch = $env:System_PullRequest_SourceBranch
+    }
+
     # create yaml pipeline 
     $pipeline = New-AzureDevOpsPipeline `
         -personalAccessToken $env:personalAccessToken `
