@@ -143,7 +143,7 @@ function New-AzureDevOpsPipelineRun {
 
     Write-Host "##[command]Executing pipeline '$pipelineName'"
 
-    $branchName = Get-Branch
+    $branchName = $env:Build_SourceBranch
 
     if ($env:SYSTEM_DEBUG -eq "true") {
         $pipeline = az pipelines run --name $pipelineName `
