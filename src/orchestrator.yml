@@ -96,3 +96,11 @@ stages:
                           parameters:
                             serviceConnection: ${{ parameters.serviceConnection }}
                             resource: ${{ resource }}
+
+                    - ${{ if eq(resource.type, 'resourceGroup') }}:
+                        - template: ./cloud/azure/resourceGroup/azure-resourceGroup-deploy-jobs.yml
+                          parameters:
+                            resource: ${{ resource }}
+                            serviceConnection: ${{ parameters.serviceConnection }}
+                            environment: ${{ env }}
+                            globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
