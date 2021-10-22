@@ -1,0 +1,46 @@
+# If you are using this example in your oun repository, 
+# you need to uncomment the lines below:
+# resources:
+#   repositories:
+#   - repository: UDP
+#     type: github
+#     endpoint: devopsnights
+#     name: devopsnights/UDP
+#     ref: refs/heads/main
+
+trigger:
+  branches:
+    include:
+    - master
+  
+pool:
+  vmImage: 'windows-latest'
+
+extends:
+  # If you are using this example in your oun repository, 
+  # you need to uncomment the next line and comment the line streight below
+  #template: src\orchestrator.yml@UDP 
+  template: ..\..\src\orchestrator.yml
+  parameters:
+    serviceConnection: 'AzureServiceConnection'
+    environments:
+      - dev
+      - uat
+      # - prd
+    configuration:
+      buildOnly: true
+      globalConfiguration:
+        appConfigurationName: UDP-Tests
+        subscriptionId: 337ba254-3aa0-4551-ba8e-89debefaa373
+        resourceGroupName: UDP-Tests
+        location: 'northeurope'
+      resources:
+        - type: resourceGroup
+          enabled: true
+          deployment:
+            name: $(tests/dotnetCore/resourceGroupName) 
+            infrastructure:
+              enabled: true
+              iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
+            application:
+              enabled: false

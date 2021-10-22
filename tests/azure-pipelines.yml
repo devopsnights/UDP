@@ -18,6 +18,7 @@ trigger:
   branches:
     include:
     - main
+    - feature/resourcegroup
   
 pool:
   vmImage: 'windows-latest'
@@ -47,7 +48,7 @@ extends:
         appConfigurationName: UDP-Tests
       resources:
         - type: 'azureDevOpsPipeline'
-          enabled: true
+          enabled: false
           tests:
             enabled: true
             yamlFilePath: 'examples/dotnetcore/azure-pipelines.yml'
@@ -62,3 +63,21 @@ extends:
               resourceGroupNameKey: tests/dotnetCore/resourceGroupName
               servicePlanName: tests/dotnetCore/servicePlanName
               environmentToValidate: dev,uat
+        
+        - type: 'resourceGroup'
+          enabled: true
+          tests:
+            enabled: true
+            yamlFilePath: 'examples/resourceGroup/azure-pipelines.yml'
+            pipelineName: resourceGroup-tests
+            timeoutMinutes: 15
+            skipTeardown: true
+            # skipTeardown: ${{ parameters.skipTeardown }}
+            testFilesToRun:
+              $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
+              # $(Build.SourcesDirectory)/src/cloud/azure/appService.tests.ps1
+            # environmentParameters:
+            #   webAppNameKey: tests/dotnetCore/webAppName
+            #   resourceGroupNameKey: tests/dotnetCore/resourceGroupName
+            #   servicePlanName: tests/dotnetCore/servicePlanName
+            #   environmentToValidate: dev,uat
