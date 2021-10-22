@@ -71,11 +71,11 @@ extends:
             yamlFilePath: 'examples/resourceGroup/azure-pipelines.yml'
             pipelineName: resourceGroup-tests-$(Build.BuildNumber)
             timeoutMinutes: 15
-            skipTeardown: true
-            # skipTeardown: ${{ parameters.skipTeardown }}  
-            testFilesToRun: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.tests.ps1
+            # skipTeardown: true
+            skipTeardown: ${{ parameters.skipTeardown }}  
+            testFilesToRun:
             # $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
-            # # $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.tests.ps1
+              $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.tests.ps1
             environmentParameters:
             #   webAppNameKey: tests/dotnetCore/webAppName
               resourceGroupNameKey: udp/ci/resourceGroup/name

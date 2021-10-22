@@ -58,7 +58,7 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
     }
 }
 
-Describe "App Service" -Tag dotnetCore {
+Describe "Resource Group" -Tag dotnetCore {
     Context "Validate YAML" {
         It 'Resource Group should be provisioned' {
 
@@ -67,7 +67,6 @@ Describe "App Service" -Tag dotnetCore {
                 # getting values from key vault to compare
                 $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
-                $webAppName = ($keys | where { $_.key -eq $env:webAppNameKey }).value
                 $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
                 Write-Host "Validating resources"
@@ -104,6 +103,17 @@ AfterAll {
                 -orgUrl $env:orgUrl `
                 -teamProject $env:testsTeamProject `
                 -pipelineId  $pipeline.id
+        }
+
+
+        foreach ($environment in $env:environmentToValidate.Split(",")) {
+            $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
+                
+            $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
+
+            Write-Host "Removing resource group: $resourceGroupName"
+
+
         }
 
     }

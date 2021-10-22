@@ -33,7 +33,7 @@ extends:
         appConfigurationName: UDP-Tests
         subscriptionId: 337ba254-3aa0-4551-ba8e-89debefaa373
         resourceGroupName: UDP-Tests
-        location: 'northeurope'
+        location: $(udp/ci/resourceGroup/location)
       resources:
         - type: resourceGroup
           enabled: true
@@ -42,6 +42,6 @@ extends:
             infrastructure:
               enabled: true
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.bicep
-              resourceGroupLocation: 'northeurope'
+              resourceGroupLocation: $(udp/ci/resourceGroup/location)
             application:
               enabled: true
