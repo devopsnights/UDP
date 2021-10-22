@@ -37,7 +37,7 @@ jobs:
                 resourceGroupName: ${{ parameters.globalConfiguration.resourceGroupName }}
                 location: ${{ parameters.globalConfiguration.location }}
                 templateLocation: 'Linked artifact'
-                csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-appservice.json'
+                csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-resourceGroup.json'
                 overrideParameters: >
                   -resourceGroupLocation ${{ parameters.resource.deployment.infrastructure.resourceGroupLocation }} 
                   -resourceGroupName ${{ parameters.resource.deployment.name }} 
