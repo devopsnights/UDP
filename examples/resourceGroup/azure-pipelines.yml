@@ -38,7 +38,7 @@ extends:
         - type: resourceGroup
           enabled: true
           deployment:
-            name: $(udp/ci/resourceGroup/Name) 
+            name: $(udp/ci/resourceGroup/Name)-$(Build.BuildNumber)
             infrastructure:
               enabled: true
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.bicep

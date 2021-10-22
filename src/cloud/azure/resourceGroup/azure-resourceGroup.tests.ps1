@@ -74,7 +74,7 @@ Describe "Resource Group" -Tag dotnetCore {
 
                 $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
 
-                $resourceGroup.properties.provisioningState | Should -Be "Running"
+                $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
             }
         }
     }
@@ -113,7 +113,7 @@ AfterAll {
 
             Write-Host "Removing resource group: $resourceGroupName"
 
-
+            az group delete -n $resourceGroupName -y
         }
 
     }
