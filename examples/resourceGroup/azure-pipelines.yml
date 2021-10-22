@@ -41,6 +41,6 @@ extends:
             name: $(tests/dotnetCore/resourceGroupName) 
             infrastructure:
               enabled: true
-              iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/appservice/azure-appservice.bicep
+              iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.bicep
             application:
               enabled: false
