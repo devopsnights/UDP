@@ -15,7 +15,6 @@ BeforeAll {
     if ($env:Build_SourceBranch) {
         $env:branch = $env:Build_SourceBranch
     }
-    
 }
 
 
@@ -59,15 +58,13 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
     }
 }
 
-Describe "Resource Group" -Tag dotnetCore {
+Describe "Resource Group" -Tag resourceGroup {
     Context "Validate Resource Group" {
         It 'Resource Group should be provisioned' {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
   
-
                 $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
-                $resourceGroupLocation = ($appConfigKeys | where { $_.key -eq $env:resourceGroupLocationKey }).value
 
                 Write-Host "Validating resources"
                 Write-Host "resourceGroupName: $resourceGroupName"
@@ -82,7 +79,6 @@ Describe "Resource Group" -Tag dotnetCore {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
   
-
                 $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
                 $resourceGroupLocation = ($appConfigKeys | where { $_.key -eq $env:resourceGroupLocationKey }).value
 
@@ -121,7 +117,6 @@ AfterAll {
                 -teamProject $env:testsTeamProject `
                 -pipelineId  $pipeline.id
         }
-
 
         foreach ($environment in $env:environmentToValidate.Split(",")) {
             $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
