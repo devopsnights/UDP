@@ -42,7 +42,8 @@ jobs:
                 csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-resourceGroup.json'
                 overrideParameters: >
                   -resourceGroupLocation ${{ parameters.resource.deployment.infrastructure.resourceGroupLocation }} 
-                  -resourceGroupName ${{ parameters.resource.deployment.name }} 
+                  -resourceGroupName $(udp/ci/resourceGroup/Name)
+                # -resourceGroupName ${{ parameters.resource.deployment.name }} 
                 deploymentMode: 'Incremental'
                 deploymentOutputs: 'ArmOutputs'
 
