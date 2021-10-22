@@ -46,8 +46,7 @@ jobs:
                   deploymentOutputs: 'ArmOutputs'
 
         deploy:
-          steps:
-            
+          steps:            
             - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
               parameters:
                 environment: ${{ parameters.environment }}        
