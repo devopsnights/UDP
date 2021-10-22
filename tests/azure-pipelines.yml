@@ -74,8 +74,8 @@ extends:
             skipTeardown: true
             # skipTeardown: ${{ parameters.skipTeardown }}
             testFilesToRun:
-              $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
-              # $(Build.SourcesDirectory)/src/cloud/azure/appService.tests.ps1
+              # $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
+              $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.tests.ps1
             environmentParameters:
             #   webAppNameKey: tests/dotnetCore/webAppName
               resourceGroupNameKey: udp/ci/resourceGroup/name

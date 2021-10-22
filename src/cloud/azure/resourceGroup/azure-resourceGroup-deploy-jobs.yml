@@ -22,6 +22,8 @@ jobs:
                 globalConfiguration: ${{ parameters.globalConfiguration }}
                 serviceConnection: ${{ parameters.serviceConnection }}
 
+            - powershell: "Get-ChildItem -Path Env:"
+
             - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
               inputs:
                 source: 'current'
