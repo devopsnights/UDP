@@ -64,6 +64,10 @@ Describe "Resource Group" -Tag dotnetCore {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
                 
+                Write-Host "Resource Group Name: $env:resourceGroupName"
+                Write-Host "resourceGroupLocation: $env:resourceGroupLocation"
+                
+
                 # getting values from key vault to compare
                 $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
@@ -75,6 +79,8 @@ Describe "Resource Group" -Tag dotnetCore {
                 $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
 
                 $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
+
+                $resourceGroup.location | Should -Be $env:resourceGroupLocationKey
             }
         }
     }
