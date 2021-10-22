@@ -12,9 +12,10 @@ BeforeAll {
         Import-Module $module -Force
     }
 
-    if($env:Build_SourceBranch){
+    if ($env:Build_SourceBranch) {
         $env:branch = $env:Build_SourceBranch
     }
+    
 }
 
 
@@ -59,16 +60,14 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 }
 
 Describe "Resource Group" -Tag dotnetCore {
-    Context "Validate YAML" {
+    Context "Validate Resource Group" {
         It 'Resource Group should be provisioned' {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
   
-                # getting values from key vault to compare
-                $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
-                
-                $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
-                $resourceGroupLocation = ($keys | where { $_.key -eq $env:resourceGroupLocationKey }).value
+
+                $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
+                $resourceGroupLocation = ($appConfigKeys | where { $_.key -eq $env:resourceGroupLocationKey }).value
 
                 Write-Host "Validating resources"
                 Write-Host "resourceGroupName: $resourceGroupName"
@@ -76,6 +75,21 @@ Describe "Resource Group" -Tag dotnetCore {
                 $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
 
                 $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
+            }
+        }
+
+        It 'Resource Group location should be equals to AppConfiguration' {
+
+            foreach ($environment in $env:environmentToValidate.Split(",")) {
+  
+
+                $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
+                $resourceGroupLocation = ($appConfigKeys | where { $_.key -eq $env:resourceGroupLocationKey }).value
+
+                Write-Host "Validating resources"
+                Write-Host "resourceGroupName: $resourceGroupName"
+
+                $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
 
                 $resourceGroup.location | Should -Be $resourceGroupLocation
             }
