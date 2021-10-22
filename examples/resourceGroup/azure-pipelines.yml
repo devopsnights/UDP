@@ -44,4 +44,4 @@ extends:
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.bicep
               resourceGroupLocation: 'northeurope'
             application:
-              enabled: false
+              enabled: true

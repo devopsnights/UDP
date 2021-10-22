@@ -69,7 +69,7 @@ extends:
           tests:
             enabled: true
             yamlFilePath: 'examples/resourceGroup/azure-pipelines.yml'
-            pipelineName: resourceGroup-tests
+            pipelineName: resourceGroup-tests-$(Build.BuildId)
             timeoutMinutes: 15
             skipTeardown: true
             # skipTeardown: ${{ parameters.skipTeardown }}
