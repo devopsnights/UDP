@@ -64,7 +64,7 @@ extends:
               servicePlanName: tests/dotnetCore/servicePlanName
               environmentToValidate: dev,uat
         
-        - type: 'resourceGroup'
+        - type: 'azureDevOpsPipeline'
           enabled: true
           tests:
             enabled: true

@@ -9,6 +9,8 @@ jobs:
     displayName: Build Job
     steps:
 
+      - powershell: Write-Host ${{ parameters.resource.deployment.infrastructure.iacFilePath }}
+
       - template: ../bicep/azure-bicep-build-tasks.yml
         parameters:
           serviceConnection: ${{ parameters.serviceConnection }}
