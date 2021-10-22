@@ -76,8 +76,9 @@ extends:
             testFilesToRun:
               $(Build.SourcesDirectory)/src/azureDevOps/pipeline/pipeline.tests.ps1 
               # $(Build.SourcesDirectory)/src/cloud/azure/appService.tests.ps1
-            # environmentParameters:
+            environmentParameters:
             #   webAppNameKey: tests/dotnetCore/webAppName
-            #   resourceGroupNameKey: tests/dotnetCore/resourceGroupName
+              resourceGroupNameKey: udp/ci/resourceGroup/name
+              resourceGroupLocationKey: udp/ci/resourceGroup/location
             #   servicePlanName: tests/dotnetCore/servicePlanName
-            #   environmentToValidate: dev,uat
+              environmentToValidate: dev,uat
