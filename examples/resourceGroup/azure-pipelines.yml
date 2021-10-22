@@ -38,7 +38,7 @@ extends:
         - type: resourceGroup
           enabled: true
           deployment:
-            name: $(tests/dotnetCore/resourceGroupName) 
+            name: $(udp/ci/resourceGroup/Name) 
             infrastructure:
               enabled: true
               iacFilePath: $(Build.SourcesDirectory)/src/cloud/azure/resourceGroup/azure-resourceGroup.bicep
