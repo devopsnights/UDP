@@ -79,5 +79,3 @@ extends:
               environmentToValidate: dev,uat
               resourceGroupNameKey: udp/ci/resourceGroup/name
               resourceGroupLocationKey: udp/ci/resourceGroup/location
-              resourceGroupName: $(udp/ci/resourceGroup/name)
-              resourceGroupLocation: $(udp/ci/resourceGroup/location)

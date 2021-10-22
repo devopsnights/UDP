@@ -63,15 +63,12 @@ Describe "Resource Group" -Tag dotnetCore {
         It 'Resource Group should be provisioned' {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
-                
-                Write-Host "Resource Group Name: $env:resourceGroupName"
-                Write-Host "resourceGroupLocation: $env:resourceGroupLocation"
-                
-
+  
                 # getting values from key vault to compare
                 $keys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
                 
                 $resourceGroupName = ($keys | where { $_.key -eq $env:resourceGroupNameKey }).value
+                $resourceGroupLocation = ($keys | where { $_.key -eq $env:resourceGroupLocationKey }).value
 
                 Write-Host "Validating resources"
                 Write-Host "resourceGroupName: $resourceGroupName"
@@ -80,7 +77,7 @@ Describe "Resource Group" -Tag dotnetCore {
 
                 $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
 
-                $resourceGroup.location | Should -Be $env:resourceGroupLocationKey
+                $resourceGroup.location | Should -Be $resourceGroupLocation
             }
         }
     }
