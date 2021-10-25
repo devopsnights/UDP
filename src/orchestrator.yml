@@ -34,6 +34,14 @@ stages:
                   resource: ${{ resource }}
                   globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
 
+            - ${{ if eq(resource.type, 'resourceGroup') }}:
+              - template: ./cloud/azure/resourceGroup/azure-resourceGroup-build-jobs.yml
+                parameters:
+                  resource: ${{ resource }}
+                  serviceConnection: ${{ parameters.serviceConnection }}
+                  # globalConfiguration: ${{ parameters.configuration.globalConfiguration }}
+                  
+
 - ${{ if ne(parameters.configuration.buildOnly, 'false') }}:
 # iterate environment defined on consumer YAML
     - ${{ each env in parameters.environments }}:
@@ -88,3 +96,11 @@ stages:
                           parameters:
                             serviceConnection: ${{ parameters.serviceConnection }}
                             resource: ${{ resource }}
+
+                    - ${{ if eq(resource.type, 'resourceGroup') }}:
+                        - template: ./cloud/azure/resourceGroup/azure-resourceGroup-deploy-jobs.yml
+                          parameters:
+                            resource: ${{ resource }}
+                            serviceConnection: ${{ parameters.serviceConnection }}
+                            environment: ${{ env }}
+                            globalConfiguration: ${{ parameters.configuration.globalConfiguration }}

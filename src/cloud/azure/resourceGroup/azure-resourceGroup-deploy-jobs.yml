@@ -1,0 +1,49 @@
+parameters:
+- name: serviceConnection
+  type: string
+- name: resource
+  type: object
+- name: environment
+  type: string
+- name: globalConfiguration
+  type: object
+
+jobs:
+  - deployment: 
+    displayName: Azure Web App Deployment
+    environment: develop
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+            - template: ../appConfiguration/azure-appConfiguration-pullSecrets-jobs.yml
+              parameters:
+                environment: ${{ parameters.environment }}        
+                globalConfiguration: ${{ parameters.globalConfiguration }}
+                serviceConnection: ${{ parameters.serviceConnection }}
+
+            - powershell: "Get-ChildItem -Path Env:"
+
+            - task: DownloadPipelineArtifact@2 #downloading artifacts created in build stage
+              inputs:
+                source: 'current'
+                path: '$(Pipeline.Workspace)'
+          
+            - task: AzureResourceManagerTemplateDeployment@3
+              displayName: Creating Resource Group Infrastructure by IaC
+              inputs:
+                deploymentScope: 'Subscription'
+                azureResourceManagerConnection: '${{ parameters.serviceConnection }}'
+                subscriptionId: ${{ parameters.globalConfiguration.subscriptionId }}
+                action: 'Create Or Update Resource Group'
+                resourceGroupName: ${{ parameters.globalConfiguration.resourceGroupName }}
+                location: ${{ parameters.globalConfiguration.location }}
+                templateLocation: 'Linked artifact'
+                csmFile: '$(Pipeline.Workspace)/${{ parameters.resource.type }}/infrastructure/azure-resourceGroup.json'
+                overrideParameters: >
+                  -resourceGroupLocation ${{ parameters.resource.deployment.infrastructure.resourceGroupLocation }} 
+                  -resourceGroupName ${{ parameters.resource.deployment.name }} 
+                deploymentMode: 'Incremental'
+                deploymentOutputs: 'ArmOutputs'
+
+        
