@@ -81,7 +81,7 @@ Describe "Resource Group" -Tag resourceGroup {
 
                 Write-Host "RG State: $($resourceGroup.properties.provisioningState)"
 
-                $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
+                $($resourceGroup.properties.provisioningState).toLower() | Should -Be "succeeded"
             }
         }
 
