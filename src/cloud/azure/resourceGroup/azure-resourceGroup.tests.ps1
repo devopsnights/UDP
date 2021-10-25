@@ -31,6 +31,9 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
                 -repository $env:repository `
                 -serviceConnection $env:serviceConnectionId
 
+            Write-Host "Expected pipeline name: $($env:pipelineName)"
+            Write-Host "Pipeline name: $($pipeline.name)"
+
             $pipeline.name | Should -Be $env:pipelineName
         }
 
@@ -53,7 +56,10 @@ Describe "YAML Pipelines" -Tag YAMLPipelines {
 
             Write-Host $pipeline
 
-            $build.result | Should -Be "succeeded"
+            Write-Host "Build: $($build)"
+            Write-Host "Build result: $($build)"
+
+            $build.result | Should -Be "Succeeded"
         }
     }
 }
@@ -73,6 +79,8 @@ Describe "Resource Group" -Tag resourceGroup {
 
                 $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
 
+                Write-Host "RG State: $($resourceGroup.properties.provisioningState)"
+
                 $resourceGroup.properties.provisioningState | Should -Be "Succeeded"
             }
         }
@@ -90,6 +98,9 @@ Describe "Resource Group" -Tag resourceGroup {
                 Write-Host "resourceGroupName: $resourceGroupName"
 
                 $resourceGroup = az group show -n RG-UDP-CI-Dev | ConvertFrom-Json
+
+
+                Write-Host "RG location: $($resourceGroup.location)"
 
                 $resourceGroup.location | Should -Be $resourceGroupLocation
             }
