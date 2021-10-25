@@ -64,6 +64,8 @@ Describe "Resource Group" -Tag resourceGroup {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
   
+                $appConfigKeys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
+
                 $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
 
                 Write-Host "Validating resources"
@@ -79,6 +81,8 @@ Describe "Resource Group" -Tag resourceGroup {
 
             foreach ($environment in $env:environmentToValidate.Split(",")) {
   
+                $appConfigKeys = az appconfig kv list -n $env:appConfigurationName --label $environment -o json | ConvertFrom-Json
+
                 $resourceGroupName = ($appConfigKeys | where { $_.key -eq $env:resourceGroupNameKey }).value
                 $resourceGroupLocation = ($appConfigKeys | where { $_.key -eq $env:resourceGroupLocationKey }).value
 
